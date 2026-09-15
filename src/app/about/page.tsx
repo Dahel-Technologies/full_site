@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import AnimatedNumber from "@/components/AnimatedNumber";
 
 export default function AboutPage() {
   return (
@@ -31,20 +32,20 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-6 w-full text-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-20">
             <div>
-              <div className="text-4xl md:text-6xl font-bold text-navy-900 mb-2">5,000+</div>
+              <div className="text-4xl md:text-6xl font-bold text-navy-900 mb-2"><AnimatedNumber end={29000} suffix="+" /></div>
               <div className="text-gray-500 font-medium">students taught</div>
             </div>
             <div>
-              <div className="text-4xl md:text-6xl font-bold text-navy-900 mb-2">700+</div>
-              <div className="text-gray-500 font-medium">young people supported through digital-skills initiatives</div>
+              <div className="text-4xl md:text-6xl font-bold text-navy-900 mb-2"><AnimatedNumber end={80} suffix="+" /></div>
+              <div className="text-gray-500 font-medium">virtual communities</div>
             </div>
             <div>
-              <div className="text-4xl md:text-6xl font-bold text-navy-900 mb-2">5+</div>
+              <div className="text-4xl md:text-6xl font-bold text-navy-900 mb-2"><AnimatedNumber end={6} suffix="+" /></div>
               <div className="text-gray-500 font-medium">countries reached</div>
             </div>
             <div>
-              <div className="text-4xl md:text-6xl font-bold text-navy-900 mb-2">40%</div>
-              <div className="text-gray-500 font-medium">increase in impact following our EdTech rebrand</div>
+              <div className="text-4xl md:text-6xl font-bold text-navy-900 mb-2"><AnimatedNumber end={40} suffix="%" /></div>
+              <div className="text-gray-500 font-medium">increase in impact</div>
             </div>
           </div>
           

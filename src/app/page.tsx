@@ -11,7 +11,7 @@ export default function Home() {
           Learn skills. Build confidence. <span className="text-electric-blue">Create what matters.</span>
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mb-10 leading-relaxed">
-          Practical technology education for people, organizations and the future of work. Learn data analytics, AI, software engineering and other practical digital skills through structured courses, private training, assessments and technology-powered learning.
+          Practical technology education for people, organizations and the future of work. Learn data analytics, AI, software engineering and other practical digital skills through structured courses, private training, assessments and technology-powered learning with <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Dahel Technologies</span>.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 mb-16 w-full justify-center">
           <Link href="/learn" className="bg-navy-900 text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-navy-800 transition-colors flex items-center justify-center gap-2">
@@ -23,11 +23,11 @@ export default function Home() {
         </div>
         <div className="flex items-center gap-4 text-sm font-medium text-gray-500 bg-gray-50 px-6 py-3 rounded-full border border-gray-100">
           <Globe2 size={16} className="text-electric-blue" />
-          <span>5,000+ learners</span>
+          <span>29,000+ learners</span>
           <span className="hidden sm:inline">•</span>
-          <span className="hidden sm:inline">Nigeria & beyond</span>
+          <span className="hidden sm:inline">6+ countries</span>
           <span className="hidden sm:inline">•</span>
-          <span className="hidden sm:inline">Practical, career-focused learning</span>
+          <span className="hidden sm:inline">80+ virtual communities</span>
         </div>
       </section>
 

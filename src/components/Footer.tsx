@@ -8,8 +8,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16">
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-block mb-6 bg-white/5 p-3 rounded-2xl">
-              <Image src="/DahelTechnologies_logo.png" alt="Dahel Technologies" width={160} height={60} className="w-auto h-12 object-contain" />
+            <Link href="/" className="inline-flex items-center gap-3 mb-6">
+              <Image src="/DahelTechnologies_logo.png" alt="Dahel Technologies logo" width={60} height={60} className="w-auto h-12 object-contain" />
+              <span className="font-bold text-2xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Dahel Technologies</span>
             </Link>
             <p className="text-gray-400 max-w-sm mb-6">
               Technology • Education • Impact
