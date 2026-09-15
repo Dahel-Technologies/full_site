@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Play, BookOpen, User, Building2, Globe2, Zap, CheckCircle2 } from "lucide-react";
+import AnimatedNumber from "@/components/AnimatedNumber";
 
 export default function Home() {
   return (
@@ -21,13 +22,13 @@ export default function Home() {
             Book a Private Session
           </Link>
         </div>
-        <div className="flex items-center gap-4 text-sm font-medium text-gray-500 bg-gray-50 px-6 py-3 rounded-full border border-gray-100">
-          <Globe2 size={16} className="text-electric-blue" />
-          <span>29,000+ learners</span>
-          <span className="hidden sm:inline">•</span>
-          <span className="hidden sm:inline">6+ countries</span>
-          <span className="hidden sm:inline">•</span>
-          <span className="hidden sm:inline">80+ virtual communities</span>
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-sm sm:text-base font-bold text-gray-700 bg-gray-50 px-8 py-4 rounded-full border border-gray-100">
+          <Globe2 size={20} className="text-electric-blue hidden sm:block" />
+          <span className="flex items-center gap-1 text-electric-blue"><AnimatedNumber end={29000} suffix="+" /> <span className="text-gray-500 font-medium">learners</span></span>
+          <span className="hidden sm:inline text-gray-300">•</span>
+          <span className="flex items-center gap-1 text-electric-blue"><AnimatedNumber end={6} suffix="+" /> <span className="text-gray-500 font-medium">countries</span></span>
+          <span className="hidden sm:inline text-gray-300">•</span>
+          <span className="flex items-center gap-1 text-electric-blue"><AnimatedNumber end={80} suffix="+" /> <span className="text-gray-500 font-medium">virtual communities</span></span>
         </div>
       </section>
 

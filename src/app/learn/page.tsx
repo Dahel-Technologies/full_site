@@ -1,15 +1,36 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BookOpen, Star } from "lucide-react";
 
 export default function LearnPage() {
+  const courses = [
+    { title: "Microsoft Excel", category: "Data Analytics", level: "Beginner → Advanced", img: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?w=800&q=80" },
+    { title: "SQL", category: "Data & Databases", level: "Beginner → Intermediate", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" },
+    { title: "Power BI", category: "Business Intelligence", level: "Beginner → Advanced", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" },
+    { title: "Python", category: "Programming • Data • AI", level: "Beginner → Advanced", img: "https://images.unsplash.com/photo-1526379095098-d400fd0bfce8?w=800&q=80" },
+  ];
+
   return (
-    <div className="py-24">
-      {/* 3. FEATURED LEARNING */}
-      <section className="max-w-7xl mx-auto px-6 w-full">
+    <div className="pb-24">
+      {/* HERO SECTION */}
+      <section className="bg-gradient-to-b from-blue-50 to-white pt-24 pb-16 px-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-100/30 blur-3xl rounded-full -z-10" />
+        <div className="max-w-7xl mx-auto w-full">
+          <span className="text-electric-blue font-bold tracking-wider uppercase text-sm mb-4 block">Dahel Courses</span>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-2xl leading-[1.1] mb-6">
+            Learn something <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">useful today.</span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mb-10">
+            Structured, practical courses to build skills you can actually use in the real world. No fluff, just practical technology.
+          </p>
+        </div>
+      </section>
+
+      {/* FEATURED LEARNING */}
+      <section className="max-w-7xl mx-auto px-6 w-full pt-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">Learn something useful today.</h2>
-            <p className="text-lg text-gray-600 max-w-2xl">Structured, practical courses to build skills you can actually use.</p>
+            <h2 className="text-3xl font-bold text-navy-900 mb-2">Featured Programs</h2>
           </div>
           <Link href="https://selfany.com/s/DahelTechies" target="_blank" className="text-electric-blue font-medium flex items-center gap-2 hover:gap-3 transition-all">
             View all courses <ArrowRight size={18} />
@@ -17,17 +38,11 @@ export default function LearnPage() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { title: "Microsoft Excel", category: "Data Analytics", level: "Beginner → Advanced" },
-            { title: "SQL", category: "Data & Databases", level: "Beginner → Intermediate" },
-            { title: "Power BI", category: "Business Intelligence", level: "Beginner → Advanced" },
-            { title: "Python", category: "Programming • Data • AI", level: "Beginner → Advanced" },
-          ].map((course, i) => (
-            <div key={i} className="group border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:border-gray-200 transition-all cursor-pointer bg-white flex flex-col h-full">
-              <div className="h-48 bg-gray-50 flex items-center justify-center border-b border-gray-100 group-hover:bg-blue-50/50 transition-colors">
-                <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-electric-blue">
-                  <BookOpen size={28} />
-                </div>
+          {courses.map((course, i) => (
+            <div key={i} className="group border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:border-gray-200 transition-all cursor-pointer bg-white flex flex-col h-full hover:-translate-y-1">
+              <div className="h-48 relative overflow-hidden bg-gray-100">
+                <Image src={course.img} alt={course.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-navy-900/10 group-hover:bg-transparent transition-colors" />
               </div>
               <div className="p-6 flex flex-col flex-1">
                 <span className="text-xs font-bold text-electric-blue uppercase tracking-wider mb-2">{course.category}</span>

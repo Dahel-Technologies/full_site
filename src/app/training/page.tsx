@@ -1,11 +1,25 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, User, Building2, BookOpen, CheckCircle2 } from "lucide-react";
 
 export default function TrainingPage() {
   return (
-    <div className="bg-navy-900 min-h-screen">
+    <div className="pb-24 min-h-screen">
+      {/* HERO SECTION */}
+      <section className="bg-gradient-to-b from-purple-50 to-white pt-24 pb-16 px-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-purple-100/30 blur-3xl rounded-full -z-10" />
+        <div className="max-w-7xl mx-auto w-full">
+          <span className="text-purple-600 font-bold tracking-wider uppercase text-sm mb-4 flex items-center gap-2"><BookOpen size={16}/> Professional Training</span>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-2xl leading-[1.1] mb-6">
+            Focused, guided <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">learning.</span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mb-10">
+            For when you need more than just a course. Get direct guidance, curriculum, and accountability.
+          </p>
+        </div>
+      </section>
+
       {/* 4. PRIVATE & GROUP TRAINING */}
-      <section className="text-white py-24">
+      <section className="bg-navy-900 text-white py-24">
         <div className="max-w-7xl mx-auto px-6 w-full">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>

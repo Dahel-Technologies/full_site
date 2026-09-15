@@ -11,12 +11,12 @@ export default function Navbar() {
         </Link>
         
         <div className="hidden md:flex items-center gap-8 font-medium text-sm text-gray-600">
+          <Link href="/about" className="hover:text-electric-blue transition-colors">About Us</Link>
           <Link href="/learn" className="hover:text-electric-blue transition-colors">Learn</Link>
           <Link href="/training" className="hover:text-electric-blue transition-colors">Training</Link>
           <Link href="/quizarly" className="hover:text-electric-blue transition-colors">Quizarly</Link>
           <Link href="/resources" className="hover:text-electric-blue transition-colors">Books & Resources</Link>
           <Link href="/ai" className="hover:text-electric-blue transition-colors">AI Tools</Link>
-          <Link href="/about" className="hover:text-electric-blue transition-colors">About</Link>
         </div>
 
         <div className="hidden md:flex items-center">

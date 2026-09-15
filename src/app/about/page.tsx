@@ -1,10 +1,25 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Info } from "lucide-react";
 import AnimatedNumber from "@/components/AnimatedNumber";
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col gap-0 pb-24">
+    <div className="flex flex-col gap-0 pb-24 min-h-screen">
+      
+      {/* HERO SECTION */}
+      <section className="bg-gradient-to-b from-blue-50 to-white pt-24 pb-16 px-6 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-1/2 h-full bg-blue-100/30 blur-3xl rounded-full -z-10" />
+        <div className="max-w-7xl mx-auto w-full text-center flex flex-col items-center">
+          <span className="text-electric-blue font-bold tracking-wider uppercase text-sm mb-4 block flex items-center justify-center gap-2"><Info size={16}/> Who We Are</span>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-3xl leading-[1.1] mb-6">
+            We believe in the power of <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">practical technology.</span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mb-10">
+            Dahel Technologies is where people learn, build, and access practical technology. We focus on bridging the gap between theoretical knowledge and real-world application.
+          </p>
+        </div>
+      </section>
+
       {/* 8. THE DAHEL DIFFERENCE */}
       <section className="bg-navy-900 py-24 text-white">
         <div className="max-w-7xl mx-auto px-6 w-full">
