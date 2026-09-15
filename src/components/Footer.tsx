@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Mail, MessageCircle, Phone } from "lucide-react";
+import Image from "next/image";
+import { Mail, MessageCircle, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -7,14 +8,21 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-16">
           <div className="lg:col-span-2">
-            <h3 className="font-bold text-2xl tracking-tight mb-4">DAHEL TECHNOLOGIES</h3>
+            <Link href="/" className="inline-block mb-6 bg-white/5 p-3 rounded-2xl">
+              <Image src="/DahelTechnologies_logo.png" alt="Dahel Technologies" width={160} height={60} className="w-auto h-12 object-contain" />
+            </Link>
             <p className="text-gray-400 max-w-sm mb-6">
               Technology • Education • Impact
             </p>
+            <div className="space-y-4 text-sm text-gray-400 mb-8">
+              <div className="flex gap-3"><div className="mt-0.5"><MapPin size={16}/></div> <span>730 E McKellips Rd. Tempe, Arizona, 85288.</span></div>
+              <div className="flex gap-3"><div className="mt-0.5"><MapPin size={16}/></div> <span>17 CMD Road, Ketu Ikosi, Lagos, Nigeria.</span></div>
+              <div className="flex gap-3"><div className="mt-0.5"><MapPin size={16}/></div> <span>82 Calabar Road Miniplex, Calabar, Nigeria.</span></div>
+            </div>
             <div className="space-y-3 text-sm text-gray-400">
-              <a href="mailto:contactdahelgroup@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors"><Mail size={16}/> contactdahelgroup@gmail.com (Partnerships)</a>
-              <a href="mailto:daheltechies@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors"><Mail size={16}/> daheltechies@gmail.com (Inquiries)</a>
-              <a href="https://wa.me/2347047581704" target="_blank" className="flex items-center gap-2 hover:text-white transition-colors"><MessageCircle size={16}/> +234 704 758 1704 (WhatsApp - Nora)</a>
+              <a href="mailto:contactdahelgroup@gmail.com" className="flex items-center gap-3 hover:text-white transition-colors"><Mail size={16}/> contactdahelgroup@gmail.com (Partnerships)</a>
+              <a href="mailto:daheltechies@gmail.com" className="flex items-center gap-3 hover:text-white transition-colors"><Mail size={16}/> daheltechies@gmail.com (Inquiries)</a>
+              <a href="https://wa.me/2347047581704" target="_blank" className="flex items-center gap-3 hover:text-white transition-colors"><MessageCircle size={16}/> +234 704 758 1704 (WhatsApp - Nora)</a>
             </div>
           </div>
           
@@ -33,8 +41,8 @@ export default function Footer() {
             <h4 className="font-semibold mb-4 text-gray-200">Products</h4>
             <ul className="space-y-3 text-sm text-gray-400">
               <li><Link href="https://www.quizarly.com/" target="_blank" className="hover:text-white transition-colors">Quizarly</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Checkamo</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Ekko Now</Link></li>
+              <li><Link href="https://www.checkamo.com/" target="_blank" className="hover:text-white transition-colors">Checkamo</Link></li>
+              <li><Link href="https://www.ekko-now.com/" target="_blank" className="hover:text-white transition-colors">Ekko Now</Link></li>
             </ul>
           </div>
 

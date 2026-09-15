@@ -6,9 +6,8 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.png" alt="Dahel Technologies" width={40} height={40} className="w-10 h-10 object-contain" />
-          <span className="font-bold text-xl tracking-tight text-navy-900">DAHEL</span>
+        <Link href="/" className="flex items-center">
+          <Image src="/DahelTechnologies_logo.png" alt="Dahel Technologies" width={160} height={60} className="w-auto h-12 object-contain" priority />
         </Link>
         
         <div className="hidden md:flex items-center gap-8 font-medium text-sm text-gray-600">

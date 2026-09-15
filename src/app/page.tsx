@@ -110,7 +110,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-navy-900 mb-3">Checkamo</h3>
               <p className="text-gray-600 mb-8 flex-1">Verification technology designed to help people make more informed decisions.</p>
-              <Link href="#" className="text-blue-600 font-medium flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">
+              <Link href="https://www.checkamo.com/" target="_blank" className="text-blue-600 font-medium flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">
                 Explore <ArrowRight size={18} />
               </Link>
             </div>
@@ -121,7 +121,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-navy-900 mb-3">Ekko Now</h3>
               <p className="text-gray-600 mb-8 flex-1">Technology, climate innovation and impact.</p>
-              <Link href="#" className="text-emerald-600 font-medium flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">
+              <Link href="https://www.ekko-now.com/" target="_blank" className="text-emerald-600 font-medium flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">
                 Explore <ArrowRight size={18} />
               </Link>
             </div>
