@@ -18,7 +18,7 @@ export default function Home() {
           <Link href="#learn" className="bg-navy-900 text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-navy-800 transition-colors flex items-center justify-center gap-2">
             Explore Learning <ArrowRight size={20} />
           </Link>
-          <Link href="#training" className="bg-electric-light text-electric-blue px-8 py-4 rounded-full font-medium text-lg hover:bg-blue-100 transition-colors flex items-center justify-center gap-2">
+          <Link href="https://selfany.com/daheltechprivatesessions" target="_blank" className="bg-electric-light text-electric-blue px-8 py-4 rounded-full font-medium text-lg hover:bg-blue-100 transition-colors flex items-center justify-center gap-2">
             Book a Private Session
           </Link>
         </div>
@@ -92,7 +92,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">Learn something useful today.</h2>
             <p className="text-lg text-gray-600 max-w-2xl">Structured, practical courses to build skills you can actually use.</p>
           </div>
-          <Link href="/courses" className="text-electric-blue font-medium flex items-center gap-2 hover:gap-3 transition-all">
+          <Link href="https://selfany.com/s/DahelTechies" target="_blank" className="text-electric-blue font-medium flex items-center gap-2 hover:gap-3 transition-all">
             View all courses <ArrowRight size={18} />
           </Link>
         </div>
@@ -151,7 +151,7 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-              <Link href="#book" className="inline-flex items-center gap-2 bg-electric-blue text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-blue-600 transition-colors">
+              <Link href="https://selfany.com/daheltechprivatesessions" target="_blank" className="inline-flex items-center gap-2 bg-electric-blue text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-blue-600 transition-colors">
                 Book a Private Session <ArrowRight size={20} />
               </Link>
             </div>
@@ -226,7 +226,7 @@ export default function Home() {
                 </div>
               </div>
               
-              <Link href="#quizarly-app" className="inline-flex items-center gap-2 bg-navy-900 text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-navy-800 transition-colors">
+              <Link href="https://www.quizarly.com/" target="_blank" className="inline-flex items-center gap-2 bg-navy-900 text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-navy-800 transition-colors">
                 Explore Quizarly <ArrowRight size={20} />
               </Link>
             </div>
@@ -438,6 +438,99 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 11b. IN THE NEWS */}
+      <section className="py-24 bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 w-full">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-4">In the News</h2>
+              <p className="text-lg text-gray-600 max-w-2xl">Read about Dahel Technologies' impact and initiatives across the country.</p>
+            </div>
+          </div>
+
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold text-navy-900 mb-6 flex items-center gap-2"><Zap className="text-purple-600"/> Quizarly Impact</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { title: "CRSG Approves STEAM Clubs & Quizarly in Schools", link: "https://news.crossriverstate.gov.ng/crsg-approves-steam-clubs-quizarly-digital-learning-platform-in-secondary-schools/" },
+                { title: "Academic-Thon Challenge to Revitalize Public Schools", link: "https://crossriverwatch.com/2025/06/academic-thon-challenge-to-revitalize-award-excellence-in-cross-rivers-public-schools-launched/?amp=1" },
+                { title: "Official Visit to Ministry of Education", link: "https://calabargist.com/abasiofiok-akpabio-pays-an-official-visit-to-the-cross-river-state-ministry-of-education/" },
+                { title: "Gov Otu Sparks Academic Passion with CRISSAC", link: "https://thenigerianpost.com.ng/governor-otu-sparks-academic-passion-in-public-schools-with-crissac/" }
+              ].map((news, i) => (
+                <Link key={i} href={news.link} target="_blank" className="bg-gray-50 p-6 rounded-2xl hover:bg-gray-100 transition-colors border border-gray-200 group flex flex-col h-full">
+                  <p className="font-semibold text-navy-900 mb-4 group-hover:text-electric-blue transition-colors">{news.title}</p>
+                  <div className="mt-auto flex justify-between items-center text-sm font-medium text-electric-blue">
+                    Read Article <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-2xl font-bold text-navy-900 mb-6 flex items-center gap-2"><Globe2 className="text-emerald-600"/> NIGCOMSAT Partnership</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              {[
+                { title: "Cross River Partners NIGCOMSAT to Train 200 Youths in Digital Tech", link: "https://gazettengr.com/cross-river-partners-nigcomsat-to-train-200-youths-in-digital-tech/" },
+                { title: "Cross River Commends NIGCOMSAT for Empowering Youths in Satellite Technology", link: "https://moi.cr.gov.ng/news/cross-river-commends-nigcomsat-for-empowering-youths-in-satellite-technology" }
+              ].map((news, i) => (
+                <Link key={i} href={news.link} target="_blank" className="bg-gray-50 p-6 rounded-2xl hover:bg-gray-100 transition-colors border border-gray-200 group flex flex-col justify-between h-full">
+                  <p className="font-semibold text-navy-900 mb-4 group-hover:text-electric-blue transition-colors text-lg">{news.title}</p>
+                  <div className="flex justify-between items-center text-sm font-medium text-electric-blue">
+                    Read Article <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 11c. PROGRAMS & WEBINARS */}
+      <section className="py-24 bg-gray-50 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 w-full">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-navy-900 mb-4">Programs & Webinars</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Events, conferences, and community engagement by Dahel.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+              <h3 className="text-xl font-bold text-navy-900 mb-3">Tech Riff</h3>
+              <p className="text-gray-600 mb-6">Join our regular Spaces discussions on the latest in technology.</p>
+              <Link href="https://x.com/i/spaces/1yNGaLVjoZVKj" target="_blank" className="text-electric-blue font-medium flex items-center gap-2">Listen on X <ArrowRight size={16}/></Link>
+            </div>
+            
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+              <h3 className="text-xl font-bold text-navy-900 mb-3">Job Readiness Conference</h3>
+              <p className="text-gray-600 mb-6">Prepare for your next big tech role with expert guidance.</p>
+              <span className="text-gray-400 font-medium text-sm bg-gray-100 px-3 py-1 rounded-full">Link coming soon</span>
+            </div>
+            
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+              <h3 className="text-xl font-bold text-navy-900 mb-3">African Tech Conference</h3>
+              <p className="text-gray-600">A major gathering for tech enthusiasts and professionals.</p>
+            </div>
+            
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+              <h3 className="text-xl font-bold text-navy-900 mb-3">Global Reach</h3>
+              <p className="text-gray-600">Dahel Technologies events in China and Ghana.</p>
+            </div>
+            
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+              <h3 className="text-xl font-bold text-navy-900 mb-3">University Partnerships</h3>
+              <p className="text-gray-600">Workshops with Arthur Jarvis University Students.</p>
+            </div>
+            
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+              <h3 className="text-xl font-bold text-navy-900 mb-3">Cross River Quiz</h3>
+              <p className="text-gray-600 mb-6">State-wide Quiz Competition.</p>
+              <span className="text-gray-400 font-medium text-sm bg-gray-100 px-3 py-1 rounded-full">YouTube video soon</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 12. PRODUCTS */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 w-full">
@@ -453,7 +546,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-navy-900 mb-3">Quizarly</h3>
               <p className="text-gray-600 mb-8 flex-1">Assessment & learning technology.</p>
-              <Link href="#quizarly" className="text-purple-600 font-medium flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">
+              <Link href="https://www.quizarly.com/" target="_blank" className="text-purple-600 font-medium flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">
                 Explore <ArrowRight size={18} />
               </Link>
             </div>
