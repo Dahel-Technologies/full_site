@@ -12,16 +12,16 @@ export default function Navbar() {
         </Link>
         
         <div className="hidden md:flex items-center gap-8 font-medium text-sm text-gray-600">
-          <Link href="#learn" className="hover:text-electric-blue transition-colors">Learn</Link>
-          <Link href="#training" className="hover:text-electric-blue transition-colors">Training</Link>
-          <Link href="#quizarly" className="hover:text-electric-blue transition-colors">Quizarly</Link>
-          <Link href="#resources" className="hover:text-electric-blue transition-colors">Books & Resources</Link>
-          <Link href="#ai" className="hover:text-electric-blue transition-colors">AI Tools</Link>
-          <Link href="#about" className="hover:text-electric-blue transition-colors">About</Link>
+          <Link href="/learn" className="hover:text-electric-blue transition-colors">Learn</Link>
+          <Link href="/training" className="hover:text-electric-blue transition-colors">Training</Link>
+          <Link href="/quizarly" className="hover:text-electric-blue transition-colors">Quizarly</Link>
+          <Link href="/resources" className="hover:text-electric-blue transition-colors">Books & Resources</Link>
+          <Link href="/ai" className="hover:text-electric-blue transition-colors">AI Tools</Link>
+          <Link href="/about" className="hover:text-electric-blue transition-colors">About</Link>
         </div>
 
         <div className="hidden md:flex items-center">
-          <Link href="#get-started" className="flex items-center gap-2 bg-navy-900 text-white px-5 py-2.5 rounded-full font-medium text-sm hover:bg-navy-800 transition-colors">
+          <Link href="/about" className="flex items-center gap-2 bg-navy-900 text-white px-5 py-2.5 rounded-full font-medium text-sm hover:bg-navy-800 transition-colors">
             Get Started
             <ArrowRight size={16} />
           </Link>
