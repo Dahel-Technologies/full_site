@@ -22,9 +22,10 @@ export default function Footer() {
             <h4 className="font-semibold mb-4 text-gray-200">Learn</h4>
             <ul className="space-y-3 text-sm text-gray-400">
               <li><Link href="https://selfany.com/s/DahelTechies" target="_blank" className="hover:text-white transition-colors">Courses</Link></li>
-              <li><Link href="https://selfany.com/daheltechprivatesessions" target="_blank" className="hover:text-white transition-colors">Private Training</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Group Training</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Books & Resources</Link></li>
+              <li><Link href="/training" className="hover:text-white transition-colors">Private Training</Link></li>
+              <li><Link href="/training" className="hover:text-white transition-colors">Group Training</Link></li>
+              <li><Link href="/resources" className="hover:text-white transition-colors">Books & Resources</Link></li>
+              <li><Link href="/programs" className="hover:text-white transition-colors">Programs & Webinars</Link></li>
             </ul>
           </div>
 
@@ -40,9 +41,10 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-gray-200">Company</h4>
             <ul className="space-y-3 text-sm text-gray-400">
-              <li><Link href="#" className="hover:text-white transition-colors">About</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Impact</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Careers</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
+              <li><Link href="/news" className="hover:text-white transition-colors">In the News</Link></li>
+              <li><Link href="/partners" className="hover:text-white transition-colors">Partners & Orgs</Link></li>
+              <li><Link href="/reviews" className="hover:text-white transition-colors">Success Stories</Link></li>
             </ul>
           </div>
           
@@ -57,10 +59,11 @@ export default function Footer() {
 
         <div className="border-t border-navy-700 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
           <div className="flex items-center gap-6">
-            <Link href="#" className="hover:text-white transition-colors">LinkedIn</Link>
-            <Link href="#" className="hover:text-white transition-colors">Instagram</Link>
-            <Link href="#" className="hover:text-white transition-colors">Facebook</Link>
-            <Link href="#" className="hover:text-white transition-colors">X</Link>
+            <Link href="https://www.linkedin.com/company/daheltechnologies/" target="_blank" className="hover:text-white transition-colors">LinkedIn</Link>
+            <Link href="https://www.instagram.com/dahel_technologies?stkn=MTFmYXg4ZjhkdWI4ZA==" target="_blank" className="hover:text-white transition-colors">Instagram</Link>
+            <Link href="https://www.facebook.com/share/1NVtEDe3Df/" target="_blank" className="hover:text-white transition-colors">Facebook</Link>
+            <Link href="https://x.com/dahel_techies" target="_blank" className="hover:text-white transition-colors">X</Link>
+            <Link href="https://www.tiktok.com/@daheltechies?_r=1&_t=ZS-99kzQ8e3xVw" target="_blank" className="hover:text-white transition-colors">TikTok</Link>
           </div>
           <p>© 2026 Dahel Technologies. All rights reserved.</p>
         </div>
