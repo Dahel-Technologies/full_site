@@ -13,7 +13,7 @@ export default function AboutPage() {
         {/* Blurred Background Image */}
         <div className="absolute inset-0 -z-20">
           <Image 
-            src="/resources/how_to_get_a_job_compressed.jpg" 
+            src="/resources/about_page_hero.JPG" 
             alt="Dahel Tech Background" 
             fill 
             className="object-cover opacity-30 blur-sm scale-105"
