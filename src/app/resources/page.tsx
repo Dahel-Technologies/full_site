@@ -4,10 +4,8 @@ import { ArrowRight, Book } from "lucide-react";
 
 export default function ResourcesPage() {
   const resources = [
-    { title: "Practical Data Analytics Guide", desc: "A complete manual to kickstart your journey in data.", price: "₦5,000 / $5", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" },
-    { title: "AI Tools for Work", desc: "How to integrate AI into your daily professional tasks.", price: "Free", img: "https://images.unsplash.com/photo-1526379095098-d400fd0bfce8?w=800&q=80" },
-    { title: "Tech Career Playbook", desc: "Templates, CV guides, and interview prep.", price: "₦3,000 / $3", img: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80" },
-    { title: "Software Engineering Basics", desc: "The foundational concepts for beginners.", price: "₦4,500 / $4.5", img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" },
+    { title: "How to Get a Job in Nigeria", desc: "A practical guide to navigating the job market and securing roles.", price: "₦2,700 ($50)", link: "https://selfany.com/getajobfromNigeria", img: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80" },
+    { title: "Create your CV in 9 steps", desc: "A step-by-step framework for building a standout resume.", price: "Available Now", link: "https://selar.com/CVin9steps", img: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?w=800&q=80" }
   ];
 
   return (
@@ -29,7 +27,7 @@ export default function ResourcesPage() {
       <div className="max-w-7xl mx-auto px-6 w-full pt-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {resources.map((res, i) => (
-            <div key={i} className="group cursor-pointer">
+            <Link href={res.link} target="_blank" key={i} className="group cursor-pointer">
               <div className="aspect-[3/4] bg-gray-100 rounded-2xl mb-4 relative overflow-hidden group-hover:shadow-lg transition-all border border-gray-200 flex items-center justify-center">
                 <Image src={res.img} alt={res.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-navy-900/10 group-hover:bg-transparent transition-colors" />
@@ -37,7 +35,7 @@ export default function ResourcesPage() {
               <h3 className="font-bold text-navy-900 text-lg mb-1 group-hover:text-electric-blue transition-colors">{res.title}</h3>
               <p className="text-gray-500 text-sm mb-3">{res.desc}</p>
               <div className="font-bold text-navy-900">{res.price}</div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

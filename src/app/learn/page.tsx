@@ -4,10 +4,11 @@ import { ArrowRight, BookOpen, Star } from "lucide-react";
 
 export default function LearnPage() {
   const courses = [
-    { title: "Microsoft Excel", category: "Data Analytics", level: "Beginner → Advanced", img: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?w=800&q=80" },
-    { title: "SQL", category: "Data & Databases", level: "Beginner → Intermediate", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" },
-    { title: "Power BI", category: "Business Intelligence", level: "Beginner → Advanced", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" },
-    { title: "Python", category: "Programming • Data • AI", level: "Beginner → Advanced", img: "https://images.unsplash.com/photo-1526379095098-d400fd0bfce8?w=800&q=80" },
+    { title: "SPSS Mastery", category: "Data Analytics", level: "All Levels", link: "https://selfany.com/SPSSMastery", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" },
+    { title: "Data Analytics and AI", category: "Data & AI", level: "Beginner → Advanced", link: "https://selfany.com/DataAnayticsClass", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" },
+    { title: "Sheets and Excel with AI", category: "Data Analytics", level: "Beginner → Intermediate", link: "https://selfany.com/sheetsnengineerwithai", img: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?w=800&q=80" },
+    { title: "Cybersecurity Basic", category: "Security", level: "Beginner", link: "https://selar.com/Cyberprogram", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80" },
+    { title: "All Courses Bundle (3k Offer)", category: "Bundle", level: "All Levels", link: "https://selfany.com/3koffer", img: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&q=80" }
   ];
 
   return (
@@ -37,9 +38,9 @@ export default function LearnPage() {
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {courses.map((course, i) => (
-            <div key={i} className="group border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:border-gray-200 transition-all cursor-pointer bg-white flex flex-col h-full hover:-translate-y-1">
+            <Link href={course.link} target="_blank" key={i} className="group border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:border-gray-200 transition-all bg-white flex flex-col h-full hover:-translate-y-1">
               <div className="h-48 relative overflow-hidden bg-gray-100">
                 <Image src={course.img} alt={course.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-navy-900/10 group-hover:bg-transparent transition-colors" />
@@ -63,7 +64,7 @@ export default function LearnPage() {
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
