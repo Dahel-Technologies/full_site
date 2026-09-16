@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Zap, Globe2, Newspaper } from "lucide-react";
+import CubesBackground from "@/components/animations/CubesBackground";
 
 export default function NewsPage() {
   const quizarlyNews = [
@@ -18,14 +19,15 @@ export default function NewsPage() {
   return (
     <div className="pb-24 bg-white min-h-screen">
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-b from-gray-50 to-white pt-24 pb-16 px-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gray-200/30 blur-3xl rounded-full -z-10" />
-        <div className="max-w-7xl mx-auto w-full">
-          <span className="text-gray-500 font-bold tracking-wider uppercase text-sm mb-4 block flex items-center gap-2"><Newspaper size={16}/> Press Coverage</span>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-2xl leading-[1.1] mb-6">
-            Dahel Technologies <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-600 to-gray-900">in the News.</span>
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden min-h-[50vh] flex items-center">
+        <CubesBackground />
+        
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <span className="text-gray-300 font-bold tracking-wider uppercase text-sm mb-4 block flex items-center gap-2"><Newspaper size={16}/> Press Coverage</span>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white max-w-2xl leading-[1.1] mb-6">
+            Dahel Technologies <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to-gray-500">in the News.</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mb-10">
+          <p className="text-xl text-gray-300 max-w-2xl mb-10">
             Read about our initiatives, impact, and partnerships across the country as we build the future of technology education.
           </p>
         </div>

@@ -2,20 +2,36 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Info } from "lucide-react";
 import AnimatedNumber from "@/components/AnimatedNumber";
+import TypewriterText from "@/components/animations/TypewriterText";
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col gap-0 pb-24 min-h-screen">
       
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-b from-blue-50 to-white pt-24 pb-16 px-6 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-1/2 h-full bg-blue-100/30 blur-3xl rounded-full -z-10" />
-        <div className="max-w-7xl mx-auto w-full text-center flex flex-col items-center">
-          <span className="text-electric-blue font-bold tracking-wider uppercase text-sm mb-4 block flex items-center justify-center gap-2"><Info size={16}/> Who We Are</span>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-3xl leading-[1.1] mb-6">
-            We believe in the power of <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">practical technology.</span>
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden min-h-[60vh] flex items-center justify-center">
+        {/* Blurred Background Image */}
+        <div className="absolute inset-0 -z-20">
+          <Image 
+            src="/resources/how_to_get_a_job_compressed.jpg" 
+            alt="Dahel Tech Background" 
+            fill 
+            className="object-cover opacity-30 blur-sm scale-105"
+            priority
+          />
+        </div>
+        {/* Gradient Overlay for Readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-white -z-10" />
+
+        <div className="max-w-7xl mx-auto w-full text-center flex flex-col items-center relative z-10">
+          <span className="text-electric-blue font-bold tracking-wider uppercase text-sm mb-6 flex items-center justify-center gap-2 bg-blue-50/80 px-4 py-2 rounded-full border border-blue-100 backdrop-blur-md">
+            <Info size={16}/> Who We Are
+          </span>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-4xl leading-[1.2] mb-6 min-h-[3em] md:min-h-[2em] flex flex-col items-center justify-center gap-2">
+            <span>We believe in the power of</span>
+            <TypewriterText text="practical technology." delay={0.08} className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 inline-block" />
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mb-10">
+          <p className="text-xl text-gray-700 max-w-3xl font-medium">
             Dahel Technologies is where people learn, build, and access practical technology. We focus on bridging the gap between theoretical knowledge and real-world application.
           </p>
         </div>

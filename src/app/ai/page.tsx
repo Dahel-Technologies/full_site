@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import SplitFlapText from "@/components/animations/SplitFlapText";
 
 export default function AIPage() {
   return (
@@ -12,8 +13,9 @@ export default function AIPage() {
             <Sparkles size={32} />
           </div>
           <span className="text-magenta-600 font-bold tracking-wider uppercase text-sm mb-4 block">Dahel AI Tools</span>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-3xl leading-[1.1] mb-6">
-            Learning is changing. <span className="text-transparent bg-clip-text bg-gradient-to-r from-magenta-600 to-purple-600">So are we.</span>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-3xl leading-[1.2] mb-6 flex flex-col items-center gap-4">
+            <SplitFlapText text="LEARNING IS CHANGING" className="text-2xl md:text-5xl" /> 
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-magenta-600 to-purple-600">So are we.</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mb-10">
             Use AI to learn faster, practice better and turn ideas into practical outcomes.
