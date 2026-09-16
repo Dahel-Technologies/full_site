@@ -16,12 +16,12 @@ export default function AboutPage() {
             src="/resources/about_page_hero.JPG" 
             alt="Dahel Tech Background" 
             fill 
-            className="object-cover opacity-30 blur-sm scale-105"
+            className="object-cover blur-[6px] scale-105"
             priority
           />
         </div>
         {/* Gradient Overlay for Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-white -z-10" />
+        <div className="absolute inset-0 bg-white/60 md:bg-white/50 -z-10" />
 
         <div className="max-w-7xl mx-auto w-full text-center flex flex-col items-center relative z-10">
           <span className="text-electric-blue font-bold tracking-wider uppercase text-sm mb-6 flex items-center justify-center gap-2 bg-blue-50/80 px-4 py-2 rounded-full border border-blue-100 backdrop-blur-md">
