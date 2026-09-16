@@ -49,9 +49,14 @@ export default function TrainingPage() {
                 <li className="flex items-center gap-3"><CheckCircle2 className="text-electric-blue" size={20} /> Progress tracking and assessments</li>
               </ul>
               
-              <Link href="#" className="inline-flex items-center gap-2 bg-white text-navy-900 px-8 py-4 rounded-full font-medium text-lg hover:bg-gray-100 transition-colors w-full justify-center">
-                Book Group Training
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="https://wa.me/2347047581704" target="_blank" className="flex-1 inline-flex items-center gap-2 bg-white text-navy-900 px-6 py-4 rounded-full font-medium text-lg hover:bg-gray-100 transition-colors justify-center">
+                  Book via WhatsApp
+                </Link>
+                <Link href="mailto:daheltechies@gmail.com" className="flex-1 inline-flex items-center gap-2 bg-white/10 text-white px-6 py-4 rounded-full font-medium text-lg hover:bg-white/20 transition-colors border border-white/20 justify-center">
+                  Book via Email
+                </Link>
+              </div>
             </div>
           </div>
         </div>

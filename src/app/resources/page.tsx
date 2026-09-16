@@ -4,8 +4,8 @@ import { ArrowRight, Book } from "lucide-react";
 
 export default function ResourcesPage() {
   const resources = [
-    { title: "How to Get a Job in Nigeria", desc: "A practical guide to navigating the job market and securing roles.", price: "₦2,700 ($50)", link: "https://selfany.com/getajobfromNigeria", img: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80" },
-    { title: "Create your CV in 9 steps", desc: "A step-by-step framework for building a standout resume.", price: "Available Now", link: "https://selar.com/CVin9steps", img: "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?w=800&q=80" }
+    { title: "How to Get a Job in Nigeria", desc: "A practical guide to navigating the job market and securing roles.", price: "₦2,700 ($50)", link: "https://selfany.com/getajobfromNigeria", img: "/resources/how_to_get_a_job_compressed.jpg" },
+    { title: "Create your CV in 9 steps", desc: "A step-by-step framework for building a standout resume.", price: "Available Now", link: "https://selar.com/CVin9steps", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80" }
   ];
 
   return (

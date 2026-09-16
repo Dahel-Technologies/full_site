@@ -134,8 +134,8 @@ export default function Home() {
       <section className="py-24 text-center px-6 max-w-4xl mx-auto w-full">
         <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-6">Ready to start?</h2>
         <p className="text-xl md:text-2xl text-gray-600 mb-10">Learn a skill. Build something. Take the next step.</p>
-        <Link href="/about" className="inline-flex items-center gap-2 bg-navy-900 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-navy-800 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-navy-900/20">
-          Explore Dahel <ArrowRight size={20} />
+        <Link href="https://selfany.com/s/DahelTechies" target="_blank" className="inline-flex items-center gap-2 bg-navy-900 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-navy-800 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-navy-900/20">
+          Get Started <ArrowRight size={20} />
         </Link>
       </section>
 
