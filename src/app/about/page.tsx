@@ -92,6 +92,9 @@ export default function AboutPage() {
               { name: "Chinalurum Clementina", role: "Microsoft Excel Trainer", img: "/Team/Microsoft Excel Trainer Chinalurum Clementina.jpg" },
               { name: "Uchechi Chibuzor", role: "Product Management Trainer", img: "/Team/Uchechi Chibuzor Product Management Trainer and Contractor.jpg" },
               { name: "Matthew Ador", role: "Team Member", img: "/Team/WhatsApp Image 2024-08-09 at 05.37.31 - Matthew Ador.jpeg" },
+              { name: "Daniel Chukwuemeka", role: "Quizarly AI and Partnerships", img: "/Team/Quizarly AI and Partnerships Daniel Chukwuemeka.jpeg" },
+              { name: "Sam Theo", role: "Quizarly Programs Manager", img: "/Team/Quizarly Programs Manager Sam Theo.jpeg" },
+              { name: "Gift", role: "Social Media and Customer Support, Checkamo", img: "https://ui-avatars.com/api/?name=Gift&background=1e3a8a&color=fff&size=512" },
             ].map((member, i) => (
               <div key={i} className="flex flex-col items-center text-center group">
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-4 relative bg-gray-200 border-4 border-white shadow-lg group-hover:scale-105 transition-transform duration-300">
