@@ -23,13 +23,13 @@ export default function NewsPage() {
         <CubesBackground />
         
         <div className="max-w-7xl mx-auto w-full relative z-10">
-          <span className="text-blue-400 font-bold tracking-wider uppercase text-sm mb-4 block flex items-center gap-2">
+          <span className="text-blue-400 font-bold tracking-wider uppercase text-sm mb-4 flex items-center gap-2">
             <Newspaper size={16}/> Press Coverage
           </span>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white max-w-2xl leading-[1.1] mb-6">
-            Dahel Technologies <span className="text-blue-400">in the News.</span>
+          <h1 className="text-5xl md:text-6xl font-black text-white max-w-2xl leading-[1.1] mb-6">
+            Dahel Technologies <br/><span className="text-blue-400">in the News.</span>
           </h1>
-          <p className="text-xl text-gray-200 max-w-2xl mb-10 font-medium">
+          <p className="text-lg md:text-xl text-white max-w-2xl mb-10 font-semibold">
             Read about our initiatives, impact, and partnerships across the country as we build the future of technology education.
           </p>
         </div>

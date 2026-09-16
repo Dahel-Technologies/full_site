@@ -18,29 +18,32 @@ export default function CubesBackground() {
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none -z-20 bg-navy-900">
-      <div className="absolute inset-0 opacity-10">
-        {[...Array(40)].map((_, i) => (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none -z-20" style={{ backgroundColor: "#0a1628" }}>
+      {/* Subtle animated cubes */}
+      <div className="absolute inset-0 opacity-20">
+        {[...Array(30)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute bg-white border border-white/20 rounded-md"
+            className="absolute border border-blue-500/30 rounded-md"
             style={{
-              left: `${(i % 8) * 12.5 + Math.random() * 5}%`,
-              top: `${Math.floor(i / 8) * 20 + Math.random() * 10}%`,
-              width: `${Math.random() * 40 + 20}px`,
-              height: `${Math.random() * 40 + 20}px`,
+              left: `${(i % 6) * 16.6 + Math.random() * 8}%`,
+              top: `${Math.floor(i / 6) * 22 + Math.random() * 10}%`,
+              width: `${Math.random() * 50 + 20}px`,
+              height: `${Math.random() * 50 + 20}px`,
+              backgroundColor: `rgba(59,130,246,${Math.random() * 0.15})`,
             }}
             animate={{
-              x: mousePosition.x * (Math.random() * 100 - 50),
-              y: mousePosition.y * (Math.random() * 100 - 50),
-              rotateX: mousePosition.y * 180 + Math.random() * 360,
-              rotateY: mousePosition.x * 180 + Math.random() * 360,
+              x: mousePosition.x * (Math.random() * 60 - 30),
+              y: mousePosition.y * (Math.random() * 60 - 30),
+              rotateZ: mousePosition.x * 30,
             }}
-            transition={{ type: "spring", stiffness: 50, damping: 20 }}
+            transition={{ type: "spring", stiffness: 40, damping: 25 }}
           />
         ))}
       </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-navy-900/90" />
+      {/* Dark gradient overlay to ensure text readability */}
+      <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(10,22,40,0.85) 0%, rgba(10,22,40,0.7) 100%)" }} />
     </div>
   );
 }
+
