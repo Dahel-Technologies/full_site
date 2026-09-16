@@ -10,20 +10,20 @@ export default function AboutPage() {
       
       {/* HERO SECTION */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden min-h-[60vh] flex items-center justify-center">
-        {/* Blurred Background Image */}
+        {/* Background Image */}
         <div className="absolute inset-0 -z-20">
           <Image 
-            src="/resources/about_page_hero.JPG" 
+            src="/resources/about_paGE_hero.png" 
             alt="Dahel Tech Background" 
             fill 
-            className="object-cover blur-[6px] scale-105"
+            className="object-cover object-top"
             priority
           />
         </div>
-        {/* Gradient Overlay for Readability */}
-        <div className="absolute inset-0 bg-white/60 md:bg-white/50 -z-10" />
+        {/* Gradient Overlay for Readability (Transparent at top, solid at bottom) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/70 to-white/90 -z-10" />
 
-        <div className="max-w-7xl mx-auto w-full text-center flex flex-col items-center relative z-10">
+        <div className="max-w-7xl mx-auto w-full text-center flex flex-col items-center relative z-10 pt-16">
           <span className="text-electric-blue font-bold tracking-wider uppercase text-sm mb-6 flex items-center justify-center gap-2 bg-blue-50/80 px-4 py-2 rounded-full border border-blue-100 backdrop-blur-md">
             <Info size={16}/> Who We Are
           </span>
