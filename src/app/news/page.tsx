@@ -21,14 +21,15 @@ export default function NewsPage() {
       {/* HERO SECTION */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden min-h-[50vh] flex items-center">
         <CubesBackground />
-        <div className="absolute inset-0 bg-black/40 -z-10" />
         
         <div className="max-w-7xl mx-auto w-full relative z-10">
-          <span className="text-gray-200 font-bold tracking-wider uppercase text-sm mb-4 block flex items-center gap-2 drop-shadow-md"><Newspaper size={16}/> Press Coverage</span>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white max-w-2xl leading-[1.1] mb-6 drop-shadow-lg">
-            Dahel Technologies <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-400">in the News.</span>
+          <span className="text-blue-400 font-bold tracking-wider uppercase text-sm mb-4 block flex items-center gap-2">
+            <Newspaper size={16}/> Press Coverage
+          </span>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white max-w-2xl leading-[1.1] mb-6">
+            Dahel Technologies <span className="text-blue-400">in the News.</span>
           </h1>
-          <p className="text-xl text-gray-100 max-w-2xl mb-10 drop-shadow-md font-medium">
+          <p className="text-xl text-gray-200 max-w-2xl mb-10 font-medium">
             Read about our initiatives, impact, and partnerships across the country as we build the future of technology education.
           </p>
         </div>

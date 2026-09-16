@@ -18,8 +18,8 @@ export default function CubesBackground() {
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none -z-20 bg-gray-900">
-      <div className="absolute inset-0 opacity-20">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none -z-20 bg-navy-900">
+      <div className="absolute inset-0 opacity-10">
         {[...Array(40)].map((_, i) => (
           <motion.div
             key={i}
