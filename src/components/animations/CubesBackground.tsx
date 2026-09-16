@@ -34,7 +34,7 @@ export default function CubesBackground() {
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none -z-20" style={{ backgroundColor: "#0a1628" }}>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0" style={{ backgroundColor: "#0a1628" }}>
       {/* Subtle animated cubes */}
       {isMounted && (
         <div className="absolute inset-0 opacity-20">

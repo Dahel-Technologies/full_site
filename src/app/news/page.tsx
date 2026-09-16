@@ -19,10 +19,10 @@ export default function NewsPage() {
   return (
     <div className="pb-24 bg-white min-h-screen">
       {/* HERO SECTION */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden min-h-[50vh] flex items-center">
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden min-h-[50vh] flex items-center" style={{ backgroundColor: "#0a1628" }}>
         <CubesBackground />
         
-        <div className="max-w-7xl mx-auto w-full relative z-10">
+        <div className="max-w-7xl mx-auto w-full" style={{ position: "relative", zIndex: 10 }}>
           <span className="text-blue-400 font-bold tracking-wider uppercase text-sm mb-4 flex items-center gap-2">
             <Newspaper size={16}/> Press Coverage
           </span>
