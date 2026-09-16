@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Book } from "lucide-react";
 import TypewriterText from "@/components/animations/TypewriterText";
+import LottieBackground from "@/components/animations/LottieBackground";
 
 export default function ResourcesPage() {
   const resources = [
@@ -12,15 +13,20 @@ export default function ResourcesPage() {
   return (
     <div className="pb-24 min-h-screen">
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-b from-gray-50 to-white pt-24 pb-16 px-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gray-200/30 blur-3xl rounded-full -z-10" />
-        <div className="max-w-7xl mx-auto w-full">
-          <span className="text-gray-500 font-bold tracking-wider uppercase text-sm mb-4 block flex items-center gap-2"><Book size={16}/> Learning Resources</span>
+      <section className="bg-gradient-to-b from-gray-50 to-white pt-24 pb-16 px-6 relative overflow-hidden min-h-[50vh] flex items-center">
+        {/* Lottie Animation Background */}
+        <LottieBackground src="https://lottie.host/d34c38da-c418-426e-a2f6-429c6ca1d63d/LDYYqC81sY.lottie" className="opacity-15 md:opacity-20 translate-x-1/4" />
+        
+        {/* Optional overlay to soften the animation if it's too distracting */}
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-[1px] -z-10" />
+
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <span className="text-gray-500 font-bold tracking-wider uppercase text-sm mb-4 flex items-center gap-2"><Book size={16}/> Learning Resources</span>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-2xl leading-[1.2] mb-6 min-h-[3em] md:min-h-[2em] flex flex-col gap-2">
             <span>Don't just watch.</span>
             <TypewriterText text="Read & Build." delay={0.1} className="text-transparent bg-clip-text bg-gradient-to-r from-gray-600 to-gray-900" />
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mb-10">
+          <p className="text-xl text-gray-700 max-w-2xl mb-10 font-medium">
             Books, guides, templates and practical resources curated by Dahel instructors to accelerate your learning.
           </p>
         </div>
