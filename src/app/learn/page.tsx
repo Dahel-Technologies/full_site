@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, BookOpen, Star } from "lucide-react";
+import SpotlightCard from "@/components/SpotlightCard";
 
 export default function LearnPage() {
   const courses = [
@@ -12,18 +13,33 @@ export default function LearnPage() {
   ];
 
   return (
-    <div className="pb-24">
+    <div className="pb-24 w-full max-w-full overflow-hidden">
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-b from-blue-50 to-white pt-24 pb-16 px-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-100/30 blur-3xl rounded-full -z-10" />
-        <div className="max-w-7xl mx-auto w-full">
-          <span className="text-electric-blue font-bold tracking-wider uppercase text-sm mb-4 block">Dahel Courses</span>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-2xl leading-[1.1] mb-6">
-            Learn something <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">useful today.</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mb-10">
-            Structured, practical courses to build skills you can actually use in the real world. No fluff, just practical technology.
-          </p>
+      <section className="relative w-full overflow-hidden min-h-[55vh] md:min-h-[60vh] flex flex-col justify-center px-4 sm:px-6 pt-20 sm:pt-24 pb-16">
+        {/* Background Video */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="absolute inset-0 w-full h-full object-cover -z-20"
+        >
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260411_104032_69319010-2458-492b-b04d-b40a5dfa4482.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Overlay for text readability (gradient fades out to reveal video) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-white/30 to-transparent -z-10"></div>
+
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="max-w-2xl bg-white/10 backdrop-blur-sm p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/30 shadow-2xl">
+            <span className="inline-block bg-blue-100 text-blue-700 font-bold tracking-wider uppercase text-xs sm:text-sm mb-4 px-3 sm:px-4 py-1.5 rounded-full shadow-sm">Dahel Courses</span>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-navy-900 leading-[1.1] mb-6 drop-shadow-md">
+              Learn something <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-purple-700">useful today.</span>
+            </h1>
+            <p className="text-xl text-gray-900 mb-2 font-bold drop-shadow-md">
+              Structured, practical courses to build skills you can actually use in the real world. No fluff, just practical technology.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -40,31 +56,33 @@ export default function LearnPage() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {courses.map((course, i) => (
-            <Link href={course.link} target="_blank" key={i} className="group border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:border-gray-200 transition-all bg-white flex flex-col h-full hover:-translate-y-1">
-              <div className="h-48 relative overflow-hidden bg-gray-100">
-                <Image src={course.img} alt={course.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-navy-900/10 group-hover:bg-transparent transition-colors" />
-              </div>
-              <div className="p-6 flex flex-col flex-1">
-                <span className="text-xs font-bold text-electric-blue uppercase tracking-wider mb-2">{course.category}</span>
-                <h3 className="text-xl font-bold text-navy-900 mb-2">{course.title}</h3>
-                <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
-                  <span>{course.level}</span>
+            <SpotlightCard key={i} className="group border border-gray-100 rounded-2xl bg-white hover:shadow-xl hover:border-gray-200 transition-all hover:-translate-y-1 h-full">
+              <Link href={course.link} target="_blank" className="flex flex-col h-full relative z-20">
+                <div className="h-48 relative overflow-hidden bg-gray-100">
+                  <Image src={course.img} alt={course.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-navy-900/10 group-hover:bg-transparent transition-colors" />
                 </div>
-                <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
-                  <div className="flex text-amber-400">
-                    <Star size={16} fill="currentColor" />
-                    <Star size={16} fill="currentColor" />
-                    <Star size={16} fill="currentColor" />
-                    <Star size={16} fill="currentColor" />
-                    <Star size={16} fill="currentColor" />
+                <div className="p-6 flex flex-col flex-1">
+                  <span className="text-xs font-bold text-electric-blue uppercase tracking-wider mb-2">{course.category}</span>
+                  <h3 className="text-xl font-bold text-navy-900 mb-2">{course.title}</h3>
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
+                    <span>{course.level}</span>
                   </div>
-                  <span className="text-sm font-medium text-navy-900 flex items-center gap-1 group-hover:text-electric-blue transition-colors">
-                    View <ArrowRight size={16} />
-                  </span>
+                  <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <div className="flex text-amber-400">
+                      <Star size={16} fill="currentColor" />
+                      <Star size={16} fill="currentColor" />
+                      <Star size={16} fill="currentColor" />
+                      <Star size={16} fill="currentColor" />
+                      <Star size={16} fill="currentColor" />
+                    </div>
+                    <span className="text-sm font-medium text-navy-900 flex items-center gap-1 group-hover:text-electric-blue transition-colors">
+                      View <ArrowRight size={16} />
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </SpotlightCard>
           ))}
         </div>
       </section>

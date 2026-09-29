@@ -1,18 +1,32 @@
 import Link from "next/link";
 import { ArrowRight, User, Building2, BookOpen, CheckCircle2 } from "lucide-react";
+import BorderGlow from "@/components/BorderGlow";
 
 export default function TrainingPage() {
   return (
-    <div className="pb-24 min-h-screen">
+    <div className="pb-24 min-h-screen w-full max-w-full overflow-hidden">
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-b from-purple-50 to-white pt-24 pb-16 px-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-purple-100/30 blur-3xl rounded-full -z-10" />
-        <div className="max-w-7xl mx-auto w-full">
-          <span className="text-purple-600 font-bold tracking-wider uppercase text-sm mb-4 flex items-center gap-2"><BookOpen size={16}/> Professional Training</span>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-2xl leading-[1.1] mb-6">
-            Focused, guided <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">learning.</span>
+      <section className="relative w-full overflow-hidden min-h-[55vh] md:min-h-[60vh] flex flex-col justify-center px-4 sm:px-6 pt-20 sm:pt-24 pb-16">
+        {/* Background Video */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="absolute inset-0 w-full h-full object-cover -z-20"
+        >
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_171521_25968ba2-b594-4b32-aab7-f6b69398a6fa.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Overlay for text readability */}
+        <div className="absolute inset-0 bg-white/40 -z-10"></div>
+
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <span className="text-purple-700 font-bold tracking-wider uppercase text-xs sm:text-sm mb-4 flex items-center gap-2 drop-shadow-sm"><BookOpen size={16}/> Professional Training</span>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-2xl leading-[1.15] mb-6 drop-shadow-sm">
+            Focused, guided <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-700">learning.</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mb-10">
+          <p className="text-xl text-gray-900 max-w-2xl mb-10 font-medium drop-shadow-md">
             For when you need more than just a course. Get direct guidance, curriculum, and accountability.
           </p>
         </div>
@@ -39,7 +53,11 @@ export default function TrainingPage() {
               </Link>
             </div>
             
-            <div className="bg-white/5 rounded-3xl p-8 md:p-12 border border-white/10">
+            <BorderGlow 
+              glowColor="#3b82f6" 
+              bgColor="#0f172a"
+              className="p-8 md:p-12 bg-white/5"
+            >
               <h3 className="text-2xl font-bold mb-4">Need training for your team?</h3>
               <p className="text-gray-300 mb-8">We also provide customized group and organizational training to upskill your workforce with practical technology.</p>
               
@@ -57,7 +75,7 @@ export default function TrainingPage() {
                   Book via Email
                 </Link>
               </div>
-            </div>
+            </BorderGlow>
           </div>
         </div>
       </section>

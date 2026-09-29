@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KINGFISHER - Cinematic Prompt Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #B6C3B0;
+  --paper: #E3E8DE;
+  --ink: #10201F;
+  --ink-2: #2E3D3A;
+  --ink-3: #4E5E58;
+  --line: rgba(16, 32, 31, .14);
+  --ghost: #ADBAA7;
+  --orange: #E8732A;
+  --orange-2: #F3A15E;
+  --teal: #0E7C86;
+  --panel: #0F1D1C;
+  --panel-2: #172A28;
+  --ease: cubic-bezier(.2, .7, .1, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Manrope', system-ui, sans-serif;
+  overflow-x: hidden;
+  transition: background 0.5s var(--ease);
+}
+
+h1, h2, h3, .serif {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', Consolas, monospace;
+  text-transform: uppercase;
+}
+
+.hero {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.giant-word {
+  position: absolute;
+  top: 13vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(90px, 17vw, 300px);
+  font-family: 'Instrument Serif', serif;
+  color: var(--ghost);
+  mix-blend-mode: darken;
+  z-index: 2;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  mask-image: linear-gradient(180deg, #000 0%, #000 38%, rgba(0,0,0,.35) 62%, transparent 86%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 38%, rgba(0,0,0,.35) 62%, transparent 86%);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 3;
+  background: linear-gradient(to right, var(--bg) 0%, var(--bg) 38%, transparent 70%),
+              linear-gradient(to top, var(--bg) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+.hero-ui {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 32px 40px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: 0.22em; font-size: 14px; }
+.bird-mark { width: 24px; height: 24px; background: conic-gradient(from 180deg, var(--teal), var(--orange)); border-radius: 50%; }
+
+.nav-links { display: flex; gap: 32px; }
+.nav-links a { color: var(--ink); text-decoration: none; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; }
+
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.btn-text { font-size: 11px; font-weight: 600; text-decoration: none; color: var(--ink); letter-spacing: 0.14em; text-transform: uppercase; }
+.btn-pill { background: var(--panel); color: white; padding: 12px 24px; border-radius: 40px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; }
+
+.hero-body {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+.left-copy {
+  margin-top: auto;
+  margin-bottom: auto;
+  max-width: 470px;
+  transform: translateY(76px);
+}
+
+.eyebrow { display: flex; align-items: center; gap: 16px; font-size: 11px; letter-spacing: 0.16em; margin-bottom: 24px; }
+.rule { width: 28px; height: 1px; background: var(--line); }
+
+.left-copy h1 { font-size: clamp(44px, 5vw, 76px); line-height: 0.95; margin-bottom: 24px; color: var(--ink); }
+.left-copy h1 i { color: var(--teal); }
+
+.lede { font-size: 15px; color: var(--ink-2); margin-bottom: 32px; line-height: 1.5; }
+
+.cta-group { display: flex; align-items: center; gap: 24px; }
+.btn-orange { background: linear-gradient(135deg, var(--orange), var(--orange-2)); color: white; padding: 12px 16px 12px 24px; border-radius: 40px; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 12px; }
+.btn-circle { width: 28px; height: 28px; background: white; color: var(--orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.watch-link { font-size: 14px; font-weight: 600; text-decoration: underline; color: var(--ink); }
+
+.right-cluster {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(400px, 34vw);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.trust-row { display: flex; align-items: center; gap: 16px; font-size: 11px; letter-spacing: 0.14em; font-weight: 500; }
+.avatars { display: flex; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--bg); margin-left: -12px; background: linear-gradient(135deg, var(--paper), #ccc); }
+.avatar:first-child { margin-left: 0; background: linear-gradient(135deg, var(--orange), var(--orange-2)); }
+.avatar:nth-child(2) { background: linear-gradient(135deg, var(--teal), #0A5A62); }
+.avatar:nth-child(3) { background: linear-gradient(135deg, var(--ink), var(--ink-2)); }
+
+.cards { display: flex; gap: 16px; }
+.card { background: var(--panel); border-radius: 26px; padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 24px 48px rgba(0,0,0,0.15); border: 1px solid var(--panel-2); color: white; }
+.card.offset { transform: translateY(18px); }
+.card-header { font-size: 10px; letter-spacing: 0.16em; color: rgba(255,255,255,0.5); }
+.card-canvas { width: 100%; aspect-ratio: 1; border-radius: 12px; background: radial-gradient(circle at top left, var(--teal), var(--orange)); position: relative; overflow: hidden; }
+.card-canvas canvas { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s var(--ease); }
+.card-canvas .caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 24px 12px 12px; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); font-size: 10px; letter-spacing: 0.1em; color: white; opacity: 0; transition: opacity 0.5s var(--ease); }
+.card-stat { font-size: 28px; line-height: 1; }
+.card-dots { display: flex; gap: 4px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+.dot.active { background: var(--orange); }
+
+.bottom-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  padding-top: 24px;
+}
+.species i { text-transform: none; font-size: 14px; margin-left: 8px; color: var(--ink-2); }
+.location { color: var(--ink-2); }
+.replay-pill { background: rgba(255,255,255,0.3); backdrop-filter: blur(8px); padding: 8px 16px; border-radius: 40px; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); transition: background 0.3s; }
+.replay-pill:hover { background: rgba(255,255,255,0.5); }
+
+.rv {
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(6px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+.is-revealed .rv {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Below Fold */
+.below-fold {
+  padding: 120px 40px;
+  background: linear-gradient(to bottom, var(--bg) 0%, var(--paper) 220px);
+  border-top: 1px solid var(--line);
+}
+.bf-header { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start; max-width: 1200px; margin: 0 auto; }
+.bf-kicker { font-size: 11px; letter-spacing: 0.16em; font-weight: 500; }
+.bf-kicker span { color: var(--orange); margin-right: 8px; }
+.bf-title h2 { font-size: clamp(40px, 5.2vw, 78px); line-height: 0.95; margin-bottom: 24px; }
+.bf-title p { font-size: 16px; color: var(--ink-2); line-height: 1.5; max-width: 400px; }
+
+.bento { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 16px; margin: 64px auto 0; max-width: 1200px; }
+.note { border-radius: 22px; padding: 32px; border: 1px solid var(--line); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.note.dark { background: var(--panel); color: white; border-color: var(--panel-2); }
+.note.light { background: rgba(255,255,255,0.45); }
+.note.span-2-row { grid-row: span 2; }
+.note.span-2-col { grid-column: span 2; }
+
+.note-index { font-size: 10px; letter-spacing: 0.16em; margin-bottom: auto; opacity: 0.6; }
+.note-content { margin-top: 64px; }
+.note-content h3 { font-size: 28px; margin-bottom: 12px; }
+.note-content p { font-size: 14px; opacity: 0.8; line-height: 1.5; }
+
+.stats-band { margin: 16px auto 0; max-width: 1200px; background: var(--panel); color: white; border-radius: 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background-color: var(--panel-2); border: 1px solid var(--panel-2); overflow: hidden; }
+.stat-box { background: var(--panel); padding: 24px 32px; }
+.stat-label { font-size: 10px; letter-spacing: 0.16em; opacity: 0.6; margin-bottom: 16px; }
+.stat-val { font-size: 20px; font-weight: 500; }
+.stat-val i { color: var(--orange); }
+
+.bf-rv {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.bf-rv.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .hero-ui { padding: 16px; }
+  .nav-links, .nav-right { display: none; }
+  .giant-word { font-size: 22vw; top: 10vh; }
+  .hero-overlay {
+    background: linear-gradient(to top, var(--bg) 0%, var(--bg) 46svh, transparent 100%);
+  }
+  .hero { height: auto; display: block; overflow: visible; }
+  .hero-video { height: 100svh; position: sticky; top: 0; }
+  .left-copy { transform: translateY(0); margin-top: 46svh; max-width: 100%; padding-bottom: 40px; }
+  .right-cluster { position: relative; right: auto; top: auto; transform: none; width: 100%; gap: 32px; padding-bottom: 40px; }
+  .card.offset { transform: none; }
+  .bottom-strip { flex-direction: column; gap: 16px; text-align: center; }
+  
+  .below-fold { padding: 80px 16px; }
+  .bf-header { grid-template-columns: 1fr; gap: 24px; }
+  .bento { grid-template-columns: 1fr; }
+  .note.span-2-col, .note.span-2-row { grid-column: span 1; grid-row: span 1; }
+  .stats-band { grid-template-columns: 1fr 1fr; }
+}
+
+svg.anim-arc { width: 100%; height: auto; margin: 24px 0; overflow: visible; }
+.anim-arc path { stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 2s var(--ease); }
+.in-view .anim-arc path { stroke-dashoffset: 0; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <video class="hero-video" src="https://thinkingods.com/demos/kingfisher-hero/hero.mp4" muted playsinline preload="auto"></video>
+  <div class="giant-word rv" style="--d: 0;">King<i>fisher</i></div>
+  <div class="hero-overlay"></div>
+  
+  <div class="hero-ui">
+    <nav class="rv" style="--d: 1;">
+      <div class="nav-left">
+        <div class="bird-mark"></div>
+        KINGFISHER
+      </div>
+      <div class="nav-links mono">
+        <a href="#">Library</a>
+        <a href="#">Templates</a>
+        <a href="#">Prompts</a>
+        <a href="#">Pricing</a>
+      </div>
+      <div class="nav-right">
+        <a href="#" class="btn-text mono">Sign In</a>
+        <a href="#" class="btn-pill mono">Get Access</a>
+      </div>
+    </nav>
+    
+    <div class="hero-body">
+      <div class="left-copy rv" style="--d: 2;">
+        <div class="eyebrow mono">
+          <div class="rule"></div>
+          Cinematic Prompt Library
+        </div>
+        <h1 class="rv" style="--d: 3;">Websites that land with <i>precision</i></h1>
+        <p class="lede rv" style="--d: 4;">Discover top-tier templates, interactions, and cinematic scroll sequences that elevate your digital presence.</p>
+        <div class="cta-group rv" style="--d: 5;">
+          <a href="#" class="btn-orange">
+            Get Started
+            <div class="btn-circle">→</div>
+          </a>
+          <a href="#" class="watch-link">Watch a build ↗</a>
+        </div>
+      </div>
+      
+      <div class="right-cluster">
+        <div class="trust-row rv" style="--d: 6;">
+          <div class="avatars">
+            <div class="avatar"></div>
+            <div class="avatar"></div>
+            <div class="avatar"></div>
+            <div class="avatar"></div>
+          </div>
+          Trusted by 4k+ creators
+        </div>
+        <div class="cards">
+          <div class="card rv" style="--d: 7;">
+            <div class="card-header mono">Prompts / 01</div>
+            <div class="card-canvas">
+              <canvas data-crop="0.555,0.335,0.22"></canvas>
+              <div class="caption mono">FOCUS LOCK</div>
+            </div>
+            <div class="card-stat serif">Copy · Paste</div>
+            <div class="card-dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+          </div>
+          <div class="card offset rv" style="--d: 8;">
+            <div class="card-header mono">Motion / 02</div>
+            <div class="card-canvas">
+              <canvas data-crop="0.43,0.60,0.24"></canvas>
+              <div class="caption mono">WING FLAP</div>
+            </div>
+            <div class="card-stat serif">60fps</div>
+            <div class="card-dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bottom-strip rv" style="--d: 9;">
+      <div class="species mono">SPECIES 01 <i class="serif">Alcedo atthis</i></div>
+      <div class="location mono">DELHI NCR · 28.61° N</div>
+      <div class="replay-pill mono">Replay</div>
+    </div>
+  </div>
+</div>
+
+<div class="below-fold">
+  <div class="bf-header bf-rv">
+    <div class="bf-kicker mono"><span>02</span> FIELD NOTES — WHY A KINGFISHER</div>
+    <div class="bf-title">
+      <h2 class="serif">It waits, reads the water, then lands in one clean motion</h2>
+      <p>True performance is invisible until it's needed. We built our library to mimic nature's most efficient diver.</p>
+    </div>
+  </div>
+  
+  <div class="bento">
+    <div class="note dark span-2-row bf-rv" style="transition-delay: 0.1s;">
+      <div class="note-index mono">NOTE 01 · TOPIC</div>
+      <svg class="anim-arc" viewBox="0 0 200 100" fill="none" stroke="var(--teal)" stroke-width="2">
+        <path d="M 10 90 Q 100 10 190 90" />
+      </svg>
+      <div class="note-content">
+        <h3 class="serif">The Shinkansen Beak</h3>
+        <p>The iconic bullet train was redesigned to mimic the kingfisher's beak, eliminating sonic booms.</p>
+      </div>
+    </div>
+    <div class="note light bf-rv" style="transition-delay: 0.2s;">
+      <div class="note-index mono">NOTE 02 · TOPIC</div>
+      <div class="note-content">
+        <h3 class="serif">Structural Color</h3>
+        <p>The vibrant blue isn't pigment; it's structural refraction.</p>
+      </div>
+    </div>
+    <div class="note light bf-rv" style="transition-delay: 0.3s;">
+      <div class="note-index mono">NOTE 03 · TOPIC</div>
+      <div class="note-content">
+        <h3 class="serif">Nictitating Membrane</h3>
+        <p>A built-in set of goggles for perfect underwater vision.</p>
+      </div>
+    </div>
+    <div class="note light span-2-col bf-rv" style="transition-delay: 0.4s;">
+      <div class="note-index mono">NOTE 04 · TOPIC</div>
+      <div class="note-content">
+        <h3 class="serif">Absolute Stillness</h3>
+        <p>Before the dive comes the waiting. Perfectly balanced, zero wasted energy.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="stats-band bf-rv" style="transition-delay: 0.5s;">
+    <div class="stat-box">
+      <div class="stat-label mono">LENGTH</div>
+      <div class="stat-val">16 cm</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label mono">WEIGHT</div>
+      <div class="stat-val">~40 g</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label mono">COLOR</div>
+      <div class="stat-val" style="background: linear-gradient(to right, var(--teal), #0044ff); -webkit-background-clip: text; color: transparent;">Zero</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label mono">STRIKE</div>
+      <div class="stat-val serif"><i>One dive</i></div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const video = document.querySelector('.hero-video');
+  const hero = document.querySelector('.hero');
+  const canvases = document.querySelectorAll('canvas[data-crop]');
+  const replayBtn = document.querySelector('.replay-pill');
+  
+  const REVEAL_AT = 4.3;
+  let revealed = false;
+
+  const reveal = () => {
+    if (revealed) return;
+    revealed = true;
+    hero.classList.add('is-revealed');
+    
+    canvases.forEach(canvas => {
+      const ctx = canvas.getContext('2d');
+      const [cx, cy, csize] = canvas.getAttribute('data-crop').split(',').map(Number);
+      
+      const vw = video.videoWidth;
+      const vh = video.videoHeight;
+      const sizePx = vw * csize;
+      const xPx = vw * cx - sizePx/2;
+      const yPx = vh * cy - sizePx/2;
+
+      canvas.width = sizePx;
+      canvas.height = sizePx;
+      
+      try {
+        ctx.drawImage(video, xPx, yPx, sizePx, sizePx, 0, 0, sizePx, sizePx);
+        canvas.style.opacity = 1;
+        canvas.nextElementSibling.style.opacity = 1; // caption
+      } catch(e) {}
+    });
+  };
+
+  const getPixelColor = () => {
+    const tmp = document.createElement('canvas');
+    tmp.width = 1; tmp.height = 1;
+    const ctx = tmp.getContext('2d');
+    try {
+      const vw = video.videoWidth;
+      const vh = video.videoHeight;
+      ctx.drawImage(video, vw * 0.94, vh * 0.12, 1, 1, 0, 0, 1, 1);
+      const data = ctx.getImageData(0,0,1,1).data;
+      const r = data[0], g = data[1], b = data[2];
+      
+      const toHex = (c) => c.toString(16).padStart(2, '0');
+      const hex = `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+      const darken = (c) => Math.max(0, Math.floor(c * 0.955));
+      const hexDark = `#${toHex(darken(r))}${toHex(darken(g))}${toHex(darken(b))}`;
+      
+      document.documentElement.style.setProperty('--bg', hex);
+      document.documentElement.style.setProperty('--ghost', hexDark);
+    } catch(e) {}
+  };
+
+  video.addEventListener('loadeddata', () => {
+    getPixelColor();
+    if (video.readyState >= 2 && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      video.currentTime = video.duration || 999;
+      hero.style.setProperty('--ease', 'linear');
+      document.querySelectorAll('.rv').forEach(el => el.style.transitionDuration = '0s');
+      reveal();
+    }
+  });
+  
+  video.addEventListener('timeupdate', () => {
+    if (video.currentTime >= REVEAL_AT) reveal();
+  });
+  
+  video.addEventListener('ended', reveal);
+  video.addEventListener('error', reveal);
+  setTimeout(reveal, 9000);
+  
+  video.play().catch(reveal);
+  
+  replayBtn.addEventListener('click', () => {
+    revealed = false;
+    hero.classList.remove('is-revealed');
+    canvases.forEach(c => {
+      c.style.opacity = 0;
+      c.nextElementSibling.style.opacity = 0;
+    });
+    video.currentTime = 0;
+    video.play().catch(reveal);
+  });
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.18 });
+  
+  document.querySelectorAll('.bf-rv').forEach(el => observer.observe(el));
+});
+</script>
+
+</body>
+</html>

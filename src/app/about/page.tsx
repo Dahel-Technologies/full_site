@@ -6,10 +6,10 @@ import TypewriterText from "@/components/animations/TypewriterText";
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col gap-0 pb-24 min-h-screen">
+    <div className="flex flex-col gap-0 pb-24 min-h-screen w-full max-w-full overflow-hidden">
       
       {/* HERO SECTION */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden min-h-[60vh] flex items-center justify-center">
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 px-4 sm:px-6 overflow-hidden min-h-[55vh] md:min-h-[60vh] flex items-center justify-center">
         {/* Background Image */}
         <div className="absolute inset-0 -z-20">
           <Image 
@@ -23,11 +23,11 @@ export default function AboutPage() {
         {/* Gradient Overlay for Readability (Transparent at top, solid at bottom) */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/70 to-white/90 -z-10" />
 
-        <div className="max-w-7xl mx-auto w-full text-center flex flex-col items-center relative z-10 pt-16">
-          <span className="text-electric-blue font-bold tracking-wider uppercase text-sm mb-6 flex items-center justify-center gap-2 bg-blue-50/80 px-4 py-2 rounded-full border border-blue-100 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto w-full text-center flex flex-col items-center relative z-10 pt-12 md:pt-16">
+          <span className="text-electric-blue font-bold tracking-wider uppercase text-xs sm:text-sm mb-6 flex items-center justify-center gap-2 bg-blue-50/80 px-4 py-2 rounded-full border border-blue-100 backdrop-blur-md">
             <Info size={16}/> Who We Are
           </span>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-4xl leading-[1.2] mb-6 min-h-[3em] md:min-h-[2em] flex flex-col items-center justify-center gap-2">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-4xl leading-[1.2] mb-6 min-h-[3em] md:min-h-[2em] flex flex-col items-center justify-center gap-2">
             <span>We believe in the power of</span>
             <TypewriterText text="practical technology." delay={0.08} className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 inline-block" />
           </h1>
@@ -107,7 +107,7 @@ export default function AboutPage() {
               { name: "Ha Ri", role: "Cybersecurity Trainer and Consultant", img: "/Team/Cybersecurity Trainer and Consultant- Ha Ri.jpg" },
               { name: "Chinalurum Clementina", role: "Microsoft Excel Trainer", img: "/Team/Microsoft Excel Trainer Chinalurum Clementina.jpg" },
               { name: "Uchechi Chibuzor", role: "Product Management Trainer", img: "/Team/Uchechi Chibuzor Product Management Trainer and Contractor.jpg" },
-              { name: "Matthew Ador", role: "Team Member", img: "/Team/WhatsApp Image 2024-08-09 at 05.37.31 - Matthew Ador.jpeg" },
+              { name: "Matthew Ador", role: "General Operations Manager and Chief Administrator", img: "/Team/WhatsApp Image 2024-08-09 at 05.37.31 - Matthew Ador.jpeg" },
               { name: "Daniel Chukwuemeka", role: "Quizarly AI and Partnerships", img: "/Team/Quizarly AI and Partnerships Daniel Chukwuemeka.jpeg" },
               { name: "Sam Theo", role: "Quizarly Programs Manager", img: "/Team/Quizarly Programs Manager Sam Theo.jpeg" },
               { name: "Gift", role: "Social Media and Customer Support, Checkamo", img: "https://ui-avatars.com/api/?name=Gift&background=1e3a8a&color=fff&size=512" },

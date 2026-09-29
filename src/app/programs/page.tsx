@@ -19,22 +19,22 @@ export default function ProgramsPage() {
   ];
 
   return (
-    <div className="pb-24 bg-gray-50 min-h-screen">
+    <div className="pb-24 bg-gray-50 min-h-screen w-full max-w-full overflow-hidden">
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-b from-blue-50 to-gray-50 pt-24 pb-16 px-6 relative overflow-hidden">
+      <section className="bg-gradient-to-b from-blue-50 to-gray-50 pt-20 sm:pt-24 pb-16 px-4 sm:px-6 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-100/30 blur-3xl rounded-full -z-10" />
         <div className="max-w-7xl mx-auto w-full">
-          <span className="text-electric-blue font-bold tracking-wider uppercase text-sm mb-4 block flex items-center gap-2"><Calendar size={16}/> Events & Webinars</span>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-2xl leading-[1.1] mb-6">
+          <span className="text-electric-blue font-bold tracking-wider uppercase text-xs sm:text-sm mb-4 block flex items-center gap-2"><Calendar size={16}/> Events & Webinars</span>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-navy-900 max-w-2xl leading-[1.15] mb-6">
             Dahel Technologies <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Programs.</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mb-10">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mb-10">
             Conferences, graduations, community meetups and live tech discussions. See what's happening at Dahel.
           </p>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-6 w-full pt-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full pt-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {programs.map((prog, i) => (
             <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200 flex flex-col h-full group hover:shadow-md transition-all hover:-translate-y-1">

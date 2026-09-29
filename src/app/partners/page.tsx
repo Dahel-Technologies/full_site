@@ -3,13 +3,13 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function PartnersPage() {
   return (
-    <div className="py-24 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 w-full">
-        <div className="bg-navy-900 rounded-[2.5rem] p-10 md:p-16 lg:p-20 text-white relative overflow-hidden">
+    <div className="py-16 md:py-24 min-h-screen w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <div className="bg-navy-900 rounded-3xl md:rounded-[2.5rem] p-6 sm:p-10 md:p-16 lg:p-20 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-900/20 blur-3xl rounded-full" />
-          <div className="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+          <div className="relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">Building skills at scale?</h2>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight">Building skills at scale?</h2>
               <p className="text-xl text-gray-300 mb-10">
                 Dahel works with organizations, schools, institutions and programs to deliver high-quality technology education and solutions.
               </p>
