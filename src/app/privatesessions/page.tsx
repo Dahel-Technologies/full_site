@@ -13,12 +13,14 @@ interface AnimatedCourseCardProps {
   children: React.ReactNode;
   className?: string;
   glowColor?: string;
+  dark?: boolean;
 }
 
 function AnimatedCourseCard({
   children,
   className = "",
   glowColor = "rgba(59, 130, 246, 0.25)",
+  dark = false,
 }: AnimatedCourseCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
@@ -36,7 +38,11 @@ function AnimatedCourseCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`session-card relative rounded-3xl overflow-hidden transition-all duration-500 bg-white border border-gray-200/90 hover:border-blue-400/80 hover:shadow-[0_20px_50px_-15px_rgba(30,58,138,0.18)] ${className}`}
+      className={`session-card group relative rounded-3xl overflow-hidden transition-all duration-500 ${
+        dark
+          ? "bg-[#0d1b38] border border-blue-500/40 hover:border-cyan-400 hover:shadow-[0_20px_50px_-15px_rgba(14,165,233,0.35)] text-white"
+          : "bg-white border border-gray-200/90 hover:border-blue-400/80 hover:shadow-[0_20px_50px_-15px_rgba(30,58,138,0.18)]"
+      } ${className}`}
     >
       {/* Mouse spotlight overlay */}
       <div
@@ -47,7 +53,13 @@ function AnimatedCourseCard({
         }}
       />
       {/* Top subtle sheen line */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div
+        className={`absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity ${
+          dark
+            ? "bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+            : "bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"
+        }`}
+      />
       
       <div className="relative z-10 h-full flex flex-col">{children}</div>
     </div>
@@ -276,8 +288,8 @@ export default function PrivateSessionsPage() {
       {/* CSS Rail Hover Effect for Interactive Card Motion */}
       <style>{`
         .session-rail:has(.session-card:hover) .session-card:not(:hover) {
-          opacity: 0.62;
-          transform: scale(0.98);
+          opacity: 0.88;
+          transform: scale(0.99);
         }
         .session-card {
           transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), 
@@ -659,14 +671,14 @@ export default function PrivateSessionsPage() {
             <h2 className="text-3xl sm:text-5xl font-black mb-6">
               WHY CHOOSE DAHEL TECHNOLOGIES?
             </h2>
-            <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-4">
-              We are recognized by the Federal Government of Nigeria having worked for the <strong>National Information and Technical Development Agency (NITDA)</strong> and the <strong>Nigeria Jubilee Fellowship Programme</strong>.
+            <p className="text-base sm:text-lg text-slate-200 leading-relaxed mb-4">
+              We are recognized by the Federal Government of Nigeria having worked for the <strong className="text-white">National Information and Technical Development Agency (NITDA)</strong> and the <strong className="text-white">Nigeria Jubilee Fellowship Programme</strong>.
             </p>
-            <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-4">
-              We have also worked with the <strong>US Embassy and Alumni Community</strong> at Kenya, Nigeria, Angola, and elsewhere.
+            <p className="text-base sm:text-lg text-slate-200 leading-relaxed mb-4">
+              We have also worked with the <strong className="text-white">US Embassy and Alumni Community</strong> at Kenya, Nigeria, Angola, and elsewhere.
             </p>
-            <p className="text-sm sm:text-base text-blue-200 leading-relaxed font-semibold">
-              We have worked with over <strong>20,000 students</strong> in at least <strong>6 countries</strong> including the United States, the UK, and the African Community in China.
+            <p className="text-sm sm:text-base text-cyan-200 leading-relaxed font-semibold">
+              We have worked with over <strong className="text-white">20,000 students</strong> in at least <strong className="text-white">6 countries</strong> including the United States, the UK, and the African Community in China.
             </p>
           </div>
 
@@ -696,14 +708,21 @@ export default function PrivateSessionsPage() {
             ].map((item, i) => (
               <AnimatedCourseCard
                 key={i}
-                glowColor="rgba(59, 130, 246, 0.3)"
-                className="bg-navy-800/80 border-navy-700 p-6 text-white"
+                dark={true}
+                glowColor="rgba(56, 189, 248, 0.45)"
+                className="p-6 md:p-7 justify-between"
               >
-                <div className="text-3xl font-black text-electric-blue mb-3 font-mono">
-                  {item.num}
+                <div>
+                  <div className="text-3xl font-black text-cyan-400 mb-3 font-mono">
+                    {item.num}
+                  </div>
+                  <h3 className="text-xl font-black text-white mb-3 tracking-tight leading-snug">
+                    {item.title}
+                  </h3>
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">{item.desc}</p>
+                <p className="text-sm sm:text-base text-slate-100 font-medium leading-relaxed">
+                  {item.desc}
+                </p>
               </AnimatedCourseCard>
             ))}
           </div>
