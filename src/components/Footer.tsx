@@ -31,10 +31,10 @@ export default function Footer() {
             <h4 className="font-semibold mb-4 text-gray-200">Learn</h4>
             <ul className="space-y-3 text-sm text-gray-400">
               <li><Link href="https://selfany.com/s/DahelTechies" target="_blank" className="hover:text-white transition-colors">Courses</Link></li>
-              <li><Link href="/training" className="hover:text-white transition-colors">Private Training</Link></li>
-              <li><Link href="/training" className="hover:text-white transition-colors">Group Training</Link></li>
+              <li><Link href="/privatesessions" className="hover:text-white transition-colors">Private Sessions</Link></li>
+              <li><Link href="/groupclasses" className="hover:text-white transition-colors">Group Classes</Link></li>
               <li><Link href="/resources" className="hover:text-white transition-colors">Books & Resources</Link></li>
-              <li><Link href="/programs" className="hover:text-white transition-colors">Programs & Webinars</Link></li>
+              <li><Link href="/training" className="hover:text-white transition-colors">All Pathways</Link></li>
             </ul>
           </div>
 

@@ -16,10 +16,10 @@ export default function BookmarkCards() {
       flagColor: "bg-blue-600"
     },
     {
-      title: "I need training",
-      desc: "One-on-one or small-group sessions designed around your schedule, goals and current level.",
-      link: "/training",
-      cta: "Book a Session",
+      title: "Private Sessions",
+      desc: "One-on-one tailored sessions in Excel, SQL, Tableau, Power BI, Python, AI, and R at your pace.",
+      link: "/privatesessions",
+      cta: "Book Private Session",
       icon: <User size={20} />,
       img: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80",
       color: "from-magenta-600 to-pink-500",

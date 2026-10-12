@@ -36,7 +36,7 @@ export default function Home() {
             <Link href="/learn" className="bg-navy-900 text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-navy-800 transition-colors flex items-center justify-center gap-2 shadow-xl hover:-translate-y-1 transform w-full sm:w-auto">
               Explore Learning <ArrowRight size={20} />
             </Link>
-            <Link href="https://selfany.com/daheltechprivatesessions" target="_blank" className="bg-white text-electric-blue px-8 py-4 rounded-full font-medium text-lg hover:bg-blue-50 transition-all flex items-center justify-center gap-2 shadow-xl border border-blue-100 hover:-translate-y-1 transform w-full sm:w-auto">
+            <Link href="/privatesessions" className="bg-white text-electric-blue px-8 py-4 rounded-full font-medium text-lg hover:bg-blue-50 transition-all flex items-center justify-center gap-2 shadow-xl border border-blue-100 hover:-translate-y-1 transform w-full sm:w-auto">
               Book a Private Session
             </Link>
           </div>

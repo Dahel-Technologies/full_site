@@ -6,12 +6,11 @@ import { Home, Info, BookOpen, Briefcase, Zap, FileText, Users, Layers } from "l
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/about", label: "About", icon: Info },
   { href: "/learn", label: "Learn", icon: BookOpen },
-  { href: "/training", label: "Training", icon: Briefcase },
+  { href: "/privatesessions", label: "Private", icon: Briefcase },
+  { href: "/groupclasses", label: "Groups", icon: Users },
   { href: "/quizarly", label: "Quizarly", icon: Zap },
   { href: "/news", label: "News", icon: FileText },
-  { href: "/build-with-us", label: "Build", icon: Users },
   { href: "/resources", label: "Books", icon: Layers },
 ];
 

@@ -16,10 +16,11 @@ export default function Navbar() {
           <Image src="/DahelTechnologies_logo.png" alt="Dahel Technologies" width={160} height={60} className="w-auto h-12 object-contain mix-blend-multiply" priority />
         </Link>
         
-        <div className="hidden lg:flex items-center gap-6 font-medium text-sm text-gray-600">
+        <div className="hidden lg:flex items-center gap-5 xl:gap-6 font-medium text-sm text-gray-600">
           <Link href="/about" className="hover:text-electric-blue transition-colors">About Us</Link>
           <Link href="/learn" className="hover:text-electric-blue transition-colors">Learn</Link>
-          <Link href="/training" className="hover:text-electric-blue transition-colors">Training</Link>
+          <Link href="/privatesessions" className="hover:text-electric-blue transition-colors font-semibold text-navy-900">Private Sessions</Link>
+          <Link href="/groupclasses" className="hover:text-electric-blue transition-colors">Group Classes</Link>
           <Link href="/quizarly" className="hover:text-electric-blue transition-colors">Quizarly</Link>
           <Link href="/resources" className="hover:text-electric-blue transition-colors">Books & Resources</Link>
           <Link href="/news" className="hover:text-electric-blue transition-colors">News</Link>
@@ -48,7 +49,8 @@ export default function Navbar() {
           <div className="flex flex-col px-6 py-6 gap-3 font-semibold text-lg text-navy-900">
             <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="py-2.5 border-b border-gray-100 hover:text-electric-blue transition-colors">About Us</Link>
             <Link href="/learn" onClick={() => setMobileMenuOpen(false)} className="py-2.5 border-b border-gray-100 hover:text-electric-blue transition-colors">Learn</Link>
-            <Link href="/training" onClick={() => setMobileMenuOpen(false)} className="py-2.5 border-b border-gray-100 hover:text-electric-blue transition-colors">Training</Link>
+            <Link href="/privatesessions" onClick={() => setMobileMenuOpen(false)} className="py-2.5 border-b border-gray-100 hover:text-electric-blue transition-colors text-electric-blue">Private Sessions</Link>
+            <Link href="/groupclasses" onClick={() => setMobileMenuOpen(false)} className="py-2.5 border-b border-gray-100 hover:text-electric-blue transition-colors">Group Classes</Link>
             <Link href="/quizarly" onClick={() => setMobileMenuOpen(false)} className="py-2.5 border-b border-gray-100 hover:text-electric-blue transition-colors">Quizarly</Link>
             <Link href="/resources" onClick={() => setMobileMenuOpen(false)} className="py-2.5 border-b border-gray-100 hover:text-electric-blue transition-colors">Books & Resources</Link>
             <Link href="/news" onClick={() => setMobileMenuOpen(false)} className="py-2.5 border-b border-gray-100 hover:text-electric-blue transition-colors">News</Link>
