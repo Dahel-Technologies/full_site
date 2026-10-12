@@ -1,15 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, GraduationCap, Users, Building, HeartHandshake, FileText, Lock, CheckCircle, Receipt, HelpCircle, AlertCircle, RefreshCcw, Globe } from "lucide-react";
 import Image from "next/image";
+import {
+  detectCurrencySync,
+  detectCurrencyAsync,
+  savePreferredCurrency,
+  SupportedCurrency
+} from "@/utils/geoCurrency";
 
 export default function PaymentsPage() {
   const router = useRouter();
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [currency, setCurrency] = useState<SupportedCurrency>("NGN");
+
+  useEffect(() => {
+    const fastCurrency = detectCurrencySync();
+    setCurrency(fastCurrency);
+
+    detectCurrencyAsync().then((detected) => {
+      if (detected) setCurrency(detected);
+    });
+  }, []);
+
+  const handleCurrencyChange = (newCurr: SupportedCurrency) => {
+    setCurrency(newCurr);
+    savePreferredCurrency(newCurr);
+  };
 
   const paymentTypes = [
     { id: "course", icon: GraduationCap, title: "Courses & Training", desc: "Pay for a course, cohort, bootcamp, or learning program." },
@@ -101,7 +122,11 @@ export default function PaymentsPage() {
                 <div className="md:col-span-2">
                   <label className="block text-sm font-bold text-gray-700 mb-2">Amount</label>
                   <div className="relative flex">
-                    <select className="bg-gray-50 border border-gray-300 border-r-0 rounded-l-lg px-4 py-4 font-bold text-gray-700 focus:ring-2 focus:ring-electric-blue outline-none transition-all cursor-pointer">
+                    <select 
+                      value={currency}
+                      onChange={(e) => handleCurrencyChange(e.target.value as SupportedCurrency)}
+                      className="bg-gray-50 border border-gray-300 border-r-0 rounded-l-lg px-4 py-4 font-bold text-gray-700 focus:ring-2 focus:ring-electric-blue outline-none transition-all cursor-pointer"
+                    >
                       <option value="NGN">₦ NGN</option>
                       <option value="USD">$ USD</option>
                       <option value="EUR">€ EUR</option>

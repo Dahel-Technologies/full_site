@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, HandHeart, Users, Lightbulb, Briefcase, Globe, Monitor, GraduationCap, Trophy, Cpu } from "lucide-react";
@@ -10,9 +10,29 @@ import SpotlightCard from "@/components/SpotlightCard";
 import AccordionRail from "@/components/animations/AccordionRail";
 import ScrollTextReveal from "@/components/animations/ScrollTextReveal";
 import ScrollStack from "@/components/animations/ScrollStack";
+import { 
+  detectCurrencySync, 
+  detectCurrencyAsync, 
+  savePreferredCurrency, 
+  SupportedCurrency 
+} from "@/utils/geoCurrency";
 
 export default function BuildWithUsPage() {
-  const [currency, setCurrency] = useState<"NGN" | "USD" | "EUR" | "GBP" | "GHS">("NGN");
+  const [currency, setCurrency] = useState<SupportedCurrency>("NGN");
+
+  useEffect(() => {
+    const fastCurrency = detectCurrencySync();
+    setCurrency(fastCurrency);
+
+    detectCurrencyAsync().then((detected) => {
+      if (detected) setCurrency(detected);
+    });
+  }, []);
+
+  const handleCurrencyChange = (newCurr: SupportedCurrency) => {
+    setCurrency(newCurr);
+    savePreferredCurrency(newCurr);
+  };
 
   return (
     <div className="flex flex-col gap-0 pb-0 min-h-screen">
@@ -248,7 +268,7 @@ export default function BuildWithUsPage() {
               ].map((cur) => (
                 <button 
                   key={cur.code}
-                  onClick={() => setCurrency(cur.code as "NGN" | "USD" | "EUR" | "GBP" | "GHS")} 
+                  onClick={() => handleCurrencyChange(cur.code as SupportedCurrency)} 
                   className={`px-4 py-2 rounded-lg font-bold text-sm transition-colors ${currency === cur.code ? "bg-navy-900 text-white shadow-sm" : "text-gray-600 hover:bg-gray-50"}`}
                 >
                   {cur.label}

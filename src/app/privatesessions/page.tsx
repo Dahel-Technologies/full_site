@@ -1,7 +1,13 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { 
+  detectCurrencySync, 
+  detectCurrencyAsync, 
+  savePreferredCurrency, 
+  SupportedCurrency 
+} from "@/utils/geoCurrency";
 
 interface AnimatedCourseCardProps {
   children: React.ReactNode;
@@ -49,8 +55,24 @@ function AnimatedCourseCard({
 }
 
 export default function PrivateSessionsPage() {
-  const [currency, setCurrency] = useState<"NGN" | "USD" | "EUR" | "GBP" | "GHS">("NGN");
+  const [currency, setCurrency] = useState<SupportedCurrency>("NGN");
   const [copiedBank, setCopiedBank] = useState(false);
+
+  useEffect(() => {
+    // 1. Immediately pick currency based on user's timezone & locale
+    const fastCurrency = detectCurrencySync();
+    setCurrency(fastCurrency);
+
+    // 2. Refine asynchronously via IP lookup
+    detectCurrencyAsync().then((detected) => {
+      if (detected) setCurrency(detected);
+    });
+  }, []);
+
+  const handleCurrencyChange = (newCurr: SupportedCurrency) => {
+    setCurrency(newCurr);
+    savePreferredCurrency(newCurr);
+  };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -390,7 +412,7 @@ export default function PrivateSessionsPage() {
             ].map((cur) => (
               <button
                 key={cur.code}
-                onClick={() => setCurrency(cur.code as "NGN" | "USD" | "EUR" | "GBP" | "GHS")}
+                onClick={() => handleCurrencyChange(cur.code as SupportedCurrency)}
                 className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                   currency === cur.code 
                     ? "bg-navy-900 text-white shadow-xs" 

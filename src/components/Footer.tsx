@@ -41,7 +41,8 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-gray-200">Products</h4>
             <ul className="space-y-3 text-sm text-gray-400">
-              <li><Link href="https://www.quizarly.com/" target="_blank" className="hover:text-white transition-colors">Quizarly</Link></li>
+              <li><Link href="/quizarly" className="hover:text-white transition-colors">Quizarly Experience</Link></li>
+              <li><Link href="https://www.quizarly.com/" target="_blank" className="hover:text-white transition-colors">Quizarly.com</Link></li>
               <li><Link href="https://www.checkamo.com/" target="_blank" className="hover:text-white transition-colors">Checkamo</Link></li>
               <li><Link href="https://www.ekko-now.com/" target="_blank" className="hover:text-white transition-colors">Ekko Now</Link></li>
               <li><Link href="/ai" className="hover:text-white transition-colors">AI Tools</Link></li>
@@ -53,6 +54,8 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-gray-400">
               <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li><Link href="/news" className="hover:text-white transition-colors">In the News</Link></li>
+              <li><Link href="/build-with-us" className="hover:text-white transition-colors">Succeed & Build With Us</Link></li>
+              <li><Link href="/payments" className="hover:text-white transition-colors">Make Payments</Link></li>
               <li><Link href="/partners" className="hover:text-white transition-colors">Partners & Orgs</Link></li>
               <li><Link href="/reviews" className="hover:text-white transition-colors">Success Stories</Link></li>
             </ul>
