@@ -84,28 +84,29 @@ export default function GroupClassesPage() {
   return (
     <div className="bg-white min-h-screen pb-24 w-full max-w-full overflow-hidden text-navy-900">
       
-      {/* 1. TOP NOTICE BAR: DIRECT LINK TO PRIVATE SESSIONS */}
-      <aside aria-label="Announcement" className="bg-gradient-to-r from-navy-900 via-purple-950 to-blue-900 text-white px-4 py-3.5 border-b border-purple-800/60 sticky top-20 z-40 shadow-md">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs sm:text-sm">
-          <div className="flex items-center gap-2.5 justify-center sm:justify-start font-medium">
-            <span className="bg-electric-blue text-white text-[11px] font-black uppercase px-2 py-0.5 rounded tracking-wider shrink-0">
-              Personalized 1-on-1
-            </span>
-            <span>
-              Need private scheduling or self-paced 1-on-1 mentorship directly tailored to you?
-            </span>
+      {/* HERO SECTION */}
+      <section className="relative pt-12 sm:pt-16 md:pt-20 pb-16 md:pb-24 px-4 sm:px-6 bg-gradient-to-b from-slate-50 via-white to-purple-50/20 overflow-hidden">
+        
+        {/* INTEGRATED NOTICE BANNER */}
+        <div className="max-w-4xl mx-auto mb-10">
+          <div className="bg-white/95 border border-purple-200/80 rounded-2xl p-4 sm:p-5 shadow-sm backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-left text-xs sm:text-sm text-gray-800 leading-relaxed font-medium">
+              <span className="inline-block bg-purple-600 text-white font-extrabold text-[11px] uppercase tracking-wider px-2.5 py-0.5 rounded-full mr-2 shadow-xs">
+                1-ON-1 SESSIONS
+              </span>
+              <span>
+                Need private scheduling or personalized 1-on-1 mentorship tailored directly to your pace?
+              </span>
+            </div>
+            <Link
+              href="/privatesessions"
+              className="inline-flex items-center justify-center bg-navy-900 hover:bg-electric-blue text-white text-xs sm:text-sm font-bold px-5 py-2.5 rounded-xl transition-all hover:scale-105 shrink-0 shadow-sm gap-1.5"
+            >
+              Switch to Private Sessions <ArrowRight size={14} />
+            </Link>
           </div>
-          <Link 
-            href="/privatesessions" 
-            className="inline-flex items-center gap-1.5 bg-white hover:bg-gray-100 text-navy-900 font-bold px-3.5 py-1.5 rounded-full text-xs transition-all hover:scale-105 shrink-0 shadow-sm"
-          >
-            SWITCH TO PRIVATE SESSIONS <ArrowRight size={14} />
-          </Link>
         </div>
-      </aside>
 
-      {/* 2. HERO SECTION */}
-      <section className="relative pt-16 sm:pt-20 md:pt-28 pb-16 md:pb-24 px-4 sm:px-6 bg-gradient-to-b from-slate-50 via-white to-blue-50/20 overflow-hidden">
         <div className="max-w-5xl mx-auto text-center flex flex-col items-center">
           
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 font-bold text-xs uppercase tracking-widest mb-6 shadow-sm">
