@@ -85,17 +85,17 @@ export default function GroupClassesPage() {
     <div className="bg-white min-h-screen pb-24 w-full max-w-full overflow-hidden text-navy-900">
       
       {/* HERO SECTION */}
-      <section className="relative pt-12 sm:pt-16 md:pt-20 pb-16 md:pb-24 px-4 sm:px-6 bg-gradient-to-b from-slate-50 via-white to-purple-50/20 overflow-hidden">
+      <section className="relative pt-12 sm:pt-16 md:pt-20 pb-16 md:pb-24 px-4 sm:px-6 bg-gradient-to-b from-purple-50/40 via-white to-slate-50 border-b border-gray-200/70 overflow-hidden">
         
         {/* INTEGRATED NOTICE BANNER */}
         <div className="max-w-4xl mx-auto mb-10">
-          <div className="bg-white/95 border border-purple-200/80 rounded-2xl p-4 sm:p-5 shadow-sm backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="bg-white/95 border border-purple-200/90 rounded-2xl p-4 sm:p-5 shadow-sm backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-left text-xs sm:text-sm text-gray-800 leading-relaxed font-medium">
-              <span className="inline-block bg-purple-600 text-white font-extrabold text-[11px] uppercase tracking-wider px-2.5 py-0.5 rounded-full mr-2 shadow-xs">
+              <span className="inline-block bg-purple-700 text-white font-extrabold text-[11px] uppercase tracking-wider px-2.5 py-0.5 rounded-full mr-2 shadow-xs">
                 1-ON-1 SESSIONS
               </span>
               <span>
-                Need private scheduling or personalized 1-on-1 mentorship tailored directly to your pace?
+                Need flexible private scheduling or 1-on-1 mentorship tailored directly to your personal pace?
               </span>
             </div>
             <Link
@@ -109,36 +109,36 @@ export default function GroupClassesPage() {
 
         <div className="max-w-5xl mx-auto text-center flex flex-col items-center">
           
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 font-bold text-xs uppercase tracking-widest mb-6 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 font-bold text-xs uppercase tracking-widest mb-6 shadow-xs">
             <Users size={14} className="text-purple-600" />
             Dahel Technologies Group Classes & Cohorts
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-navy-900 max-w-4xl leading-[1.1] mb-6">
-            Learn Together. Build Faster.{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-purple-700 to-pink-600">
-              Grow with Peers.
-            </span>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-navy-900 max-w-4xl leading-[1.15] mb-6">
+            <span>Learn Together. Build Faster.</span>
+            <div className="mt-3 text-2xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-purple-700 to-pink-600">
+              Grow with Ambitious Peers
+            </div>
           </h1>
 
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-3xl mb-8 leading-relaxed font-medium">
+          <p className="text-base sm:text-xl text-gray-700 max-w-3xl mb-8 leading-relaxed font-medium">
             Join a vibrant community of ambitious learners. Dahel Group Classes bring structured curriculum, live instructor coaching, peer accountability, and real-world team projects into an energizing cohort experience.
           </p>
 
           {/* Quick Perks */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mb-10 text-xs sm:text-sm font-semibold text-gray-700 bg-white/90 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-lg max-w-3xl">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mb-10 text-xs sm:text-sm font-semibold text-gray-700 bg-white/95 backdrop-blur-md px-6 py-4 rounded-2xl border border-gray-200 shadow-sm max-w-3xl">
             <div className="flex items-center gap-2">
-              <Calendar className="text-electric-blue" size={18} />
+              <Calendar className="text-electric-blue" size={16} />
               <span>Weekend & Evening Batches</span>
             </div>
             <span className="text-gray-300 hidden sm:inline">•</span>
             <div className="flex items-center gap-2">
-              <Users className="text-purple-600" size={18} />
+              <Users className="text-purple-600" size={16} />
               <span>Collaborative Community</span>
             </div>
             <span className="text-gray-300 hidden sm:inline">•</span>
             <div className="flex items-center gap-2">
-              <Award className="text-green-600" size={18} />
+              <Award className="text-green-600" size={16} />
               <span>Certificate of Completion</span>
             </div>
           </div>
@@ -165,13 +165,27 @@ export default function GroupClassesPage() {
             </Link>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 font-medium">
-            <span className="flex items-center gap-1.5">
-              <Mail size={16} className="text-electric-blue" /> Inquiries: <a href="mailto:daheltechies@gmail.com" className="text-navy-900 font-bold hover:underline">daheltechies@gmail.com</a>
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Phone size={16} className="text-green-600" /> WhatsApp: <a href="https://wa.me/2347047581704" target="_blank" rel="noopener noreferrer" className="text-navy-900 font-bold hover:underline">+234 704 758 1704</a>
-            </span>
+          <div className="flex flex-col items-center gap-3 text-xs sm:text-sm text-gray-600 font-medium">
+            <div className="flex flex-wrap items-center justify-center gap-6">
+              <span className="flex items-center gap-1.5">
+                <Mail size={16} className="text-electric-blue" /> Inquiries: <a href="mailto:daheltechies@gmail.com" className="text-navy-900 font-bold hover:underline">daheltechies@gmail.com</a>
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Phone size={16} className="text-green-600" /> WhatsApp (Nora): <a href="https://wa.me/2347047581704" target="_blank" rel="noopener noreferrer" className="text-navy-900 font-bold hover:underline">+234 704 758 1704</a>
+              </span>
+            </div>
+            
+            <div className="bg-purple-50/90 border border-purple-200 px-4 py-2 rounded-full text-xs text-navy-900 font-semibold shadow-2xs">
+              For Private Sessions Specific Inquiries, chat with Vael:{" "}
+              <a
+                href="https://wa.me/13107081983?text=Hello%20Vael!%20I%20have%20an%20inquiry%20regarding%20Dahel%20Private%20Sessions."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-700 font-extrabold underline hover:text-purple-900"
+              >
+                +1 (310) 708 1983 →
+              </a>
+            </div>
           </div>
 
         </div>

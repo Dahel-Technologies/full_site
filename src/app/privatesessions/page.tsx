@@ -49,7 +49,7 @@ function AnimatedCourseCard({
 }
 
 export default function PrivateSessionsPage() {
-  const [currency, setCurrency] = useState<"NGN" | "USD">("NGN");
+  const [currency, setCurrency] = useState<"NGN" | "USD" | "EUR" | "GBP" | "GHS">("NGN");
   const [copiedBank, setCopiedBank] = useState(false);
 
   const copyToClipboard = (text: string) => {
@@ -65,6 +65,9 @@ export default function PrivateSessionsPage() {
       subtitle: "The Power of Everyday Data",
       priceNGN: "₦110,999",
       priceUSD: "$200",
+      priceEUR: "€185",
+      priceGBP: "£160",
+      priceGHS: "GH₵2,600",
       duration: "3 – 4 Weeks at your convenience",
       tagline: "Learn how to transform raw data into powerful insights!",
       topics: [
@@ -86,6 +89,9 @@ export default function PrivateSessionsPage() {
       subtitle: "Speak the Language of Databases",
       priceNGN: "₦120,999",
       priceUSD: "$220",
+      priceEUR: "€200",
+      priceGBP: "£175",
+      priceGHS: "GH₵2,850",
       duration: "3 – 4 Weeks at your convenience",
       tagline: "Query. Retrieve. Analyze. The foundational backbone of data analysis and database management.",
       topics: [
@@ -107,6 +113,9 @@ export default function PrivateSessionsPage() {
       subtitle: "Visualize Insights, Tell Stories",
       priceNGN: "₦120,999",
       priceUSD: "$220",
+      priceEUR: "€200",
+      priceGBP: "£175",
+      priceGHS: "GH₵2,850",
       duration: "3 – 4 Weeks at your convenience",
       tagline: "Bring your data to life with stunning visuals and interactive dashboards.",
       topics: [
@@ -128,6 +137,9 @@ export default function PrivateSessionsPage() {
       subtitle: "Turn Data into Decisions",
       priceNGN: "₦150,999",
       priceUSD: "$280",
+      priceEUR: "€260",
+      priceGBP: "£220",
+      priceGHS: "GH₵3,550",
       duration: "3 – 4 Weeks at your convenience",
       tagline: "Microsoft’s flagship tool for powerful business intelligence and visualization.",
       topics: [
@@ -149,6 +161,9 @@ export default function PrivateSessionsPage() {
       subtitle: "Automate, Analyze, and Predict",
       priceNGN: "₦180,999",
       priceUSD: "$350",
+      priceEUR: "€320",
+      priceGBP: "£275",
+      priceGHS: "GH₵4,450",
       duration: "3 – 4 Weeks at your convenience",
       tagline: "The world’s most popular programming language for data analysis and AI.",
       topics: [
@@ -170,6 +185,9 @@ export default function PrivateSessionsPage() {
       subtitle: "The 2026 Future of Work",
       priceNGN: "₦200,000",
       priceUSD: "$350",
+      priceEUR: "€320",
+      priceGBP: "£275",
+      priceGHS: "GH₵4,450",
       duration: "3 – 4 Weeks at your convenience",
       tagline: "Learn the practical roadmap to becoming an AI Engineer and understand modern autonomous tools, agents, and automations.",
       topics: [
@@ -193,6 +211,9 @@ export default function PrivateSessionsPage() {
       subtitle: "The Language of Statistical Analysis",
       priceNGN: "₦180,999",
       priceUSD: "$350",
+      priceEUR: "€320",
+      priceGBP: "£275",
+      priceGHS: "GH₵4,450",
       duration: "3 – 4 Weeks at your convenience",
       tagline: "Perfect for researchers, analysts, and statisticians who love precision.",
       topics: [
@@ -209,6 +230,23 @@ export default function PrivateSessionsPage() {
       tag: "Statistics & Research"
     }
   ];
+
+  const getCoursePrice = (course: typeof courses[0]) => {
+    switch (currency) {
+      case "USD": return course.priceUSD;
+      case "EUR": return course.priceEUR;
+      case "GBP": return course.priceGBP;
+      case "GHS": return course.priceGHS;
+      default: return course.priceNGN;
+    }
+  };
+
+  const getCourseComparison = (course: typeof courses[0]) => {
+    if (currency === "NGN") {
+      return `or ${course.priceUSD}`;
+    }
+    return `or ${course.priceNGN}`;
+  };
 
   return (
     <div className="bg-slate-50/50 min-h-screen pb-24 w-full max-w-full overflow-hidden text-navy-900 font-sans">
@@ -304,17 +342,32 @@ export default function PrivateSessionsPage() {
             </a>
           </div>
 
-          {/* CONTACT INFO (NO ICONS) */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-gray-600 font-medium">
-            <span>Inquiries: <a href="mailto:daheltechies@gmail.com" className="text-navy-900 font-bold underline">daheltechies@gmail.com</a></span>
-            <span className="text-gray-300">|</span>
-            <span>WhatsApp (Nora): <a href="https://wa.me/2347047581704" target="_blank" rel="noopener noreferrer" className="text-navy-900 font-bold underline">+234 704 758 1704</a></span>
+          {/* CONTACT INFO WITH VAEL CHAT OPTION (NO ICONS) */}
+          <div className="flex flex-col items-center gap-3 text-xs sm:text-sm text-gray-700 font-medium">
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+              <span>Inquiries: <a href="mailto:daheltechies@gmail.com" className="text-navy-900 font-bold underline">daheltechies@gmail.com</a></span>
+              <span className="text-gray-300 hidden sm:inline">|</span>
+              <span>WhatsApp (Nora): <a href="https://wa.me/2347047581704" target="_blank" rel="noopener noreferrer" className="text-navy-900 font-bold underline">+234 704 758 1704</a></span>
+            </div>
+            
+            {/* Direct Vael Contact Badge */}
+            <div className="bg-blue-50/90 border border-blue-200 px-4 py-2 rounded-full text-xs text-navy-900 font-semibold shadow-2xs">
+              For Private Sessions Specific Inquiries, chat with Vael:{" "}
+              <a
+                href="https://wa.me/13107081983?text=Hello%20Vael!%20I%20have%20an%20inquiry%20regarding%20Dahel%20Private%20Sessions."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-electric-blue font-extrabold underline hover:text-blue-800"
+              >
+                +1 (310) 708 1983 →
+              </a>
+            </div>
           </div>
 
         </div>
       </section>
 
-      {/* 2. FEE PER COURSE (ANIMATED CARDS RAIL) */}
+      {/* 2. FEE PER COURSE (ANIMATED CARDS RAIL WITH MULTI-CURRENCY) */}
       <section id="fee-per-course" className="py-20 px-4 sm:px-6 max-w-7xl mx-auto">
         
         <div className="text-center max-w-3xl mx-auto mb-12">
@@ -323,31 +376,42 @@ export default function PrivateSessionsPage() {
             Fee per Course
           </h2>
           <p className="text-base sm:text-lg text-gray-600">
-            Intensive, personalized private instruction. Choose your target skill below.
+            Intensive, personalized private instruction. Select your preferred currency below.
           </p>
 
-          {/* Currency Toggle */}
-          <div className="mt-6 inline-flex p-1 bg-white rounded-xl shadow-xs border border-gray-200">
-            <button
-              onClick={() => setCurrency("NGN")}
-              className={`px-6 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all ${
-                currency === "NGN" 
-                  ? "bg-navy-900 text-white shadow-xs" 
-                  : "text-gray-600 hover:text-navy-900"
-              }`}
+          {/* Currency Toggle (Naira, Dollars, Euros, Pounds, Cedis) */}
+          <div className="mt-6 inline-flex flex-wrap justify-center gap-1.5 p-1.5 bg-white rounded-2xl shadow-xs border border-gray-200">
+            {[
+              { code: "NGN", label: "₦ Naira" },
+              { code: "USD", label: "$ Dollars" },
+              { code: "EUR", label: "€ Euros" },
+              { code: "GBP", label: "£ Pounds" },
+              { code: "GHS", label: "GH₵ Cedis" },
+            ].map((cur) => (
+              <button
+                key={cur.code}
+                onClick={() => setCurrency(cur.code as "NGN" | "USD" | "EUR" | "GBP" | "GHS")}
+                className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                  currency === cur.code 
+                    ? "bg-navy-900 text-white shadow-xs" 
+                    : "text-gray-600 hover:text-navy-900 hover:bg-gray-50"
+                }`}
+              >
+                {cur.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-4 text-xs sm:text-sm text-gray-600">
+            For Private Sessions Specific Inquiries, chat with Vael:{" "}
+            <a 
+              href="https://wa.me/13107081983?text=Hello%20Vael!%20I%20have%20an%20inquiry%20regarding%20Dahel%20Private%20Sessions." 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-navy-900 font-extrabold underline hover:text-electric-blue"
             >
-              Nigerian Naira (₦)
-            </button>
-            <button
-              onClick={() => setCurrency("USD")}
-              className={`px-6 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all ${
-                currency === "USD" 
-                  ? "bg-navy-900 text-white shadow-xs" 
-                  : "text-gray-600 hover:text-navy-900"
-              }`}
-            >
-              US Dollar ($)
-            </button>
+              +1 (310) 708 1983
+            </a>
           </div>
         </div>
 
@@ -378,10 +442,10 @@ export default function PrivateSessionsPage() {
 
                 <div className="mb-4 pb-4 border-b border-gray-100">
                   <div className="text-3xl font-black text-navy-900 tracking-tight">
-                    {currency === "NGN" ? course.priceNGN : course.priceUSD}
+                    {getCoursePrice(course)}
                   </div>
                   <div className="text-xs text-gray-500 mt-0.5">
-                    {currency === "NGN" ? `or ${course.priceUSD}` : `or ${course.priceNGN}`} per course
+                    {getCourseComparison(course)} per course
                   </div>
                 </div>
 
@@ -399,6 +463,18 @@ export default function PrivateSessionsPage() {
                 >
                   Enroll in {course.title} →
                 </a>
+
+                {/* SELFANY PREMIUM PAYMENT LINK FOR PRIVATE SESSIONS SPECIFICALLY UNDER EXCEL */}
+                {course.id === "excel" && (
+                  <a
+                    href="https://selfany.com/daheltechprivatesessions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2.5 w-full inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold py-2.5 px-3 rounded-xl text-[11px] uppercase tracking-wider transition-all hover:scale-[1.02] text-center shadow-xs"
+                  >
+                    Make Payments for Premium Experience as Private Student →
+                  </a>
+                )}
               </div>
             </AnimatedCourseCard>
           ))}
@@ -475,9 +551,9 @@ export default function PrivateSessionsPage() {
                           Tuition Fee
                         </div>
                         <div className="text-2xl sm:text-3xl font-black text-navy-900">
-                          {currency === "NGN" ? course.priceNGN : course.priceUSD}{" "}
+                          {getCoursePrice(course)}{" "}
                           <span className="text-xs text-gray-500 font-normal">
-                            ({currency === "NGN" ? course.priceUSD : course.priceNGN})
+                            ({getCourseComparison(course)})
                           </span>
                         </div>
                         <div className="text-xs text-gray-500 mt-1 font-medium">
@@ -486,14 +562,27 @@ export default function PrivateSessionsPage() {
                       </div>
                     </div>
 
-                    <a
-                      href={`https://wa.me/2347047581704?text=Hello%20Dahel%20Technologies!%20I%20would%20like%20to%20enroll%20in%20the%20${encodeURIComponent(course.title)}%20Private%20Session.`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center bg-navy-900 hover:bg-electric-blue text-white font-bold py-3.5 px-6 rounded-xl text-sm transition-colors shadow-xs text-center"
-                    >
-                      Enroll in {course.title} →
-                    </a>
+                    <div className="space-y-3">
+                      <a
+                        href={`https://wa.me/2347047581704?text=Hello%20Dahel%20Technologies!%20I%20would%20like%20to%20enroll%20in%20the%20${encodeURIComponent(course.title)}%20Private%20Session.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center bg-navy-900 hover:bg-electric-blue text-white font-bold py-3.5 px-6 rounded-xl text-sm transition-colors shadow-xs text-center w-full"
+                      >
+                        Enroll in {course.title} →
+                      </a>
+
+                      {course.id === "excel" && (
+                        <a
+                          href="https://selfany.com/daheltechprivatesessions"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black py-3 px-5 rounded-xl text-xs uppercase tracking-wider transition-all hover:scale-[1.02] shadow-xs text-center"
+                        >
+                          Make Payments for Premium Experience as Private Student →
+                        </a>
+                      )}
+                    </div>
                   </div>
 
                   {/* Right Column: Topics & What You Gain (NO ICONS) */}
@@ -621,8 +710,12 @@ export default function PrivateSessionsPage() {
                 View Group Sessions →
               </Link>
             </div>
-            <div className="mt-6 text-xs text-blue-200">
-              Email: daheltechies@gmail.com | WhatsApp: +234 704 758 1704
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-blue-200 font-medium">
+              <span>Email: daheltechies@gmail.com</span>
+              <span>|</span>
+              <span>WhatsApp: +234 704 758 1704</span>
+              <span>|</span>
+              <span>Inquiries (Vael): +1 (310) 708 1983</span>
             </div>
           </div>
 
@@ -703,11 +796,21 @@ export default function PrivateSessionsPage() {
                   </a>
 
                   <a
-                    href="mailto:financedahelgroup@gmail.com?subject=Proof%20of%20Payment%20-%20Private%20Session"
+                    href="https://wa.me/13107081983?text=Hello%20Vael!%20I%20have%20an%20inquiry%20regarding%20Dahel%20Private%20Sessions."
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="block p-3.5 rounded-xl border border-blue-200 bg-blue-50/60 hover:bg-blue-50 text-blue-900 transition-colors"
                   >
-                    <div className="text-[11px] font-bold uppercase text-blue-800">Send to Finance Email:</div>
-                    <div className="text-sm font-black text-blue-950">financedahelgroup@gmail.com →</div>
+                    <div className="text-[11px] font-bold uppercase text-blue-800">Private Sessions Specific Inquiries (Vael):</div>
+                    <div className="text-sm font-black text-blue-950">+1 (310) 708 1983 →</div>
+                  </a>
+
+                  <a
+                    href="mailto:financedahelgroup@gmail.com?subject=Proof%20of%20Payment%20-%20Private%20Session"
+                    className="block p-3.5 rounded-xl border border-gray-200 bg-gray-50/60 hover:bg-gray-100 text-gray-900 transition-colors"
+                  >
+                    <div className="text-[11px] font-bold uppercase text-gray-600">Send to Finance Email:</div>
+                    <div className="text-sm font-black text-gray-900">financedahelgroup@gmail.com →</div>
                   </a>
                 </div>
 
@@ -740,11 +843,21 @@ export default function PrivateSessionsPage() {
             >
               Register on WhatsApp: +234 704 758 1704 →
             </a>
+            <a
+              href="https://wa.me/13107081983?text=Hello%20Vael!%20I%20have%20an%20inquiry%20regarding%20Dahel%20Private%20Sessions."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center bg-navy-900 hover:bg-navy-800 text-white font-bold py-4 px-8 rounded-full text-base transition-colors"
+            >
+              Chat with Vael: +1 (310) 708 1983 →
+            </a>
+          </div>
+          <div className="mt-4">
             <Link
               href="/groupclasses"
-              className="w-full sm:w-auto inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-navy-900 font-bold py-4 px-8 rounded-full text-base transition-colors"
+              className="text-xs text-gray-500 hover:text-navy-900 font-semibold underline"
             >
-              Switch to Group Sessions →
+              Prefer collaborative cohorts? Switch to Group Sessions →
             </Link>
           </div>
         </div>
