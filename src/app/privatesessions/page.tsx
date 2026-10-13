@@ -66,6 +66,19 @@ function AnimatedCourseCard({
   );
 }
 
+function WhatsAppIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.815 11.815 0 018.413 3.48A11.821 11.821 0 0123.943 11.893c-.003 6.558-5.338 11.893-11.893 11.893h-.005a11.882 11.882 0 01-5.683-1.448L0 24l.057 0zm6.54-3.328a9.86 9.86 0 005.449 1.621h.004c5.448 0 9.882-4.434 9.885-9.884a9.825 9.825 0 00-2.893-6.994A9.87 9.87 0 0012.054 2.52C6.602 2.52 2.167 6.955 2.166 12.405a9.86 9.86 0 001.51 5.26l.235.374-.998 3.648 3.741-.982.36.214.043.023v-.004zm10.875-6.29c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+    </svg>
+  );
+}
+
 export default function PrivateSessionsPage() {
   const [currency, setCurrency] = useState<SupportedCurrency>("NGN");
   const [copiedBank, setCopiedBank] = useState(false);
@@ -364,9 +377,10 @@ export default function PrivateSessionsPage() {
               href="https://wa.me/2347047581704?text=Hello%20Dahel%20Technologies!%20I%20am%20ready%20to%20register%20for%20a%20Private%20Session."
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto bg-navy-900 hover:bg-electric-blue text-white font-bold px-8 py-4 rounded-full text-base transition-all hover:scale-105 shadow-md text-center"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-navy-900 hover:bg-electric-blue text-white font-bold px-8 py-4 rounded-full text-base transition-all hover:scale-105 shadow-md text-center group"
             >
-              Register via WhatsApp (Nora) →
+              <WhatsAppIcon className="w-5 h-5 text-emerald-400 shrink-0 transition-transform group-hover:scale-110" />
+              <span>Register via WhatsApp (Nora) →</span>
             </a>
             <a
               href="#fee-per-course"
@@ -493,22 +507,11 @@ export default function PrivateSessionsPage() {
                   href={`https://wa.me/2347047581704?text=Hello%20Dahel%20Technologies!%20I%20want%20to%20register%20for%20the%20${encodeURIComponent(course.title)}%20Private%20Session.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center bg-navy-900 hover:bg-electric-blue text-white font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-colors text-center shadow-xs"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-navy-900 hover:bg-electric-blue text-white font-bold py-3 px-4 rounded-xl text-xs uppercase tracking-wider transition-colors text-center shadow-xs group"
                 >
-                  Enroll in {course.title} →
+                  <WhatsAppIcon className="w-4 h-4 text-emerald-400 shrink-0 transition-transform group-hover:scale-110" />
+                  <span>Enroll in {course.title} →</span>
                 </a>
-
-                {/* SELFANY PREMIUM PAYMENT LINK FOR PRIVATE SESSIONS SPECIFICALLY UNDER EXCEL */}
-                {course.id === "excel" && (
-                  <a
-                    href="https://selfany.com/daheltechprivatesessions"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2.5 w-full inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold py-2.5 px-3 rounded-xl text-[11px] uppercase tracking-wider transition-all hover:scale-[1.02] text-center shadow-xs"
-                  >
-                    Make Payments for Premium Experience as Private Student →
-                  </a>
-                )}
               </div>
             </AnimatedCourseCard>
           ))}
@@ -601,9 +604,10 @@ export default function PrivateSessionsPage() {
                         href={`https://wa.me/2347047581704?text=Hello%20Dahel%20Technologies!%20I%20would%20like%20to%20enroll%20in%20the%20${encodeURIComponent(course.title)}%20Private%20Session.`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center bg-navy-900 hover:bg-electric-blue text-white font-bold py-3.5 px-6 rounded-xl text-sm transition-colors shadow-xs text-center w-full"
+                        className="inline-flex items-center justify-center gap-2.5 bg-navy-900 hover:bg-electric-blue text-white font-bold py-3.5 px-6 rounded-xl text-sm transition-colors shadow-xs text-center w-full group"
                       >
-                        Enroll in {course.title} →
+                        <WhatsAppIcon className="w-5 h-5 text-emerald-400 shrink-0 transition-transform group-hover:scale-110" />
+                        <span>Enroll in {course.title} →</span>
                       </a>
 
                       {course.id === "excel" && (
@@ -655,6 +659,29 @@ export default function PrivateSessionsPage() {
                 </div>
               </AnimatedCourseCard>
             ))}
+          </div>
+
+          {/* MAKE PAYMENTS FOR PREMIUM EXPERIENCE AS PRIVATE STUDENT */}
+          <div className="mt-16 bg-gradient-to-r from-blue-900 via-navy-900 to-indigo-950 text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-blue-800 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="max-w-2xl text-center lg:text-left">
+              <span className="inline-block bg-blue-500/30 text-blue-300 font-extrabold text-[11px] uppercase tracking-wider px-3.5 py-1 rounded-full border border-blue-400/30 mb-3">
+                Direct Enrollment
+              </span>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-3">
+                Make Payments for Premium Experience as Private Student
+              </h3>
+              <p className="text-blue-100 text-sm sm:text-base leading-relaxed">
+                Prefer immediate digital checkout for your 1-on-1 private session track? Complete your payment securely through our direct Selfany gateway.
+              </p>
+            </div>
+            <a
+              href="https://selfany.com/daheltechprivatesessions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-black py-4 px-8 rounded-full text-sm uppercase tracking-wider transition-all hover:scale-105 shadow-lg shrink-0 text-center"
+            >
+              Make Payments for Premium Experience as Private Student →
+            </a>
           </div>
 
         </div>
@@ -880,17 +907,19 @@ export default function PrivateSessionsPage() {
               href="https://wa.me/2347047581704?text=Hello%20Dahel%20Technologies!%20I%20would%20like%20to%20register%20and%20secure%20my%20Private%20Session."
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center bg-electric-blue hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-base transition-all shadow-md"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-electric-blue hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-base transition-all shadow-md group"
             >
-              Register on WhatsApp: +234 704 758 1704 →
+              <WhatsAppIcon className="w-5 h-5 text-emerald-300 shrink-0 transition-transform group-hover:scale-110" />
+              <span>Register on WhatsApp: +234 704 758 1704 →</span>
             </a>
             <a
               href="https://wa.me/13107081983?text=Hello%20Vael!%20I%20have%20an%20inquiry%20regarding%20Dahel%20Private%20Sessions."
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center bg-navy-900 hover:bg-navy-800 text-white font-bold py-4 px-8 rounded-full text-base transition-colors"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-navy-900 hover:bg-navy-800 text-white font-bold py-4 px-8 rounded-full text-base transition-colors group"
             >
-              Chat with Vael: +1 (310) 708 1983 →
+              <WhatsAppIcon className="w-5 h-5 text-emerald-400 shrink-0 transition-transform group-hover:scale-110" />
+              <span>Chat with Vael: +1 (310) 708 1983 →</span>
             </a>
           </div>
           <div className="mt-4">
