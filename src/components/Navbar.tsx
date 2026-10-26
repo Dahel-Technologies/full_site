@@ -69,6 +69,14 @@ export default function Navbar() {
           >
             News
           </Link>
+          <Link 
+            href="/referralprogram" 
+            className={`transition-colors hover:text-electric-blue ${
+              pathname === "/referralprogram" ? "text-electric-blue font-bold" : ""
+            }`}
+          >
+            Referral
+          </Link>
         </div>
 
         {/* ACTION BUTTONS: SUCCEED & BUILD WITH US and PROCEED WITH PAYMENTS */}
@@ -139,6 +147,15 @@ export default function Navbar() {
               }`}
             >
               News
+            </Link>
+            <Link 
+              href="/referralprogram" 
+              onClick={() => setMobileMenuOpen(false)} 
+              className={`py-2.5 border-b border-gray-100 font-semibold hover:text-electric-blue ${
+                pathname === "/referralprogram" ? "text-electric-blue" : ""
+              }`}
+            >
+              Referral Program
             </Link>
             
             <div className="flex flex-col gap-3 mt-4 pt-2">

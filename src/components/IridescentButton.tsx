@@ -8,13 +8,27 @@ interface IridescentButtonProps {
   children: React.ReactNode;
   className?: string;
   theme?: 'light' | 'dark';
+  target?: string;
+  rel?: string;
 }
 
-export default function IridescentButton({ href, children, className = "", theme = "light" }: IridescentButtonProps) {
+export default function IridescentButton({ 
+  href, 
+  children, 
+  className = "", 
+  theme = "light",
+  target,
+  rel
+}: IridescentButtonProps) {
   const isDark = theme === 'dark';
   
   return (
-    <Link href={href} className={`ir-pill ${isDark ? 'ir-pill-dark' : ''} ${className}`}>
+    <Link 
+      href={href} 
+      target={target}
+      rel={rel}
+      className={`ir-pill ${isDark ? 'ir-pill-dark' : ''} ${className}`}
+    >
       <style>{`
         .ir-pill {
           display: inline-flex;
