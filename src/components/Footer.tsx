@@ -56,6 +56,7 @@ export default function Footer() {
               <li><Link href="/news" className="hover:text-white transition-colors">In the News</Link></li>
               <li><Link href="/build-with-us" className="hover:text-white transition-colors">Succeed & Build With Us</Link></li>
               <li><Link href="/payments" className="hover:text-white transition-colors">Make Payments</Link></li>
+              <li><Link href="/referralprogram" className="hover:text-white transition-colors">Referral Program</Link></li>
               <li><Link href="/partners" className="hover:text-white transition-colors">Partners & Orgs</Link></li>
               <li><Link href="/reviews" className="hover:text-white transition-colors">Success Stories</Link></li>
             </ul>
