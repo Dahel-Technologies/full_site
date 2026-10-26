@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { 
   ArrowRight, 
@@ -18,24 +19,68 @@ import {
   ExternalLink, 
   ChevronDown, 
   Calculator, 
-  FileSpreadsheet, 
-  Database, 
-  BarChart3, 
-  Brain, 
-  Code2, 
+  Star,
   HeartHandshake, 
   Lightbulb, 
   Megaphone,
-  Layers,
   ArrowUpRight,
   ShieldCheck,
-  Zap
+  Zap,
+  BookOpen
 } from "lucide-react";
 import SpotlightCard from "@/components/SpotlightCard";
-import ShinyText from "@/components/animations/ShinyText";
-import IridescentButton from "@/components/IridescentButton";
 
 const TALLY_FORM_URL = "https://tally.so/r/8NNLRl";
+
+// STANDOUT HIGH-ENERGY BUTTON COMPONENT
+function StandoutButton({
+  href,
+  children,
+  variant = "gradient",
+  className = "",
+  target = "_blank",
+  rel = "noopener noreferrer"
+}: {
+  href: string;
+  children: React.ReactNode;
+  variant?: "gradient" | "white" | "navy" | "magenta";
+  className?: string;
+  target?: string;
+  rel?: string;
+}) {
+  const getVariantStyles = () => {
+    switch (variant) {
+      case "white":
+        return "bg-white text-navy-900 hover:bg-blue-50 shadow-[0_10px_30px_rgba(255,255,255,0.3)] hover:shadow-[0_15px_40px_rgba(255,255,255,0.5)] border-2 border-white";
+      case "navy":
+        return "bg-navy-900 text-white hover:bg-electric-blue shadow-[0_10px_30px_rgba(10,25,47,0.35)] hover:shadow-[0_15px_40px_rgba(0,86,210,0.5)] border border-navy-800";
+      case "magenta":
+        return "bg-gradient-to-r from-magenta-600 via-pink-600 to-rose-600 text-white shadow-[0_10px_35px_rgba(216,17,89,0.55)] hover:shadow-[0_15px_45px_rgba(216,17,89,0.75)] border border-pink-400/40";
+      case "gradient":
+      default:
+        return "bg-gradient-to-r from-electric-blue via-[#185edb] to-magenta-600 text-white shadow-[0_10px_35px_rgba(0,86,210,0.55)] hover:shadow-[0_15px_45px_rgba(216,17,89,0.65)] border border-blue-300/40";
+    }
+  };
+
+  return (
+    <a
+      href={href}
+      target={target}
+      rel={rel}
+      className={`group relative inline-flex items-center gap-3.5 px-8 py-4 sm:px-10 sm:py-5 rounded-full font-black text-sm sm:text-base tracking-wider uppercase transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden ${getVariantStyles()} ${className}`}
+    >
+      {/* Moving shimmer highlight */}
+      <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+      
+      {/* Animated Icon Disc */}
+      <span className="relative flex items-center justify-center w-8 h-8 rounded-full bg-black/20 text-white shrink-0 group-hover:rotate-45 transition-transform duration-300 shadow-sm">
+        <ArrowUpRight size={18} className="shrink-0" />
+      </span>
+      
+      <span className="relative z-10 drop-shadow-sm">{children}</span>
+    </a>
+  );
+}
 
 export default function ReferralProgramPage() {
   // FAQ accordion state
@@ -66,6 +111,7 @@ export default function ReferralProgramPage() {
     return `$${val.toLocaleString()}`;
   };
 
+  // 4 Steps for How It Works
   const steps = [
     {
       step: "01",
@@ -117,62 +163,57 @@ export default function ReferralProgramPage() {
     }
   ];
 
-  const coursesReferrable = [
+  // EXACT COURSES FROM https://daheltech.com/learn WITH 5% COMMISSION APPLIED
+  const platformCourses = [
     {
-      title: "Data Analytics",
-      description: "End-to-end analytics pipelines, dashboard design, and business data solutions.",
-      icon: BarChart3,
-      badge: "Flagship",
-      accent: "from-blue-500 to-cyan-500",
-      cardGlow: "group-hover:border-blue-400 group-hover:shadow-[0_15px_35px_rgba(0,86,210,0.12)]"
+      title: "SPSS Mastery",
+      category: "Data Analytics",
+      level: "All Levels",
+      link: "https://selfany.com/SPSSMastery",
+      img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      commissionRate: "5% Commission",
+      tagline: "Statistical analysis & data modeling",
+      color: "border-blue-200 hover:border-blue-400"
     },
     {
-      title: "Microsoft Excel",
-      description: "From essential lookups and pivot tables to advanced formulas and automation.",
-      icon: FileSpreadsheet,
-      badge: "Core Essential",
-      accent: "from-emerald-500 to-teal-500",
-      cardGlow: "group-hover:border-emerald-400 group-hover:shadow-[0_15px_35px_rgba(16,185,129,0.12)]"
+      title: "Data Analytics and AI",
+      category: "Data & AI",
+      level: "Beginner → Advanced",
+      link: "https://selfany.com/DataAnayticsClass",
+      img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+      commissionRate: "5% Commission",
+      tagline: "Full pipeline analytics & modern AI",
+      color: "border-purple-200 hover:border-purple-400"
     },
     {
-      title: "SQL",
-      description: "Querying relational databases, complex joins, indexing, and data warehousing.",
-      icon: Database,
-      badge: "High Demand",
-      accent: "from-indigo-500 to-purple-500",
-      cardGlow: "group-hover:border-indigo-400 group-hover:shadow-[0_15px_35px_rgba(99,102,241,0.12)]"
+      title: "Sheets and Excel with AI",
+      category: "Data Analytics",
+      level: "Beginner → Intermediate",
+      link: "https://selfany.com/sheetsnengineerwithai",
+      img: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?w=800&q=80",
+      commissionRate: "5% Commission",
+      tagline: "Spreadsheet automation & formula mastery",
+      color: "border-emerald-200 hover:border-emerald-400"
     },
     {
-      title: "Power BI",
-      description: "Business intelligence modeling, DAX calculations, and interactive executive reporting.",
-      icon: TrendingUp,
-      badge: "Career Ready",
-      accent: "from-amber-500 to-orange-500",
-      cardGlow: "group-hover:border-amber-400 group-hover:shadow-[0_15px_35px_rgba(245,158,11,0.12)]"
+      title: "Cybersecurity Basic",
+      category: "Security",
+      level: "Beginner",
+      link: "https://selar.com/Cyberprogram",
+      img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
+      commissionRate: "5% Commission",
+      tagline: "Network defense & foundational security",
+      color: "border-rose-200 hover:border-rose-400"
     },
     {
-      title: "Tableau",
-      description: "Visual analytics, interactive dashboards, and compelling data storytelling.",
-      icon: Layers,
-      badge: "Visual Power",
-      accent: "from-cyan-500 to-blue-500",
-      cardGlow: "group-hover:border-cyan-400 group-hover:shadow-[0_15px_35px_rgba(6,182,212,0.12)]"
-    },
-    {
-      title: "Python",
-      description: "Programming for data analysis, Pandas, NumPy, automation, and backend workflows.",
-      icon: Code2,
-      badge: "Top Versatile",
-      accent: "from-violet-500 to-fuchsia-500",
-      cardGlow: "group-hover:border-violet-400 group-hover:shadow-[0_15px_35px_rgba(139,92,246,0.12)]"
-    },
-    {
-      title: "Artificial Intelligence",
-      description: "Generative AI tools, prompt engineering, AI agents, and emerging technologies.",
-      icon: Brain,
-      badge: "Future Ready",
-      accent: "from-pink-500 to-rose-500",
-      cardGlow: "group-hover:border-pink-400 group-hover:shadow-[0_15px_35px_rgba(244,63,94,0.12)]"
+      title: "All Courses Bundle (3k Offer)",
+      category: "Bundle",
+      level: "All Levels",
+      link: "https://selfany.com/3koffer",
+      img: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&q=80",
+      commissionRate: "5% Commission",
+      tagline: "Multi-course tech capability bundle",
+      color: "border-amber-200 hover:border-amber-400"
     }
   ];
 
@@ -272,7 +313,7 @@ export default function ReferralProgramPage() {
 
         <div className="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center">
           
-          {/* MAIN CATCHPHRASE */}
+          {/* MAIN CATCHPHRASE (Clean typography without container box) */}
           <div className="mb-4">
             <span className="text-sm sm:text-base md:text-lg font-black uppercase tracking-[0.35em] text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300">
               REFER. EARN. GROW.
@@ -287,9 +328,9 @@ export default function ReferralProgramPage() {
             </span>
           </h1>
 
-          {/* EARN 5% HIGHLIGHT */}
-          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-magenta-600/20 via-purple-600/20 to-blue-600/20 border border-magenta-500/40 px-6 sm:px-8 py-3.5 rounded-2xl mb-8 backdrop-blur-md shadow-[0_0_30px_rgba(216,17,89,0.2)]">
-            <div className="w-8 h-8 rounded-full bg-magenta-500/30 flex items-center justify-center text-magenta-300">
+          {/* EARN 5% HIGHLIGHT BANNER */}
+          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-magenta-600/25 via-purple-600/25 to-blue-600/25 border border-magenta-500/40 px-6 sm:px-8 py-3.5 rounded-2xl mb-8 backdrop-blur-md shadow-[0_0_35px_rgba(216,17,89,0.25)]">
+            <div className="w-8 h-8 rounded-full bg-magenta-500/30 flex items-center justify-center text-magenta-300 shrink-0">
               <Zap size={18} />
             </div>
             <span className="text-base sm:text-xl font-bold text-white">
@@ -306,30 +347,28 @@ export default function ReferralProgramPage() {
             Your network is an opportunity. Share it. Earn from it. Help someone grow.
           </p>
 
-          {/* DYNAMIC ANIMATED CTA BUTTON (No static buttons) */}
+          {/* STANDOUT ANIMATED CTA BUTTON */}
           <div className="mb-12">
-            <IridescentButton
+            <StandoutButton
               href={TALLY_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              theme="dark"
-              className="px-8 py-4 sm:px-10 sm:py-5 text-sm sm:text-base font-black tracking-wider uppercase shadow-[0_0_40px_rgba(0,86,210,0.5)] hover:scale-105"
+              variant="gradient"
+              className="text-base sm:text-lg px-10 sm:px-12 py-5 sm:py-6 shadow-[0_15px_45px_rgba(0,86,210,0.65)]"
             >
               JOIN THE REFERRAL PROGRAM
-            </IridescentButton>
+            </StandoutButton>
           </div>
 
           {/* REASSURANCE PILLS WITH MODERN GLASS STYLING */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-3xl">
-            <div className="flex items-center justify-center gap-2.5 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-xs sm:text-sm text-gray-200 font-medium shadow-sm hover:bg-white/10 transition-colors">
+            <div className="flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-xs sm:text-sm text-gray-200 font-medium shadow-sm hover:bg-white/10 transition-colors">
               <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
               <span>No teaching required</span>
             </div>
-            <div className="flex items-center justify-center gap-2.5 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-xs sm:text-sm text-gray-200 font-medium shadow-sm hover:bg-white/10 transition-colors">
+            <div className="flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-xs sm:text-sm text-gray-200 font-medium shadow-sm hover:bg-white/10 transition-colors">
               <CheckCircle2 size={16} className="text-blue-300 shrink-0" />
               <span>No need to be a tech expert</span>
             </div>
-            <div className="flex items-center justify-center gap-2.5 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-xs sm:text-sm text-gray-200 font-medium shadow-sm hover:bg-white/10 transition-colors">
+            <div className="flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-xs sm:text-sm text-gray-200 font-medium shadow-sm hover:bg-white/10 transition-colors">
               <CheckCircle2 size={16} className="text-purple-300 shrink-0" />
               <span>Refer people ready to learn</span>
             </div>
@@ -338,7 +377,7 @@ export default function ReferralProgramPage() {
         </div>
       </section>
 
-      {/* SECTION: YOUR CONNECTIONS COULD EARN YOU MONEY (ELEVATED CARDS) */}
+      {/* SECTION: YOUR CONNECTIONS COULD EARN YOU MONEY */}
       <section className="py-24 md:py-32 px-4 sm:px-6 bg-slate-50/70 border-b border-gray-200/80 relative">
         <div className="max-w-6xl mx-auto">
           
@@ -357,7 +396,7 @@ export default function ReferralProgramPage() {
           {/* 4 ELEVATED INTERACTIVE CARDS */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             
-            <div className="group relative bg-white rounded-3xl p-7 border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,86,210,0.12)] hover:border-blue-400/60 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            <div className="group relative bg-white rounded-3xl p-7 border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,86,210,0.14)] hover:border-blue-400/60 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden">
               <div className="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all pointer-events-none" />
               <div>
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-electric-blue text-white flex items-center justify-center mb-6 shadow-md shadow-blue-500/20 group-hover:scale-110 transition-transform">
@@ -374,7 +413,7 @@ export default function ReferralProgramPage() {
               </div>
             </div>
 
-            <div className="group relative bg-white rounded-3xl p-7 border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(147,51,234,0.12)] hover:border-purple-400/60 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            <div className="group relative bg-white rounded-3xl p-7 border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(147,51,234,0.14)] hover:border-purple-400/60 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden">
               <div className="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all pointer-events-none" />
               <div>
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 text-white flex items-center justify-center mb-6 shadow-md shadow-purple-500/20 group-hover:scale-110 transition-transform">
@@ -391,7 +430,7 @@ export default function ReferralProgramPage() {
               </div>
             </div>
 
-            <div className="group relative bg-white rounded-3xl p-7 border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(16,185,129,0.12)] hover:border-emerald-400/60 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            <div className="group relative bg-white rounded-3xl p-7 border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(16,185,129,0.14)] hover:border-emerald-400/60 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden">
               <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all pointer-events-none" />
               <div>
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center mb-6 shadow-md shadow-emerald-500/20 group-hover:scale-110 transition-transform">
@@ -408,7 +447,7 @@ export default function ReferralProgramPage() {
               </div>
             </div>
 
-            <div className="group relative bg-white rounded-3xl p-7 border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(216,17,89,0.12)] hover:border-pink-400/60 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            <div className="group relative bg-white rounded-3xl p-7 border border-slate-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(216,17,89,0.14)] hover:border-pink-400/60 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between overflow-hidden">
               <div className="absolute top-0 right-0 w-28 h-28 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20 transition-all pointer-events-none" />
               <div>
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-magenta-600 text-white flex items-center justify-center mb-6 shadow-md shadow-pink-500/20 group-hover:scale-110 transition-transform">
@@ -427,7 +466,7 @@ export default function ReferralProgramPage() {
 
           </div>
 
-          {/* DYNAMIC CALLOUT BANNER (Replaced static button with IridescentButton) */}
+          {/* DYNAMIC CALLOUT BANNER WITH STANDOUT BUTTON */}
           <div className="bg-gradient-to-r from-navy-900 via-[#102347] to-navy-900 text-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-navy-700/80 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
             <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-electric-blue/20 rounded-full blur-3xl pointer-events-none" />
             
@@ -441,22 +480,20 @@ export default function ReferralProgramPage() {
             </div>
             
             <div className="shrink-0 relative z-10">
-              <IridescentButton
+              <StandoutButton
                 href={TALLY_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                theme="dark"
-                className="px-8 py-4 font-bold"
+                variant="white"
+                className="text-navy-900 shadow-xl"
               >
                 JOIN THE PROGRAM
-              </IridescentButton>
+              </StandoutButton>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* SECTION: INTERACTIVE EARNINGS SIMULATOR (HIGH-TECH FINTECH CARD) */}
+      {/* SECTION: INTERACTIVE EARNINGS SIMULATOR */}
       <section className="py-24 px-4 sm:px-6 bg-white border-b border-gray-100">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
@@ -574,15 +611,13 @@ export default function ReferralProgramPage() {
               </div>
 
               <div className="w-full sm:w-auto shrink-0">
-                <IridescentButton
+                <StandoutButton
                   href={TALLY_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  theme="dark"
-                  className="w-full justify-center text-sm font-bold"
+                  variant="gradient"
+                  className="w-full justify-center shadow-lg"
                 >
                   CLAIM YOUR 5%
-                </IridescentButton>
+                </StandoutButton>
               </div>
             </div>
 
@@ -624,7 +659,7 @@ export default function ReferralProgramPage() {
               </p>
             </div>
 
-            {/* STATS TILES (ENHANCED CARDS) */}
+            {/* STATS TILES */}
             <div className="lg:col-span-5 grid grid-cols-2 gap-4 sm:gap-6">
               
               <div className="bg-gradient-to-br from-navy-800 to-navy-800/60 border border-white/10 hover:border-blue-400/50 rounded-3xl p-6 text-center shadow-xl transition-all duration-300 hover:-translate-y-1">
@@ -670,7 +705,7 @@ export default function ReferralProgramPage() {
         </div>
       </section>
 
-      {/* SECTION: HOW IT WORKS (REDESIGNED 4-STEP CARDS) */}
+      {/* SECTION: HOW IT WORKS */}
       <section id="how-it-works" className="py-24 md:py-32 px-4 sm:px-6 bg-white scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           
@@ -723,22 +758,21 @@ export default function ReferralProgramPage() {
             })}
           </div>
 
-          {/* DYNAMIC ANIMATED CTA (No static buttons) */}
+          {/* DYNAMIC STANDOUT BUTTON */}
           <div className="flex justify-center">
-            <IridescentButton
+            <StandoutButton
               href={TALLY_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 sm:px-10 sm:py-5 text-sm sm:text-base font-bold shadow-xl"
+              variant="navy"
+              className="text-base sm:text-lg px-10 sm:px-12 py-5 shadow-2xl"
             >
               START REFERRING TODAY
-            </IridescentButton>
+            </StandoutButton>
           </div>
 
         </div>
       </section>
 
-      {/* SECTION: WHAT CAN YOU REFER? (POLISHED TECH CARDS) */}
+      {/* SECTION: WHAT CAN YOU REFER? (EXACT COURSES FROM https://daheltech.com/learn WITH 5% COMMISSION) */}
       <section className="py-24 md:py-32 px-4 sm:px-6 bg-slate-50/70 border-t border-b border-gray-200">
         <div className="max-w-6xl mx-auto">
           
@@ -750,58 +784,130 @@ export default function ReferralProgramPage() {
               What Can You Refer?
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-normal">
-              Help people discover practical training in today’s most sought-after technologies:
+              Earn a guaranteed <strong className="text-navy-900 font-bold">5% referral commission</strong> on every qualifying course enrolment from our featured training catalog:
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-            {coursesReferrable.map((c, i) => {
-              const Icon = c.icon;
-              return (
-                <SpotlightCard
-                  key={i}
-                  className={`group bg-white rounded-3xl p-6 border border-slate-200/90 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between ${c.cardGlow}`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-5">
-                      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-white bg-gradient-to-br ${c.accent} shadow-md group-hover:scale-105 transition-transform`}>
-                        <Icon size={22} />
-                      </div>
-                      <span className="text-[10px] font-black uppercase tracking-wider text-navy-900 bg-slate-100 px-3 py-1 rounded-full border border-slate-200/60">
-                        {c.badge}
+          {/* EXACT PLATFORM COURSES FROM /learn */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {platformCourses.map((course, i) => (
+              <SpotlightCard
+                key={i}
+                className="group border border-gray-200/90 rounded-3xl bg-white hover:shadow-2xl hover:border-blue-400 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between overflow-hidden"
+              >
+                <div>
+                  {/* Course Image Header */}
+                  <div className="h-52 relative overflow-hidden bg-gray-100">
+                    <Image 
+                      src={course.img} 
+                      alt={course.title} 
+                      fill 
+                      className="object-cover group-hover:scale-105 transition-transform duration-500" 
+                    />
+                    <div className="absolute inset-0 bg-navy-900/15 group-hover:bg-transparent transition-colors" />
+                    
+                    {/* Category pill on top of image */}
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-navy-900/90 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md">
+                        {course.category}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-black text-navy-900 mb-2 group-hover:text-electric-blue transition-colors">
-                      {c.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                      {c.description}
-                    </p>
+                    {/* 5% COMMISSION APPLIED BADGE (Prominently styled) */}
+                    <div className="absolute bottom-3 right-3 bg-gradient-to-r from-magenta-600 to-pink-600 text-white text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-wider shadow-lg flex items-center gap-1.5 animate-pulse">
+                      <Zap size={14} className="fill-white" />
+                      <span>{course.commissionRate}</span>
+                    </div>
                   </div>
 
-                  <div className="pt-3 border-t border-gray-100 flex items-center gap-1.5 text-xs font-bold text-emerald-600">
-                    <CheckCircle2 size={15} /> 5% Commission Eligible
+                  {/* Course Body */}
+                  <div className="p-6 sm:p-7">
+                    <div className="flex items-center justify-between text-xs text-gray-500 font-medium mb-2">
+                      <span className="bg-blue-50 text-electric-blue font-bold px-2.5 py-1 rounded-lg">
+                        {course.level}
+                      </span>
+                      <div className="flex text-amber-400">
+                        <Star size={14} fill="currentColor" />
+                        <Star size={14} fill="currentColor" />
+                        <Star size={14} fill="currentColor" />
+                        <Star size={14} fill="currentColor" />
+                        <Star size={14} fill="currentColor" />
+                      </div>
+                    </div>
+
+                    <h3 className="text-xl sm:text-2xl font-black text-navy-900 mb-2 group-hover:text-electric-blue transition-colors">
+                      {course.title}
+                    </h3>
+
+                    <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                      {course.tagline}
+                    </p>
+
+                    {/* Commission Tag Box */}
+                    <div className="bg-emerald-50 border border-emerald-200/80 rounded-2xl p-3.5 mb-2 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <DollarSign size={16} className="text-emerald-600" />
+                        <span className="text-xs font-bold text-emerald-800">Referral Commission:</span>
+                      </div>
+                      <span className="text-xs font-black text-emerald-700 bg-white px-2.5 py-1 rounded-md shadow-xs border border-emerald-200">
+                        5% Payout
+                      </span>
+                    </div>
                   </div>
-                </SpotlightCard>
-              );
-            })}
+                </div>
+
+                {/* Card Action Link */}
+                <div className="p-6 sm:p-7 pt-0 border-t border-gray-100 mt-auto flex items-center justify-between">
+                  <a
+                    href={course.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-gray-500 hover:text-electric-blue flex items-center gap-1.5 transition-colors"
+                  >
+                    <span>View course syllabus</span>
+                    <ExternalLink size={13} />
+                  </a>
+
+                  <a
+                    href={TALLY_FORM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 bg-electric-blue hover:bg-navy-900 text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-md transition-all hover:scale-105"
+                  >
+                    <span>Refer This</span>
+                    <ArrowRight size={14} />
+                  </a>
+                </div>
+              </SpotlightCard>
+            ))}
           </div>
 
-          {/* IMPACT SUBTEXT */}
-          <div className="bg-white border border-slate-200/90 rounded-3xl p-8 sm:p-12 shadow-sm max-w-4xl mx-auto text-center">
-            <h3 className="text-2xl font-black text-navy-900 mb-3">
-              Skills That Change Careers
-            </h3>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-              Whether someone wants to <strong>improve their CV</strong>, <strong>become more competitive at work</strong>, <strong>change careers</strong>, or <strong>develop practical digital skills</strong>, you can connect them to a learning opportunity.
-            </p>
+          {/* VIEW ALL COURSES BANNER */}
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-8 sm:p-12 shadow-sm max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div>
+              <h3 className="text-xl sm:text-2xl font-black text-navy-900 mb-2">
+                Looking for more programs?
+              </h3>
+              <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                Check our complete course lineup on Selfany. Any eligible training program enrolled through your referral earns you 5%.
+              </p>
+            </div>
+            <a
+              href="https://selfany.com/s/DahelTechies"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-navy-900 text-sm font-bold transition-all"
+            >
+              <BookOpen size={18} />
+              <span>Explore All on Selfany</span>
+              <ArrowRight size={16} />
+            </a>
           </div>
 
         </div>
       </section>
 
-      {/* SECTION: WHO CAN JOIN? (VIBRANT PERSONAS) */}
+      {/* SECTION: WHO CAN JOIN? */}
       <section className="py-24 md:py-32 px-4 sm:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           
@@ -842,7 +948,7 @@ export default function ReferralProgramPage() {
             })}
           </div>
 
-          {/* CALLOUT BANNER (Replaced static button with IridescentButton) */}
+          {/* CALLOUT BANNER WITH STANDOUT BUTTON */}
           <div className="bg-gradient-to-br from-blue-50/80 via-purple-50/80 to-pink-50/80 border-2 border-purple-200/90 rounded-3xl p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-md">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 text-white mb-4 shadow-lg shadow-purple-500/20">
               <Sparkles size={26} />
@@ -854,21 +960,20 @@ export default function ReferralProgramPage() {
               Multiple successful referrals could grow your earnings. Share with course-mates, family WhatsApp groups, LinkedIn connections, and colleagues.
             </p>
             <div className="inline-flex justify-center">
-              <IridescentButton
+              <StandoutButton
                 href={TALLY_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 font-bold"
+                variant="navy"
+                className="shadow-xl"
               >
                 JOIN THE REFERRAL PROGRAM
-              </IridescentButton>
+              </StandoutButton>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* FINAL HIGH-IMPACT CTA SECTION (No static buttons, raw link text removed per instructions) */}
+      {/* FINAL HIGH-IMPACT CTA SECTION WITH STANDOUT BUTTON */}
       <section className="py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-b from-navy-900 via-[#0b1a33] to-navy-900 text-white relative overflow-hidden">
         
         {/* Glow circles */}
@@ -889,20 +994,18 @@ export default function ReferralProgramPage() {
           </p>
 
           <p className="text-gray-300 text-base sm:text-lg max-w-2xl leading-relaxed mb-10 font-normal">
-            Join the Dahel Technologies Referral Program, share our training opportunities, and earn <strong className="text-white">5% of the course fee</strong> for each successful, qualifying referral.
+            Join our referral program, share our training opportunities, and earn <strong className="text-white">5% of the course fee</strong> for each successful, qualifying referral.
           </p>
 
-          {/* DYNAMIC ANIMATED BUTTON (The button is enough per instruction) */}
+          {/* STANDOUT FINAL CTA BUTTON */}
           <div className="mb-4">
-            <IridescentButton
+            <StandoutButton
               href={TALLY_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              theme="dark"
-              className="px-10 py-5 text-base sm:text-lg font-black tracking-wider shadow-[0_0_50px_rgba(216,17,89,0.5)] hover:scale-105"
+              variant="magenta"
+              className="text-base sm:text-lg px-12 sm:px-14 py-5 sm:py-6 shadow-[0_15px_50px_rgba(216,17,89,0.7)]"
             >
               JOIN THE PROGRAM NOW
-            </IridescentButton>
+            </StandoutButton>
           </div>
 
         </div>
