@@ -272,9 +272,9 @@ export default function ReferralProgramPage() {
 
         <div className="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center">
           
-          {/* MAIN CATCHPHRASE (Hero Badge removed per instruction) */}
-          <div className="mb-6 inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-2xl">
-            <span className="text-sm sm:text-base font-black uppercase tracking-[0.3em] text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300">
+          {/* MAIN CATCHPHRASE */}
+          <div className="mb-4">
+            <span className="text-sm sm:text-base md:text-lg font-black uppercase tracking-[0.35em] text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300">
               REFER. EARN. GROW.
             </span>
           </div>
