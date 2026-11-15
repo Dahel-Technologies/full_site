@@ -1,600 +1,1025 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import type { Metadata } from "next";
 import {
   ArrowRight,
-  Play,
-  Calendar,
-  Award,
-  Check,
+  Building2,
+  ShoppingBag,
+  UserCheck,
   GraduationCap,
-  Laptop,
-  Users,
-  BadgeCheck,
-  Trophy,
+  Layers,
+  RefreshCw,
+  CheckCircle2,
   Globe,
-  ChevronDown,
-  MessageCircle,
+  Smartphone,
+  ShieldCheck,
   Sparkles,
+  Clock,
+  Mail,
+  MessageCircle,
+  Copy,
+  Check,
+  FileText,
+  CreditCard,
 } from "lucide-react";
+import {
+  detectCurrencySync,
+  detectCurrencyAsync,
+  savePreferredCurrency,
+  SupportedCurrency,
+} from "@/utils/geoCurrency";
 
-export const metadata: Metadata = {
-  title: "Web Design Course | Design Your Website — Dahel Technologies",
-  description:
-    "Build stunning websites & grow your digital skills. Learn modern web design skills including HTML & CSS, JavaScript, Responsive Design, WordPress, UI/UX Best Practices, and Website Deployment.",
+interface WebsiteCategory {
+  id: string;
+  title: string;
+  subtitle: string;
+  desc: string;
+  icon: React.ElementType;
+  examples: string;
+}
+
+const WEBSITE_CATEGORIES: WebsiteCategory[] = [
+  {
+    id: "business",
+    title: "Business & Corporate Website",
+    subtitle: "For Companies, SMEs, Agencies & Institutions",
+    desc: "A professional, authoritative website that communicates your services, builds credibility, and turns visitors into paying clients.",
+    icon: Building2,
+    examples: "Company profile, consulting firm, NGO, hospital, real estate, law firm",
+  },
+  {
+    id: "ecommerce",
+    title: "E-Commerce & Online Store",
+    subtitle: "Sell Physical or Digital Products Online",
+    desc: "Complete online storefront with product catalogs, cart checkout, and secure Nigerian & international payment gateways.",
+    icon: ShoppingBag,
+    examples: "Fashion brand, electronics store, digital bookstore, food & retail delivery",
+  },
+  {
+    id: "portfolio",
+    title: "Personal Brand & Portfolio",
+    subtitle: "For Executives, Creatives, Authors & Speakers",
+    desc: "Bespoke personal websites designed to showcase your biography, career achievements, media, publications, and booking inquiries.",
+    icon: UserCheck,
+    examples: "Executive portfolio, author/poet platform, filmmaker, consultant, speaker",
+  },
+  {
+    id: "edtech",
+    title: "School, Academy & EdTech Platform",
+    subtitle: "For Training Centers, Schools & Course Creators",
+    desc: "Modern educational portals with course listings, student registration, payment collection, and learning management features.",
+    icon: GraduationCap,
+    examples: "Tech academy, secondary/tertiary portal, coaching program, online bootcamp",
+  },
+  {
+    id: "webapp",
+    title: "Custom Web App / SaaS Platform",
+    subtitle: "Tailored Software & Client Portals",
+    desc: "Full-stack web applications with user authentication, dashboards, databases, real-time workflows, and custom business logic.",
+    icon: Layers,
+    examples: "Booking platform, marketplace, verification app, internal admin dashboard",
+  },
+  {
+    id: "redesign",
+    title: "Website Redesign & Upgrade",
+    subtitle: "Modernize an Existing Website",
+    desc: "Transform a slow, outdated, or non-mobile-friendly website into a fast, modern, high-converting digital experience.",
+    icon: RefreshCw,
+    examples: "UI/UX overhaul, mobile responsiveness fix, speed & SEO optimization, payment integration",
+  },
+];
+
+const FEATURE_OPTIONS = [
+  "Mobile & Tablet Responsive Design",
+  "Custom UI/UX & Brand Styling",
+  "Online Payments (Paystack / Flutterwave / USD)",
+  "WhatsApp & Live Chat Integration",
+  "Content Management System (Easy Edits / Blog)",
+  "Client Booking / Appointment Form",
+  "User Login & Admin Dashboard",
+  "SEO & Google Search Optimization",
+  "Domain Name & Cloud Hosting Setup",
+  "Custom Official Business Emails",
+];
+
+const BUDGET_RANGES: Record<SupportedCurrency, string[]> = {
+  NGN: [
+    "₦150,000 – ₦300,000 (Starter / Landing Page)",
+    "₦300,000 – ₦600,000 (Standard Business / Brand Site)",
+    "₦600,000 – ₦1,200,000 (E-Commerce / Advanced Platform)",
+    "₦1,200,000+ (Custom Web App / Enterprise Solution)",
+    "Not sure yet — I need a quote from Dahel",
+  ],
+  USD: [
+    "$250 – $500 (Starter / Landing Page)",
+    "$500 – $1,000 (Standard Business / Brand Site)",
+    "$1,000 – $2,500 (E-Commerce / Advanced Platform)",
+    "$2,500+ (Custom Web App / Enterprise Solution)",
+    "Not sure yet — I need a quote from Dahel",
+  ],
+  EUR: [
+    "€230 – €460 (Starter / Landing Page)",
+    "€460 – €920 (Standard Business / Brand Site)",
+    "€920 – €2,300 (E-Commerce / Advanced Platform)",
+    "€2,300+ (Custom Web App / Enterprise Solution)",
+    "Not sure yet — I need a quote from Dahel",
+  ],
+  GBP: [
+    "£200 – £400 (Starter / Landing Page)",
+    "£400 – £800 (Standard Business / Brand Site)",
+    "£800 – £2,000 (E-Commerce / Advanced Platform)",
+    "£2,000+ (Custom Web App / Enterprise Solution)",
+    "Not sure yet — I need a quote from Dahel",
+  ],
+  GHS: [
+    "GH₵3,500 – GH₵7,000 (Starter / Landing Page)",
+    "GH₵7,000 – GH₵14,000 (Standard Business / Brand Site)",
+    "GH₵14,000 – GH₵32,000 (E-Commerce / Advanced Platform)",
+    "GH₵32,000+ (Custom Web App / Enterprise Solution)",
+    "Not sure yet — I need a quote from Dahel",
+  ],
 };
 
-export default function DesignWebsitePage() {
-  const registerWhatsAppUrl =
-    "https://wa.me/2347047581704?text=Hello%20Dahel%20Technologies!%20I%20would%20like%20to%20enroll%20in%20the%20Web%20Design%20Course%20(Design%20Your%20Website).";
+export default function DesignWebsiteServicePage() {
+  const [currency, setCurrency] = useState<SupportedCurrency>("NGN");
+  const [selectedCategory, setSelectedCategory] = useState<string>("business");
 
-  const learningTopics = [
-    "HTML & CSS",
-    "JavaScript",
-    "Responsive Design",
-    "WordPress",
-    "UI/UX Best Practices",
-    "Website Deployment",
-  ];
+  // Client Intake Form State
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [country, setCountry] = useState("");
+  const [existingUrl, setExistingUrl] = useState("");
+  const [pageCount, setPageCount] = useState("4–7 Pages (Standard Website)");
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([
+    "Mobile & Tablet Responsive Design",
+    "Custom UI/UX & Brand Styling",
+    "WhatsApp & Live Chat Integration",
+  ]);
+  const [brandReadiness, setBrandReadiness] = useState(
+    "I have a logo and some content ready"
+  );
+  const [timeline, setTimeline] = useState("Standard (2 – 4 Weeks)");
+  const [budget, setBudget] = useState("");
+  const [projectGoals, setProjectGoals] = useState("");
+  const [referenceSites, setReferenceSites] = useState("");
 
-  const targetAudience = [
-    "Students and Graduates",
-    "Working Professionals",
-    "Entrepreneurs and Business Owners",
-    "Anyone who wants to build a career in Tech",
-  ];
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [copiedBrief, setCopiedBrief] = useState(false);
+
+  useEffect(() => {
+    const fastCurrency = detectCurrencySync();
+    setCurrency(fastCurrency);
+    setBudget(BUDGET_RANGES[fastCurrency][1]);
+
+    detectCurrencyAsync().then((detected) => {
+      if (detected) {
+        setCurrency(detected);
+        setBudget(BUDGET_RANGES[detected][1]);
+      }
+    });
+  }, []);
+
+  const handleCurrencyChange = (newCurr: SupportedCurrency) => {
+    setCurrency(newCurr);
+    savePreferredCurrency(newCurr);
+    setBudget(BUDGET_RANGES[newCurr][1]);
+  };
+
+  const toggleFeature = (feature: string) => {
+    setSelectedFeatures((prev) =>
+      prev.includes(feature)
+        ? prev.filter((f) => f !== feature)
+        : [...prev, feature]
+    );
+  };
+
+  const currentCategoryObj =
+    WEBSITE_CATEGORIES.find((c) => c.id === selectedCategory) ||
+    WEBSITE_CATEGORIES[0];
+
+  const buildProjectBriefText = () => {
+    return [
+      `Hello Dahel Technologies! I want you to design and build a website for me. Here are my project details:`,
+      ``,
+      `1. CLIENT DETAILS`,
+      `• Full Name: ${fullName || "Not provided"}`,
+      `• Email: ${email || "Not provided"}`,
+      `• Phone / WhatsApp: ${phone || "Not provided"}`,
+      `• Business / Brand Name: ${organization || "Not provided"}`,
+      `• Country / Location: ${country || "Not provided"}`,
+      existingUrl ? `• Existing Website: ${existingUrl}` : null,
+      ``,
+      `2. WEBSITE SPECIFICATIONS`,
+      `• Website Type: ${currentCategoryObj.title}`,
+      `• Estimated Size: ${pageCount}`,
+      `• Key Features Needed: ${
+        selectedFeatures.length > 0
+          ? selectedFeatures.join(", ")
+          : "Standard features"
+      }`,
+      `• Brand Assets Readiness: ${brandReadiness}`,
+      `• Target Timeline: ${timeline}`,
+      `• Estimated Budget (${currency}): ${budget}`,
+      ``,
+      `3. PROJECT GOALS & DESCRIPTION`,
+      `${projectGoals || "No additional description provided."}`,
+      referenceSites ? `\n• Reference / Inspiration Websites: ${referenceSites}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+    const briefText = buildProjectBriefText();
+    const whatsappUrl = `https://wa.me/2347047581704?text=${encodeURIComponent(
+      briefText
+    )}`;
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const handleCopyBrief = () => {
+    navigator.clipboard.writeText(buildProjectBriefText());
+    setCopiedBrief(true);
+    setTimeout(() => setCopiedBrief(false), 2500);
+  };
+
+  const noraWhatsAppHref = `https://wa.me/2347047581704?text=${encodeURIComponent(
+    buildProjectBriefText()
+  )}`;
+  const vaelWhatsAppHref = `https://wa.me/13107081983?text=${encodeURIComponent(
+    buildProjectBriefText()
+  )}`;
+  const emailHref = `mailto:daheltechies@gmail.com?subject=${encodeURIComponent(
+    `Website Design Request — ${organization || fullName || "New Client"}`
+  )}&body=${encodeURIComponent(buildProjectBriefText())}`;
 
   return (
-    <div className="min-h-screen bg-[#f8fbff] text-navy-900 w-full max-w-full overflow-hidden">
-      {/* SUB-NAVIGATION BAR (Course Quick-Links & Register CTA) */}
-      <div className="bg-white/90 backdrop-blur-md border-b border-blue-100/80">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-5 sm:gap-8 text-xs sm:text-sm font-semibold text-navy-900">
-            <Link
-              href="#what-you-learn"
-              className="inline-flex items-center gap-1 hover:text-electric-blue transition-colors"
-            >
-              Courses <ChevronDown size={14} className="text-electric-blue" />
-            </Link>
-            <Link
-              href="#why-dahel"
-              className="hover:text-electric-blue transition-colors"
-            >
-              Why Dahel?
-            </Link>
-            <Link
-              href="/reviews"
-              className="hover:text-electric-blue transition-colors"
-            >
-              Success Stories
-            </Link>
-            <Link
-              href="#enroll"
-              className="hover:text-electric-blue transition-colors"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="#who-is-it-for"
-              className="hover:text-electric-blue transition-colors"
-            >
-              FAQ
-            </Link>
-          </div>
-
-          <a
-            href={registerWhatsAppUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#0d5bd9] hover:bg-blue-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
-          >
-            Register Now <ArrowRight size={15} />
-          </a>
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-slate-50/70 text-navy-900 pb-24 w-full max-w-full overflow-hidden">
       {/* 1. HERO SECTION */}
-      <section className="relative pt-8 sm:pt-12 md:pt-16 pb-12 md:pb-16 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-white via-[#f7faff] to-[#f2f7ff]">
-        {/* Decorative soft background shapes */}
-        <div className="pointer-events-none absolute -top-24 -right-24 w-[520px] h-[520px] rounded-full bg-blue-100/50 blur-3xl -z-10" />
-        <div className="pointer-events-none absolute top-1/2 -left-24 w-[360px] h-[360px] rounded-full bg-pink-100/30 blur-3xl -z-10" />
+      <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-20 px-4 sm:px-6 bg-gradient-to-b from-[#061229] via-navy-900 to-[#0d2247] text-white overflow-hidden">
+        {/* Background ambient glow */}
+        <div className="pointer-events-none absolute -top-24 right-1/4 w-[480px] h-[480px] rounded-full bg-electric-blue/25 blur-[130px]" />
+        <div className="pointer-events-none absolute bottom-0 left-1/4 w-[420px] h-[420px] rounded-full bg-pink-500/15 blur-[130px]" />
 
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-            {/* LEFT COLUMN: Course Copy & CTA */}
-            <div className="lg:col-span-6 flex flex-col items-start text-left z-10">
-              <span className="inline-block bg-[#dceaff] text-[#0c3b87] font-bold text-sm sm:text-base px-5 py-2 rounded-full mb-5 shadow-2xs border border-blue-200/60">
-                Web Design Course
-              </span>
-
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.08] text-navy-900 mb-6">
-                <span className="block">Build Stunning</span>
-                <span className="block">Websites &amp; Grow</span>
-                <span className="block text-[#0056D2] mt-1">
-                  Your Digital Skills
+        <div className="max-w-5xl mx-auto relative z-10">
+          {/* Top helpful switch banner for learners vs clients */}
+          <div className="max-w-3xl mx-auto mb-8">
+            <div className="bg-white/10 border border-white/20 backdrop-blur-md rounded-2xl p-3.5 sm:px-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm">
+              <div className="text-blue-100 font-medium text-center sm:text-left">
+                <span className="inline-block bg-electric-blue text-white font-extrabold text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full mr-2">
+                  CLIENT SERVICE
                 </span>
-              </h1>
+                This page is for clients who want{" "}
+                <strong className="text-white">Dahel Technologies</strong> to
+                design &amp; build their website.
+              </div>
+              <Link
+                href="/learn/web-design"
+                className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 text-white font-bold px-4 py-2 rounded-xl transition-all shrink-0 border border-white/20"
+              >
+                <span>Want to Learn Web Design instead?</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
 
-              <p className="text-base sm:text-lg md:text-xl text-gray-700 font-medium leading-relaxed mb-8 max-w-xl">
-                Learn modern web design skills and create professional,
-                responsive websites — even if you’re a beginner.
-              </p>
+          <div className="text-center max-w-4xl mx-auto">
+            <span className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 text-blue-300 font-bold uppercase tracking-widest text-xs sm:text-sm px-4 py-1.5 rounded-full mb-5">
+              <Globe size={15} /> Custom Website Design &amp; Development
+            </span>
 
-              {/* Magenta / Hot Pink Pill CTA Button */}
-              <div className="flex flex-wrap items-center gap-4 mb-9 w-full sm:w-auto">
-                <a
-                  href={registerWhatsAppUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#ff1675] to-[#e0005e] hover:from-[#e0005e] hover:to-[#c20051] text-white font-extrabold text-lg sm:text-xl px-9 py-4 rounded-full shadow-[0_12px_28px_-6px_rgba(224,0,94,0.5)] hover:shadow-[0_16px_32px_-6px_rgba(224,0,94,0.65)] transition-all hover:-translate-y-0.5"
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.1] mb-6">
+              Let Us Design &amp; Build a{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-pink-400">
+                Stunning Website
+              </span>{" "}
+              for Your Brand
+            </h1>
+
+            <p className="text-base sm:text-xl text-blue-100/90 max-w-3xl mx-auto font-medium leading-relaxed mb-8">
+              Whether you need a corporate website, an e-commerce store, a
+              personal portfolio, or a custom web platform, our engineering and
+              design team builds fast, mobile-responsive websites that elevate
+              your brand and convert visitors into customers.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="#project-brief-form"
+                className="inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#ff1675] to-[#e0005e] hover:from-[#e0005e] hover:to-[#c20051] text-white font-extrabold px-8 py-4 rounded-full text-base sm:text-lg shadow-[0_12px_30px_-6px_rgba(224,0,94,0.55)] transition-all hover:scale-105"
+              >
+                <span>Tell Us About Your Website</span>
+                <ArrowRight size={20} />
+              </a>
+              <a
+                href="https://wa.me/2347047581704?text=Hello%20Dahel%20Technologies!%20I%20want%20you%20to%20design%20a%20website%20for%20me."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-bold px-7 py-4 rounded-full text-base transition-all"
+              >
+                <MessageCircle size={18} className="text-emerald-400" />
+                <span>Chat Directly on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MAIN CONTENT CONTAINER */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 -mt-8 relative z-20">
+        {/* STEP 1: SELECT WEBSITE TYPE */}
+        <section className="bg-white rounded-3xl shadow-md border border-gray-200/90 p-6 sm:p-10 mb-10">
+          <div className="mb-8">
+            <span className="text-xs font-extrabold uppercase tracking-wider text-electric-blue block mb-1.5">
+              Step 1 of 2
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-navy-900 mb-2">
+              What kind of website do you want us to build?
+            </h2>
+            <p className="text-sm sm:text-base text-gray-600">
+              Select the category that best matches your project. Your selection
+              will automatically update the project brief below.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {WEBSITE_CATEGORIES.map((cat) => {
+              const Icon = cat.icon;
+              const isSelected = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`text-left p-5 sm:p-6 rounded-2xl border-2 transition-all flex flex-col justify-between cursor-pointer ${
+                    isSelected
+                      ? "border-electric-blue bg-blue-50/70 shadow-md"
+                      : "border-gray-200/80 hover:border-blue-300 hover:bg-gray-50/60"
+                  }`}
                 >
-                  <span>Start Learning Today</span>
-                  <ArrowRight size={22} />
-                </a>
-              </div>
-
-              {/* 3 Feature Perks Row */}
-              <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-0 pt-2 border-t sm:border-t-0 border-blue-100">
-                <div className="flex items-center gap-3 sm:pr-5 sm:border-r border-blue-200">
-                  <div className="w-9 h-9 rounded-full bg-[#0056D2] text-white flex items-center justify-center shrink-0 shadow-sm">
-                    <Play size={16} fill="currentColor" className="ml-0.5" />
-                  </div>
-                  <div className="text-xs sm:text-sm font-bold text-navy-900 leading-tight">
-                    Learn
-                    <br />
-                    <span className="font-semibold text-gray-700">
-                      Online or Onsite
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 sm:px-5 sm:border-r border-blue-200">
-                  <div className="w-9 h-9 rounded-xl bg-blue-100 text-[#0056D2] flex items-center justify-center shrink-0">
-                    <Calendar size={20} />
-                  </div>
-                  <div className="text-xs sm:text-sm font-bold text-navy-900 leading-tight">
-                    Flexible
-                    <br />
-                    <span className="font-semibold text-gray-700">
-                      Schedule
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 sm:pl-5">
-                  <div className="w-9 h-9 rounded-xl bg-blue-100 text-[#0056D2] flex items-center justify-center shrink-0">
-                    <Award size={20} />
-                  </div>
-                  <div className="text-xs sm:text-sm font-bold text-navy-900 leading-tight">
-                    Get a{" "}
-                    <span className="font-bold text-navy-900">Certificate</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT COLUMN: Student at Laptop + Floating HTML5, CSS3, JS, WordPress Cards */}
-            <div className="lg:col-span-6 relative flex items-center justify-center">
-              <div className="relative w-full max-w-[540px] rounded-3xl overflow-hidden bg-white shadow-[0_20px_50px_-15px_rgba(0,86,210,0.15)] border border-blue-100/80">
-                <div className="relative w-full aspect-[386/364]">
-                  <Image
-                    src="/resources/web_design_hero.png"
-                    alt="Build Stunning Websites & Grow Your Digital Skills - Dahel Technologies Web Design Course"
-                    fill
-                    priority
-                    className="object-cover object-center"
-                  />
-                  {/* Clean masks over adjacent flyer text edges */}
-                  <div
-                    className="absolute left-0 top-[25%] w-[9.5%] h-[72%] bg-[#f9fbff]"
-                    aria-hidden="true"
-                  />
-                  <div
-                    className="absolute right-[3%] top-0 w-[30%] h-[2.5%] bg-[#e4e9f2]"
-                    aria-hidden="true"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. "WHAT YOU'LL LEARN" SECTION WITH MULTI-DEVICE SHOWCASE */}
-      <section id="what-you-learn" className="py-8 sm:py-10 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-gradient-to-r from-[#e8f1ff] via-[#f2f7ff] to-[#e4eeff] rounded-3xl p-6 sm:p-10 md:p-12 border border-blue-200/70 shadow-[0_10px_35px_-10px_rgba(0,86,210,0.12)]">
-            <div className="grid lg:grid-cols-12 gap-10 items-center">
-              {/* Left Checklist */}
-              <div className="lg:col-span-5">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-navy-900 mb-2">
-                  What You’ll Learn
-                </h2>
-                <p className="text-base sm:text-lg text-gray-700 font-semibold mb-6">
-                  Get hands-on training in:
-                </p>
-
-                <ul className="space-y-3.5">
-                  {learningTopics.map((topic, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center gap-3.5 text-base sm:text-lg font-bold text-navy-900"
-                    >
-                      <span className="w-6 h-6 rounded-full bg-[#0056D2] text-white flex items-center justify-center shrink-0 shadow-xs">
-                        <Check size={14} strokeWidth={3} />
+                  <div>
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <div
+                        className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                          isSelected
+                            ? "bg-electric-blue text-white shadow-xs"
+                            : "bg-blue-50 text-electric-blue"
+                        }`}
+                      >
+                        <Icon size={22} />
+                      </div>
+                      <span
+                        className={`w-5 h-5 rounded-full border flex items-center justify-center mt-1 ${
+                          isSelected
+                            ? "border-electric-blue bg-electric-blue text-white"
+                            : "border-gray-300"
+                        }`}
+                      >
+                        {isSelected && <Check size={12} strokeWidth={3} />}
                       </span>
-                      <span>{topic}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    </div>
 
-              {/* Right Multi-Device Responsive Mockup (Laptop + Tablet + Phone) */}
-              <div className="lg:col-span-7">
-                <div className="relative flex items-end justify-center lg:justify-end gap-2 sm:gap-3 pt-4 pb-2">
-                  {/* LAPTOP MOCKUP */}
-                  <div className="relative w-[62%] sm:w-[58%] flex flex-col items-center">
-                    <div className="w-full aspect-[16/10] bg-navy-900 rounded-t-xl sm:rounded-t-2xl p-1.5 sm:p-2.5 shadow-2xl border-2 border-slate-700">
-                      <div className="w-full h-full rounded-md sm:rounded-lg overflow-hidden bg-white flex flex-col relative">
-                        {/* Mock Browser Top Bar */}
-                        <div className="h-5 sm:h-6 bg-white px-2.5 sm:px-4 flex items-center justify-between border-b border-gray-100 text-[7px] sm:text-[9px] font-bold text-navy-900 shrink-0">
-                          <span className="text-[#0056D2] font-extrabold">
-                            Your Brand
-                          </span>
-                          <div className="flex items-center gap-2 sm:gap-3 text-gray-500 font-semibold">
-                            <span>Home</span>
-                            <span>About</span>
-                            <span>Services</span>
-                            <span>Contact</span>
-                          </div>
-                        </div>
-                        {/* Mock Site Body */}
-                        <div className="flex-1 relative overflow-hidden flex">
-                          <Image
-                            src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80&auto=format&fit=crop"
-                            alt="Modern architecture website preview"
-                            fill
-                            className="object-cover object-right"
-                          />
-                          <div
-                            className="relative z-10 w-[62%] h-full bg-gradient-to-br from-[#004ec2] via-[#0d63e6] to-[#1e78ff]/90 p-3 sm:p-5 flex flex-col justify-center text-white"
-                            style={{
-                              clipPath:
-                                "polygon(0 0, 88% 0, 100% 100%, 0% 100%)",
-                            }}
-                          >
-                            <div className="text-xs sm:text-lg md:text-xl font-black leading-[1.1] mb-2 sm:mb-3 drop-shadow-xs">
-                              <div>Dream.</div>
-                              <div>Design.</div>
-                              <div>Launch.</div>
-                            </div>
-                            <span className="inline-block w-max bg-[#072969] text-white text-[7px] sm:text-[9px] font-bold px-2.5 py-1 rounded-full shadow-xs">
-                              Get Started
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Laptop Base */}
-                    <div className="w-[110%] h-2.5 sm:h-3.5 bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 rounded-b-xl shadow-md border-t border-slate-300 flex justify-center">
-                      <div className="w-12 sm:w-16 h-1 bg-slate-400 rounded-b-md" />
-                    </div>
+                    <h3 className="font-extrabold text-base sm:text-lg text-navy-900 mb-1">
+                      {cat.title}
+                    </h3>
+                    <p className="text-xs font-bold text-electric-blue mb-2.5">
+                      {cat.subtitle}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mb-3">
+                      {cat.desc}
+                    </p>
                   </div>
 
-                  {/* TABLET MOCKUP */}
-                  <div className="relative w-[26%] sm:w-[27%] -ml-4 sm:-ml-6 z-10">
-                    <div className="w-full aspect-[3/4] bg-navy-900 rounded-xl sm:rounded-2xl p-1.5 sm:p-2 shadow-2xl border-2 border-slate-700 flex flex-col">
-                      <div className="w-full h-full rounded-lg overflow-hidden bg-white flex flex-col">
-                        <div className="h-4 sm:h-5 bg-white px-2 flex items-center justify-between border-b border-gray-100 text-[6px] sm:text-[7px] font-bold text-navy-900 shrink-0">
-                          <span className="text-[#0056D2] font-extrabold">
-                            Your Brand
-                          </span>
-                          <div className="hidden sm:flex items-center gap-1.5 text-gray-500">
-                            <span>Home</span>
-                            <span>About</span>
-                            <span>Services</span>
-                          </div>
-                        </div>
-                        <div className="flex-1 relative overflow-hidden flex">
-                          <Image
-                            src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80&auto=format&fit=crop"
-                            alt="Tablet responsive preview"
-                            fill
-                            className="object-cover object-center"
-                          />
-                          <div
-                            className="relative z-10 w-[68%] h-full bg-gradient-to-br from-[#004ec2] to-[#1e78ff]/95 p-2 sm:p-3 flex flex-col justify-center text-white"
-                            style={{
-                              clipPath:
-                                "polygon(0 0, 86% 0, 100% 100%, 0% 100%)",
-                            }}
-                          >
-                            <div className="text-[9px] sm:text-xs font-black leading-tight mb-1.5">
-                              <div>Dream.</div>
-                              <div>Design.</div>
-                              <div>Launch.</div>
-                            </div>
-                            <span className="inline-block w-max bg-[#072969] text-white text-[5px] sm:text-[7px] font-bold px-1.5 py-0.5 rounded-full">
-                              Get Started
-                            </span>
-                          </div>
-                        </div>
-                        <div className="h-4 sm:h-5 bg-white px-2 flex items-center justify-around text-[5px] sm:text-[6px] font-bold text-navy-900 border-t border-gray-100">
-                          <span>Portfolio</span>
-                          <span>Services</span>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="pt-2.5 border-t border-gray-200/60 text-[11px] text-gray-500 font-medium">
+                    <strong className="text-gray-700">Examples:</strong>{" "}
+                    {cat.examples}
                   </div>
-
-                  {/* SMARTPHONE MOCKUP */}
-                  <div className="relative w-[14%] sm:w-[15%] -ml-3 sm:-ml-4 z-20">
-                    <div className="w-full aspect-[9/18] bg-navy-900 rounded-xl sm:rounded-2xl p-1 sm:p-1.5 shadow-2xl border-2 border-slate-700 flex flex-col">
-                      <div className="w-4 sm:w-6 h-1 bg-slate-700 rounded-full mx-auto mb-0.5" />
-                      <div className="w-full flex-1 rounded-lg overflow-hidden bg-white flex flex-col">
-                        <div className="h-3 sm:h-3.5 bg-white px-1.5 flex items-center justify-between text-[4px] sm:text-[5px] font-extrabold text-[#0056D2]">
-                          <span>Your Brand</span>
-                          <span>☰</span>
-                        </div>
-                        <div className="flex-1 relative overflow-hidden flex flex-col">
-                          <div className="bg-gradient-to-br from-[#004ec2] to-[#1e78ff] p-1.5 sm:p-2 text-white flex-1 flex flex-col justify-center">
-                            <div className="text-[7px] sm:text-[9px] font-black leading-tight mb-1">
-                              <div>Dream.</div>
-                              <div>Design.</div>
-                              <div>Launch.</div>
-                            </div>
-                            <span className="inline-block w-max bg-[#072969] text-white text-[4px] sm:text-[5px] font-bold px-1.5 py-0.5 rounded-full">
-                              Get Started
-                            </span>
-                          </div>
-                          <div className="h-[38%] relative">
-                            <Image
-                              src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&q=80&auto=format&fit=crop"
-                              alt="Mobile responsive preview"
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                </button>
+              );
+            })}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 3. "WHY CHOOSE DAHEL TECHNOLOGIES?" SECTION */}
-      <section id="why-dahel" className="py-12 sm:py-16 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-center text-navy-900 mb-12">
-            Why Choose Dahel Technologies?
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-blue-200/80 bg-white/70 rounded-3xl p-4 sm:p-8 border border-blue-100/80 shadow-xs">
-            {/* Item 1 */}
-            <div className="flex flex-col items-center text-center px-6 py-6 sm:py-2">
-              <div className="relative mb-5 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-b from-blue-50 to-blue-100/80 text-[#0056D2] flex items-center justify-center shadow-sm">
-                  <GraduationCap size={36} strokeWidth={2} />
-                </div>
-                <div className="absolute -bottom-2 w-12 h-2.5 bg-blue-400/30 rounded-full blur-xs" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-extrabold text-navy-900 mb-1.5">
-                Expert-Led Training
-              </h3>
-              <p className="text-sm sm:text-base text-gray-600 font-medium leading-snug max-w-[200px]">
-                Learn from industry professionals
+        {/* STEP 2: CLIENT & PROJECT INFORMATION CAPTURE FORM */}
+        <section
+          id="project-brief-form"
+          className="bg-white rounded-3xl shadow-md border border-gray-200/90 p-6 sm:p-10 mb-12 scroll-mt-24"
+        >
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 mb-8 border-b border-gray-100">
+            <div>
+              <span className="text-xs font-extrabold uppercase tracking-wider text-electric-blue block mb-1.5">
+                Step 2 of 2 • Client Information &amp; Project Brief
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black text-navy-900 mb-1">
+                Tell Us About Your Website Project
+              </h2>
+              <p className="text-sm sm:text-base text-gray-600">
+                Complete the form below so our team can review your requirements
+                and prepare a tailored proposal &amp; quote.
               </p>
             </div>
 
-            {/* Item 2 */}
-            <div className="flex flex-col items-center text-center px-6 py-6 sm:py-2">
-              <div className="relative mb-5 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-b from-blue-50 to-blue-100/80 text-[#0056D2] flex items-center justify-center shadow-sm">
-                  <Laptop size={34} strokeWidth={2} />
-                </div>
-                <div className="absolute -bottom-2 w-12 h-2.5 bg-blue-400/30 rounded-full blur-xs" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-extrabold text-navy-900 mb-1.5">
-                Practical Projects
-              </h3>
-              <p className="text-sm sm:text-base text-gray-600 font-medium leading-snug max-w-[200px]">
-                Build real-world websites
-              </p>
-            </div>
-
-            {/* Item 3 */}
-            <div className="flex flex-col items-center text-center px-6 py-6 sm:py-2">
-              <div className="relative mb-5 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-b from-blue-50 to-blue-100/80 text-[#0056D2] flex items-center justify-center shadow-sm">
-                  <Users size={34} strokeWidth={2} />
-                </div>
-                <div className="absolute -bottom-2 w-12 h-2.5 bg-blue-400/30 rounded-full blur-xs" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-extrabold text-navy-900 mb-1.5">
-                Supportive Community
-              </h3>
-              <p className="text-sm sm:text-base text-gray-600 font-medium leading-snug max-w-[200px]">
-                Learn, network and grow
-              </p>
-            </div>
-
-            {/* Item 4 */}
-            <div className="flex flex-col items-center text-center px-6 py-6 sm:py-2">
-              <div className="relative mb-5 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-b from-blue-50 to-blue-100/80 text-[#0056D2] flex items-center justify-center shadow-sm">
-                  <BadgeCheck size={36} strokeWidth={2} />
-                </div>
-                <div className="absolute -bottom-2 w-12 h-2.5 bg-blue-400/30 rounded-full blur-xs" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-extrabold text-navy-900 mb-1.5">
-                Recognised Certificate
-              </h3>
-              <p className="text-sm sm:text-base text-gray-600 font-medium leading-snug max-w-[200px]">
-                Boost your CV and career prospects
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. "WHO IS THIS COURSE FOR?" BANNER CARD */}
-      <section id="who-is-it-for" className="py-6 sm:py-8 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-gradient-to-r from-[#e8f1ff] via-[#f2f7ff] to-[#e6f0ff] rounded-3xl p-6 sm:p-10 border border-blue-200/70 shadow-xs">
-            <div className="grid lg:grid-cols-12 gap-8 items-center">
-              {/* Left Column: Title */}
-              <div className="lg:col-span-4">
-                <h2 className="text-2xl sm:text-3xl font-black text-navy-900 mb-2">
-                  Who Is This Course For?
-                </h2>
-                <p className="text-base sm:text-lg text-gray-700 font-medium">
-                  This course is perfect for:
-                </p>
-              </div>
-
-              {/* Middle Column: 4 Target Audience Checkmarks */}
-              <div className="lg:col-span-5">
-                <ul className="space-y-3">
-                  {targetAudience.map((audience, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-center gap-3 text-sm sm:text-base font-bold text-navy-900"
+            {/* Currency Switcher */}
+            <div className="shrink-0">
+              <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
+                Preferred Currency
+              </span>
+              <div className="inline-flex flex-wrap gap-1 p-1 bg-gray-100 rounded-xl border border-gray-200">
+                {(["NGN", "USD", "EUR", "GBP", "GHS"] as SupportedCurrency[]).map(
+                  (cur) => (
+                    <button
+                      key={cur}
+                      type="button"
+                      onClick={() => handleCurrencyChange(cur)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                        currency === cur
+                          ? "bg-navy-900 text-white shadow-2xs"
+                          : "text-gray-600 hover:text-navy-900"
+                      }`}
                     >
-                      <span className="w-5 h-5 rounded-full bg-[#0056D2] text-white flex items-center justify-center shrink-0">
-                        <Check size={12} strokeWidth={3} />
-                      </span>
-                      <span>{audience}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Right Column: Tilted "Turn Your Creativity Into a Career!" Callout */}
-              <div className="lg:col-span-3 lg:border-l border-blue-300/80 lg:pl-8 flex flex-col items-center justify-center text-center">
-                <div className="transform -rotate-3">
-                  <div className="text-xl sm:text-2xl font-black text-navy-900 leading-tight">
-                    Turn Your Creativity
-                    <br />
-                    Into a Career!
-                  </div>
-                  {/* Magenta Swoop Underline */}
-                  <svg
-                    viewBox="0 0 220 20"
-                    className="w-44 sm:w-48 h-4 mt-1 mx-auto"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M4 15 C 65 4, 150 2, 216 9"
-                      fill="none"
-                      stroke="#e60067"
-                      strokeWidth="5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </div>
+                      {cur}
+                    </button>
+                  )
+                )}
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* 5. DARK NAVY ENROLLMENT CTA BANNER */}
-      <section id="enroll" className="py-8 sm:py-12 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#041026] via-[#0a2351] to-[#041026] text-white px-6 sm:px-10 md:px-14 py-8 sm:py-10 shadow-2xl border border-blue-800/60">
-            {/* Subtle glowing background accents */}
-            <div className="pointer-events-none absolute -top-20 left-1/3 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-20 right-1/4 w-72 h-72 bg-pink-500/15 rounded-full blur-3xl" />
+          <form onSubmit={handleFormSubmit} className="space-y-8">
+            {/* PART A: CONTACT & ORGANIZATION DETAILS */}
+            <div>
+              <h3 className="text-sm font-black uppercase tracking-wider text-navy-900 mb-4 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-navy-900 text-white text-xs flex items-center justify-center">
+                  1
+                </span>
+                <span>Your Contact &amp; Brand Details</span>
+              </h3>
 
-            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
-              <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-7 text-center sm:text-left">
-                {/* Gold Trophy Icon */}
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-400 shrink-0 shadow-inner">
-                  <Trophy size={44} strokeWidth={1.8} />
+              <div className="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Full Name <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Enter your full name"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-electric-blue focus:border-electric-blue outline-none transition-all text-sm sm:text-base"
+                  />
                 </div>
 
                 <div>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight tracking-tight">
-                    Enroll Today and Start Building
-                    <br className="hidden sm:inline" /> Your Future in{" "}
-                    <span className="text-amber-400">Web Design!</span>
-                  </h2>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Email Address <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@company.com"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-electric-blue focus:border-electric-blue outline-none transition-all text-sm sm:text-base"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Phone / WhatsApp Number{" "}
+                    <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="+234 800 000 0000"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-electric-blue focus:border-electric-blue outline-none transition-all text-sm sm:text-base"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Business, Brand or Organization Name
+                  </label>
+                  <input
+                    type="text"
+                    value={organization}
+                    onChange={(e) => setOrganization(e.target.value)}
+                    placeholder="e.g. Acme Ventures Ltd"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-electric-blue focus:border-electric-blue outline-none transition-all text-sm sm:text-base"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Country / City
+                  </label>
+                  <input
+                    type="text"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    placeholder="e.g. Lagos, Nigeria / London, UK"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-electric-blue focus:border-electric-blue outline-none transition-all text-sm sm:text-base"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Existing Website URL (If Redesigning or Upgrading)
+                  </label>
+                  <input
+                    type="url"
+                    value={existingUrl}
+                    onChange={(e) => setExistingUrl(e.target.value)}
+                    placeholder="https://www.yourcurrentsite.com"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-electric-blue focus:border-electric-blue outline-none transition-all text-sm sm:text-base"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* PART B: WEBSITE SCOPE & FEATURES */}
+            <div className="pt-6 border-t border-gray-100">
+              <h3 className="text-sm font-black uppercase tracking-wider text-navy-900 mb-4 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-navy-900 text-white text-xs flex items-center justify-center">
+                  2
+                </span>
+                <span>Website Scope, Features &amp; Timeline</span>
+              </h3>
+
+              <div className="grid sm:grid-cols-2 gap-5 mb-6">
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Selected Website Type
+                  </label>
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 bg-white focus:ring-2 focus:ring-electric-blue outline-none transition-all text-sm sm:text-base font-semibold text-navy-900 cursor-pointer"
+                  >
+                    {WEBSITE_CATEGORIES.map((cat) => (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Estimated Number of Pages
+                  </label>
+                  <select
+                    value={pageCount}
+                    onChange={(e) => setPageCount(e.target.value)}
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 bg-white focus:ring-2 focus:ring-electric-blue outline-none transition-all text-sm sm:text-base font-medium text-navy-900 cursor-pointer"
+                  >
+                    <option value="1–3 Pages (Landing Page / Single-Page Site)">
+                      1–3 Pages (Landing Page / Single-Page Site)
+                    </option>
+                    <option value="4–7 Pages (Standard Website)">
+                      4–7 Pages (Standard Website)
+                    </option>
+                    <option value="8–15 Pages (Comprehensive Corporate / Store)">
+                      8–15 Pages (Comprehensive Corporate / Store)
+                    </option>
+                    <option value="15+ Pages / Custom Web Application">
+                      15+ Pages / Custom Web Application
+                    </option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Preferred Launch Timeline
+                  </label>
+                  <select
+                    value={timeline}
+                    onChange={(e) => setTimeline(e.target.value)}
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 bg-white focus:ring-2 focus:ring-electric-blue outline-none transition-all text-sm sm:text-base font-medium text-navy-900 cursor-pointer"
+                  >
+                    <option value="Urgent (1 – 2 Weeks)">
+                      Urgent (1 – 2 Weeks)
+                    </option>
+                    <option value="Standard (2 – 4 Weeks)">
+                      Standard (2 – 4 Weeks)
+                    </option>
+                    <option value="Flexible (1 – 2 Months)">
+                      Flexible (1 – 2 Months)
+                    </option>
+                    <option value="Just Exploring / Need a Quote First">
+                      Just Exploring / Need a Quote First
+                    </option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Estimated Budget Range ({currency})
+                  </label>
+                  <select
+                    value={budget}
+                    onChange={(e) => setBudget(e.target.value)}
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 bg-white focus:ring-2 focus:ring-electric-blue outline-none transition-all text-sm sm:text-base font-semibold text-navy-900 cursor-pointer"
+                  >
+                    {BUDGET_RANGES[currency].map((range, i) => (
+                      <option key={i} value={range}>
+                        {range}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
-              {/* Divider + Magenta Register Now Button */}
-              <div className="flex flex-col sm:flex-row items-center gap-6 w-full lg:w-auto justify-center shrink-0">
-                <div className="hidden lg:block w-px h-14 bg-blue-400/30" />
+              {/* Multi-select Features */}
+              <div className="mb-6">
+                <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-3">
+                  Key Features Needed (Select all that apply)
+                </label>
+                <div className="grid sm:grid-cols-2 gap-2.5">
+                  {FEATURE_OPTIONS.map((feature) => {
+                    const active = selectedFeatures.includes(feature);
+                    return (
+                      <button
+                        key={feature}
+                        type="button"
+                        onClick={() => toggleFeature(feature)}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                          active
+                            ? "border-electric-blue bg-blue-50/80 text-navy-900 shadow-2xs"
+                            : "border-gray-200 hover:border-blue-200 text-gray-700 bg-white"
+                        }`}
+                      >
+                        <span
+                          className={`w-5 h-5 rounded-md flex items-center justify-center shrink-0 ${
+                            active
+                              ? "bg-electric-blue text-white"
+                              : "border border-gray-300 bg-white"
+                          }`}
+                        >
+                          {active && <Check size={13} strokeWidth={3} />}
+                        </span>
+                        <span>{feature}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Brand Assets Readiness */}
+              <div>
+                <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                  Do you have your logo &amp; website content ready?
+                </label>
+                <select
+                  value={brandReadiness}
+                  onChange={(e) => setBrandReadiness(e.target.value)}
+                  className="w-full px-4 py-3.5 rounded-xl border border-gray-300 bg-white focus:ring-2 focus:ring-electric-blue outline-none transition-all text-sm sm:text-base font-medium text-navy-900 cursor-pointer"
+                >
+                  <option value="I have both logo and written content ready">
+                    Yes — I have both my logo and written content ready
+                  </option>
+                  <option value="I have a logo and some content ready">
+                    I have a logo, but I need help structuring the page content
+                  </option>
+                  <option value="I need Dahel to create my logo, branding, and website content">
+                    No — I need Dahel to handle my logo, branding, and website
+                    copy
+                  </option>
+                  <option value="I have an existing website whose content we can upgrade">
+                    I have an existing website whose content we can upgrade
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            {/* PART C: PROJECT DESCRIPTION & INSPIRATION */}
+            <div className="pt-6 border-t border-gray-100">
+              <h3 className="text-sm font-black uppercase tracking-wider text-navy-900 mb-4 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-navy-900 text-white text-xs flex items-center justify-center">
+                  3
+                </span>
+                <span>Project Goals &amp; Reference Websites</span>
+              </h3>
+
+              <div className="space-y-5">
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Tell us about your business and what you want the website to
+                    achieve <span className="text-rose-500">*</span>
+                  </label>
+                  <textarea
+                    required
+                    rows={4}
+                    value={projectGoals}
+                    onChange={(e) => setProjectGoals(e.target.value)}
+                    placeholder="Describe what your business or organization does, who your target audience is, and any specific pages or functionality you want on your website..."
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-electric-blue focus:border-electric-blue outline-none transition-all text-sm sm:text-base"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2">
+                    Reference or Sample Websites You Like (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={referenceSites}
+                    onChange={(e) => setReferenceSites(e.target.value)}
+                    placeholder="e.g. stripe.com, apple.com, or any competitor website you admire"
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-electric-blue focus:border-electric-blue outline-none transition-all text-sm sm:text-base"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* SUBMIT & INSTANT DELIVERY OPTIONS */}
+            <div className="pt-6 border-t border-gray-200 flex flex-col gap-5">
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <button
+                  type="submit"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#ff1675] to-[#e0005e] hover:from-[#e0005e] hover:to-[#c20051] text-white font-extrabold text-base sm:text-lg px-9 py-4 rounded-full shadow-[0_12px_28px_-6px_rgba(224,0,94,0.5)] transition-all hover:scale-[1.02] cursor-pointer"
+                >
+                  <span>Submit Website Request via WhatsApp</span>
+                  <ArrowRight size={20} />
+                </button>
 
                 <a
-                  href={registerWhatsAppUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#ff1675] to-[#e0005e] hover:from-[#e0005e] hover:to-[#c20051] text-white font-extrabold text-lg sm:text-xl px-9 py-4 rounded-full shadow-[0_10px_25px_-5px_rgba(224,0,94,0.55)] transition-all hover:scale-105"
+                  href={emailHref}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-navy-900 hover:bg-electric-blue text-white font-bold text-sm sm:text-base px-7 py-4 rounded-full transition-all shadow-sm"
                 >
-                  <span>Register Now</span>
-                  <ArrowRight size={22} />
+                  <Mail size={18} />
+                  <span>Submit Request via Email</span>
                 </a>
+
+                <button
+                  type="button"
+                  onClick={handleCopyBrief}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-navy-900 font-bold text-sm px-6 py-4 rounded-full transition-all cursor-pointer"
+                >
+                  {copiedBrief ? (
+                    <>
+                      <Check size={16} className="text-emerald-600" />
+                      <span className="text-emerald-700">Brief Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={16} />
+                      <span>Copy Brief</span>
+                    </>
+                  )}
+                </button>
               </div>
+
+              <p className="text-xs text-gray-500">
+                By submitting, your structured project brief will open directly
+                with our project team on WhatsApp (<strong>+234 704 758 1704</strong>) or Email (
+                <strong>daheltechies@gmail.com</strong>) for immediate review and
+                quotation.
+              </p>
+            </div>
+          </form>
+
+          {/* CONFIRMATION PANEL IF SUBMITTED */}
+          {isSubmitted && (
+            <div className="mt-8 bg-emerald-50 border border-emerald-200 rounded-2xl p-6 sm:p-8 animate-in fade-in duration-300">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+                  <CheckCircle2 size={22} />
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-lg sm:text-xl font-black text-navy-900 mb-1">
+                    Your Website Project Brief is Ready!
+                  </h4>
+                  <p className="text-sm text-gray-700 mb-4 leading-relaxed">
+                    If WhatsApp didn&apos;t open automatically, you can send your
+                    captured project brief using any of the direct channels
+                    below:
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    <a
+                      href={noraWhatsAppHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-xl transition-colors"
+                    >
+                      <MessageCircle size={16} />
+                      <span>Send to Nora (+234 704 758 1704)</span>
+                    </a>
+                    <a
+                      href={vaelWhatsAppHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-navy-900 hover:bg-electric-blue text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-xl transition-colors"
+                    >
+                      <MessageCircle size={16} />
+                      <span>Send to Vael (+1 310 708 1983)</span>
+                    </a>
+                    <a
+                      href={emailHref}
+                      className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-navy-900 border border-gray-300 font-bold text-xs sm:text-sm px-5 py-3 rounded-xl transition-colors"
+                    >
+                      <Mail size={16} />
+                      <span>Send via Email</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* HOW WE BUILD YOUR WEBSITE (4-STEP PROCESS) */}
+        <section className="mb-12">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-extrabold uppercase tracking-wider text-electric-blue block mb-2">
+              Our Delivery Process
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-black text-navy-900 mb-3">
+              How We Bring Your Website to Life
+            </h2>
+            <p className="text-sm sm:text-base text-gray-600">
+              A transparent, milestone-driven workflow from initial discovery to
+              launch.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                step: "01",
+                title: "Discovery & Strategy",
+                desc: "We review your project brief, clarify your goals, target audience, and sitemap, and provide a clear timeline and quote.",
+              },
+              {
+                step: "02",
+                title: "Custom UI/UX Design",
+                desc: "We craft a modern, brand-aligned interface focused on clarity, trust, and seamless user journeys on mobile and desktop.",
+              },
+              {
+                step: "03",
+                title: "Development & Integration",
+                desc: "Our engineers build your website with fast load times, SEO best practices, payment gateways, and WhatsApp/CRM integrations.",
+              },
+              {
+                step: "04",
+                title: "Launch & Handover",
+                desc: "We deploy your website to production, connect your custom domain and SSL security, and train your team to manage content.",
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl p-6 border border-gray-200/90 shadow-2xs flex flex-col justify-between"
+              >
+                <div>
+                  <div className="text-2xl font-black text-electric-blue font-mono mb-3">
+                    {item.step}
+                  </div>
+                  <h3 className="text-lg font-extrabold text-navy-900 mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* WHY LET DAHEL DESIGN YOUR WEBSITE + ALREADY HAVE AN INVOICE? */}
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-navy-900 text-white rounded-3xl p-8 flex flex-col justify-between">
+            <div>
+              <span className="text-xs font-extrabold uppercase tracking-wider text-blue-300 block mb-2">
+                The Dahel Standard
+              </span>
+              <h3 className="text-2xl font-black mb-4">
+                Why Let Dahel Technologies Build Your Website?
+              </h3>
+              <ul className="space-y-3.5 text-sm text-gray-200 mb-6">
+                <li className="flex items-start gap-3">
+                  <Smartphone
+                    size={18}
+                    className="text-electric-blue shrink-0 mt-0.5"
+                  />
+                  <span>
+                    <strong className="text-white">
+                      100% Mobile &amp; Tablet Responsive:
+                    </strong>{" "}
+                    Designed to look impeccable on phones, tablets, and desktops.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Sparkles
+                    size={18}
+                    className="text-pink-400 shrink-0 mt-0.5"
+                  />
+                  <span>
+                    <strong className="text-white">
+                      Conversion-Focused Design:
+                    </strong>{" "}
+                    Built with clear calls-to-action, trust signals, and fast
+                    page performance.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <ShieldCheck
+                    size={18}
+                    className="text-emerald-400 shrink-0 mt-0.5"
+                  />
+                  <span>
+                    <strong className="text-white">
+                      Secure Payments &amp; Integrations:
+                    </strong>{" "}
+                    Paystack, Flutterwave, international payments, WhatsApp, and
+                    custom forms.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Clock
+                    size={18}
+                    className="text-amber-400 shrink-0 mt-0.5"
+                  />
+                  <span>
+                    <strong className="text-white">
+                      Dedicated Support &amp; Maintenance:
+                    </strong>{" "}
+                    We don&apos;t disappear after launch — we support your
+                    growth.
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="pt-4 border-t border-white/10 text-xs text-blue-200 flex flex-wrap gap-4">
+              <span>WhatsApp: +234 704 758 1704</span>
+              <span>•</span>
+              <span>Inquiries (Vael): +1 (310) 708 1983</span>
+              <span>•</span>
+              <span>daheltechies@gmail.com</span>
             </div>
           </div>
 
-          {/* Flexible Learning Options & Direct Payment Links */}
-          <div className="mt-8 grid sm:grid-cols-3 gap-4 text-center">
-            <a
-              href={registerWhatsAppUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white hover:bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex items-center justify-center gap-2.5 text-sm font-bold text-navy-900 shadow-2xs transition-all hover:-translate-y-0.5"
-            >
-              <MessageCircle size={18} className="text-emerald-600 shrink-0" />
-              <span>Chat with Admissions on WhatsApp</span>
-            </a>
+          <div className="bg-white rounded-3xl p-8 border border-gray-200/90 shadow-2xs flex flex-col justify-between">
+            <div>
+              <span className="text-xs font-extrabold uppercase tracking-wider text-electric-blue block mb-2">
+                Payments &amp; Invoices
+              </span>
+              <h3 className="text-2xl font-black text-navy-900 mb-3">
+                Already Discussed Your Website Project With Us?
+              </h3>
+              <p className="text-sm text-gray-600 leading-relaxed mb-6">
+                If you have already received a website development quote or
+                invoice from Dahel Technologies, you can complete your milestone
+                or project payment securely via our payments hub.
+              </p>
 
-            <Link
-              href="/privatesessions"
-              className="bg-white hover:bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex items-center justify-center gap-2.5 text-sm font-bold text-navy-900 shadow-2xs transition-all hover:-translate-y-0.5"
-            >
-              <Sparkles size={18} className="text-electric-blue shrink-0" />
-              <span>Prefer 1-on-1 Private Coaching?</span>
-            </Link>
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center gap-3 text-xs sm:text-sm font-semibold text-gray-700 bg-slate-50 p-3.5 rounded-xl border border-gray-100">
+                  <FileText size={18} className="text-electric-blue shrink-0" />
+                  <span>
+                    Pay with your Invoice / Reference Number on our Payments Hub
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 text-xs sm:text-sm font-semibold text-gray-700 bg-slate-50 p-3.5 rounded-xl border border-gray-100">
+                  <CreditCard
+                    size={18}
+                    className="text-emerald-600 shrink-0"
+                  />
+                  <span>
+                    Supports Naira (₦), USD ($), EUR (€), GBP (£), and GHS (GH₵)
+                  </span>
+                </div>
+              </div>
+            </div>
 
-            <Link
-              href="/payments"
-              className="bg-white hover:bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex items-center justify-center gap-2.5 text-sm font-bold text-navy-900 shadow-2xs transition-all hover:-translate-y-0.5"
-            >
-              <Globe size={18} className="text-purple-600 shrink-0" />
-              <span>Proceed Directly to Payments</span>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/payments"
+                className="inline-flex items-center justify-center gap-2 bg-navy-900 hover:bg-electric-blue text-white font-bold px-6 py-3.5 rounded-xl text-sm transition-colors"
+              >
+                <span>Proceed to Payments</span>
+                <ArrowRight size={16} />
+              </Link>
+              <Link
+                href="/learn/web-design"
+                className="inline-flex items-center justify-center gap-2 bg-blue-50 hover:bg-blue-100 text-electric-blue font-bold px-6 py-3.5 rounded-xl text-sm transition-colors"
+              >
+                <span>Explore Web Design Course</span>
+                <ArrowRight size={16} />
+              </Link>
+            </div>
           </div>
         </div>
-      </section>
-
-      {/* 6. SIGNATURE BRAND BANNER STRIP (Matching Bottom Strip of Flyer) */}
-      <section className="mt-6 bg-[#061838] text-white py-5 px-4 sm:px-6 border-t border-blue-900/60">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
-          <div className="flex items-center gap-2.5 font-black tracking-wide text-base sm:text-lg">
-            <span className="text-white">DAHEL</span>
-            <span className="text-pink-400 text-xs font-extrabold tracking-widest uppercase">
-              TECHNOLOGIES
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 font-semibold text-blue-100">
-            <Globe size={16} className="text-blue-300" />
-            <span>www.daheltech.com</span>
-          </div>
-
-          <div className="font-bold tracking-wider text-blue-200">
-            Learn <span className="text-blue-500 mx-1.5">|</span> Grow{" "}
-            <span className="text-blue-500 mx-1.5">|</span> Excel
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   );
 }

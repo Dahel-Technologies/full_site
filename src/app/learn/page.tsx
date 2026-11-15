@@ -5,6 +5,7 @@ import SpotlightCard from "@/components/SpotlightCard";
 
 export default function LearnPage() {
   const courses = [
+    { title: "Web Design Course", category: "Web Development", level: "Beginner → Advanced", link: "/learn/web-design", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80", internal: true },
     { title: "SPSS Mastery", category: "Data Analytics", level: "All Levels", link: "https://selfany.com/SPSSMastery", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" },
     { title: "Data Analytics and AI", category: "Data & AI", level: "Beginner → Advanced", link: "https://selfany.com/DataAnayticsClass", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" },
     { title: "Sheets and Excel with AI", category: "Data Analytics", level: "Beginner → Intermediate", link: "https://selfany.com/sheetsnengineerwithai", img: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?w=800&q=80" },
@@ -57,7 +58,7 @@ export default function LearnPage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {courses.map((course, i) => (
             <SpotlightCard key={i} className="group border border-gray-100 rounded-2xl bg-white hover:shadow-xl hover:border-gray-200 transition-all hover:-translate-y-1 h-full">
-              <Link href={course.link} target="_blank" className="flex flex-col h-full relative z-20">
+              <Link href={course.link} target={course.internal ? undefined : "_blank"} className="flex flex-col h-full relative z-20">
                 <div className="h-48 relative overflow-hidden bg-gray-100">
                   <Image src={course.img} alt={course.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-navy-900/10 group-hover:bg-transparent transition-colors" />

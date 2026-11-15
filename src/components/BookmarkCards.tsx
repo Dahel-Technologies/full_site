@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, BookOpen, User, Play, Building2 } from 'lucide-react';
+import { ArrowRight, BookOpen, User, Play, Building2, Globe, Laptop } from 'lucide-react';
 
 export default function BookmarkCards() {
   const cards = [
@@ -44,11 +44,31 @@ export default function BookmarkCards() {
       img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
       color: "from-emerald-600 to-teal-400",
       flagColor: "bg-emerald-500"
+    },
+    {
+      title: "Design your website",
+      desc: "Let our team design and build a modern, responsive, high-performing website tailored to your brand or business.",
+      link: "/designwebsite",
+      cta: "Design Your Website",
+      icon: <Globe size={20} />,
+      img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      color: "from-cyan-600 to-blue-500",
+      flagColor: "bg-cyan-600"
+    },
+    {
+      title: "Learn Web design",
+      desc: "Learn modern web design skills and create professional, responsive websites — even if you're a beginner.",
+      link: "/learn/web-design",
+      cta: "Start Learning",
+      icon: <Laptop size={20} />,
+      img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80",
+      color: "from-amber-600 to-orange-400",
+      flagColor: "bg-orange-500"
     }
   ];
 
   return (
-    <div className="card-rail grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+    <div className="card-rail grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
       <style>{`
         .card-rail:has(.bm-card:hover) .bm-card:not(:hover),
         .card-rail:has(.bm-card:focus-visible) .bm-card:not(:focus-visible) {
