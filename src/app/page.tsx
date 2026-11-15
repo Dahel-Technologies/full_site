@@ -32,9 +32,12 @@ export default function Home() {
           <p className="text-lg sm:text-xl md:text-2xl text-gray-800 max-w-3xl mb-10 leading-relaxed font-medium drop-shadow-sm">
             Practical technology education for people, organizations and the future of work. Learn data analytics, AI, software engineering and other practical digital skills through structured courses, private training, assessments and technology-powered learning with <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700">Dahel Technologies</span>.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 mb-12 sm:mb-16 w-full justify-center max-w-md sm:max-w-none">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-12 sm:mb-16 w-full justify-center max-w-md sm:max-w-none">
             <Link href="/learn" className="bg-navy-900 text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-navy-800 transition-colors flex items-center justify-center gap-2 shadow-xl hover:-translate-y-1 transform w-full sm:w-auto">
               Explore Learning <ArrowRight size={20} />
+            </Link>
+            <Link href="/designwebsite" className="bg-gradient-to-r from-electric-blue to-magenta-600 text-white px-8 py-4 rounded-full font-medium text-lg hover:opacity-95 transition-all flex items-center justify-center gap-2 shadow-xl hover:-translate-y-1 transform w-full sm:w-auto">
+              Design your Website <ArrowRight size={20} />
             </Link>
             <Link href="/privatesessions" className="bg-white text-electric-blue px-8 py-4 rounded-full font-medium text-lg hover:bg-blue-50 transition-all flex items-center justify-center gap-2 shadow-xl border border-blue-100 hover:-translate-y-1 transform w-full sm:w-auto">
               Book a Private Session
