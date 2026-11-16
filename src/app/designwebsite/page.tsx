@@ -29,6 +29,7 @@ import {
   savePreferredCurrency,
   SupportedCurrency,
 } from "@/utils/geoCurrency";
+import LottieBackground from "@/components/animations/LottieBackground";
 
 interface WebsiteCategory {
   id: string;
@@ -261,10 +262,22 @@ export default function DesignWebsiteServicePage() {
   return (
     <div className="min-h-screen bg-slate-50/70 text-navy-900 pb-24 w-full max-w-full overflow-hidden">
       {/* 1. HERO SECTION */}
-      <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-20 px-4 sm:px-6 bg-gradient-to-b from-[#061229] via-navy-900 to-[#0d2247] text-white overflow-hidden">
+      <section className="relative isolate pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-20 px-4 sm:px-6 text-white overflow-hidden">
+        {/* Base dark backdrop behind Lottie */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061229] via-navy-900 to-[#0d2247] -z-30" />
+
+        {/* Lottie Animation Background */}
+        <LottieBackground
+          src="https://lottie.host/8c7ce4ee-52a0-4540-999d-ff0abcc36275/iuvrNdW90H.lottie"
+          className="opacity-35 md:opacity-45"
+        />
+
+        {/* Readability overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061229]/60 via-navy-900/45 to-[#0d2247]/80 -z-10 pointer-events-none" />
+
         {/* Background ambient glow */}
-        <div className="pointer-events-none absolute -top-24 right-1/4 w-[480px] h-[480px] rounded-full bg-electric-blue/25 blur-[130px]" />
-        <div className="pointer-events-none absolute bottom-0 left-1/4 w-[420px] h-[420px] rounded-full bg-pink-500/15 blur-[130px]" />
+        <div className="pointer-events-none absolute -top-24 right-1/4 w-[480px] h-[480px] rounded-full bg-electric-blue/25 blur-[130px] -z-10" />
+        <div className="pointer-events-none absolute bottom-0 left-1/4 w-[420px] h-[420px] rounded-full bg-pink-500/15 blur-[130px] -z-10" />
 
         <div className="max-w-5xl mx-auto relative z-10">
           {/* Top helpful switch banner for learners vs clients */}
